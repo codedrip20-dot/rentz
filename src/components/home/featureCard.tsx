@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
 interface FeatureCardProps {
-  icon: React.ReactNode;
+  icon: ReactNode;
   title: string;
   description: string;
 }
@@ -16,7 +17,7 @@ const FeatureCard = ({
   return (
     <motion.div
       whileHover={{
-        y: -10,
+        y: -8,
         scale: 1.03,
       }}
       transition={{
@@ -24,50 +25,44 @@ const FeatureCard = ({
         ease: "easeOut",
       }}
       className="
-      group
-      relative
-      overflow-hidden
+        group
+        relative
+        overflow-hidden
 
-      rounded-3xl
+        rounded-2xl
+        md:rounded-3xl
 
-      border
-      border-white/10
+        border
+        border-white/10
 
-      bg-white/[0.04]
+        bg-white/[0.05]
+        backdrop-blur-2xl
 
-      backdrop-blur-2xl
+        p-4
+        md:p-7
 
-      p-8
+        transition-all
+        duration-500
 
-      transition-all
-      duration-500
-
-      hover:border-blue-500/40
-
-      hover:bg-white/[0.06]
-
-      hover:shadow-[0_0_60px_rgba(59,130,246,.18)]
+        hover:border-blue-500/40
+        hover:bg-white/[0.07]
+        hover:shadow-[0_0_40px_rgba(59,130,246,0.18)]
       "
     >
       {/* Glass Reflection */}
       <div
         className="
-        absolute
-        inset-0
-
-        bg-gradient-to-br
-
-        from-white/10
-        via-transparent
-        to-transparent
-
-        opacity-60
-
-        pointer-events-none
-      "
+          absolute
+          inset-0
+          bg-gradient-to-br
+          from-white/10
+          via-transparent
+          to-transparent
+          pointer-events-none
+        "
       />
 
-      {/* Animated Ambient Glow */}
+      {/* Ambient Glow */}
       <motion.div
         animate={{
           opacity: [0.15, 0.45, 0.15],
@@ -79,55 +74,76 @@ const FeatureCard = ({
           ease: "easeInOut",
         }}
         className="
-        absolute
+          absolute
+          -top-12
+          -right-12
 
-        -top-16
-        -right-16
+          h-32
+          w-32
 
-        h-36
-        w-36
+          rounded-full
+          bg-blue-500/20
+          blur-3xl
+        "
+      />
 
-        rounded-full
+      {/* Top Right Dot */}
+      <div
+        className="
+          absolute
+          right-4
+          top-4
 
-        bg-blue-500/20
+          h-2
+          w-2
 
-        blur-3xl
-      "
+          rounded-full
+          bg-cyan-300
+
+          opacity-40
+
+          transition-all
+          duration-500
+
+          group-hover:opacity-100
+          group-hover:shadow-[0_0_12px_#38bdf8]
+        "
       />
 
       {/* Icon */}
       <div
         className="
-        relative
-        z-10
+          relative
+          z-10
 
-        flex
-        h-16
-        w-16
+          flex
+          h-12
+          w-12
 
-        items-center
-        justify-center
+          md:h-16
+          md:w-16
 
-        rounded-2xl
+          items-center
+          justify-center
 
-        border
-        border-blue-500/20
+          rounded-xl
+          md:rounded-2xl
 
-        bg-blue-500/10
+          border
+          border-blue-500/20
 
-        text-blue-400
+          bg-blue-500/10
 
-        transition-all
-        duration-500
+          text-blue-400
 
-        group-hover:scale-110
+          transition-all
+          duration-500
 
-        group-hover:border-blue-400/40
-
-        group-hover:bg-blue-500/20
-
-        group-hover:shadow-[0_0_30px_rgba(59,130,246,.35)]
-      "
+          group-hover:scale-110
+          group-hover:bg-blue-500/20
+          group-hover:border-blue-400/40
+          group-hover:shadow-[0_0_25px_rgba(59,130,246,.35)]
+        "
       >
         {icon}
       </div>
@@ -135,23 +151,25 @@ const FeatureCard = ({
       {/* Title */}
       <h3
         className="
-        relative
-        z-10
+          relative
+          z-10
 
-        mt-8
+          mt-5
 
-        text-2xl
+          text-lg
+          md:text-2xl
 
-        font-bold
+          font-bold
 
-        text-white
+          leading-tight
 
-        transition-colors
+          text-white
 
-        duration-300
+          transition-colors
+          duration-300
 
-        group-hover:text-blue-300
-      "
+          group-hover:text-blue-300
+        "
       >
         {title}
       </h3>
@@ -159,82 +177,71 @@ const FeatureCard = ({
       {/* Description */}
       <p
         className="
-        relative
-        z-10
+          relative
+          z-10
 
-        mt-4
+          mt-3
 
-        leading-8
+          text-xs
+          md:text-base
 
-        text-slate-400
+          leading-6
+          md:leading-7
 
-        transition-colors
+          text-slate-300
 
-        duration-300
+          transition-colors
+          duration-300
 
-        group-hover:text-slate-300
-      "
+          group-hover:text-white
+        "
       >
         {description}
       </p>
 
-      {/* Bottom Neon Line */}
+      {/* Bottom Accent */}
       <div
         className="
-        absolute
+          absolute
+          bottom-0
+          left-1/2
 
-        bottom-0
-        left-1/2
+          h-[3px]
+          w-0
 
-        h-1
+          -translate-x-1/2
 
-        w-0
+          rounded-full
 
-        -translate-x-1/2
+          bg-gradient-to-r
+          from-cyan-400
+          via-blue-500
+          to-blue-700
 
-        rounded-full
+          transition-all
+          duration-500
 
-        bg-gradient-to-r
-
-        from-cyan-400
-
-        via-blue-500
-
-        to-blue-600
-
-        transition-all
-
-        duration-500
-
-        group-hover:w-28
-      "
+          group-hover:w-24
+        "
       />
 
-      {/* Corner Accent */}
+      {/* Border Glow */}
       <div
         className="
-        absolute
+          absolute
+          inset-0
 
-        right-5
-        top-5
+          rounded-2xl
+          md:rounded-3xl
 
-        h-2
-        w-2
+          border
+          border-blue-400/0
 
-        rounded-full
+          transition-all
+          duration-500
 
-        bg-blue-400
-
-        opacity-30
-
-        transition-all
-
-        duration-500
-
-        group-hover:opacity-100
-
-        group-hover:shadow-[0_0_15px_rgba(59,130,246,.9)]
-      "
+          group-hover:border-blue-400/20
+        "
       />
     </motion.div>
   );
