@@ -69,7 +69,7 @@ const Logo = () => {
             text-slate-300
           "
         >
-          Find • Buy • Rent • Sell
+          Find • Rent • Sell • Manage
         </p>
       </div>
     </Link>

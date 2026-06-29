@@ -33,7 +33,7 @@ const NavBar = () => {
             <AuthButtons />
         </div>
 
-        <div className="lg:hidden">
+        <div className="lg:hidden " >
             <MobileMenu />
         </div>
     </div>

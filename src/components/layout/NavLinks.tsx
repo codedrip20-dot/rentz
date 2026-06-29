@@ -5,16 +5,13 @@ const navLinks = [
     title: "Home",
     href: "/",
   },
+ 
   {
-    title: "Buy",
-    href: "/buy",
-  },
-  {
-    title: "Rent",
+    title: "Find",
     href: "/rent",
   },
   {
-    title: "Sell",
+    title: "List",
     href: "/sell",
   },
   {

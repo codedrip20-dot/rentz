@@ -2,70 +2,176 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  Menu,
+  X,
+  Home,
+  Building2,
+  KeyRound,
+  BadgeDollarSign,
+  Info,
+  Phone,
+} from "lucide-react";
 
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Buy", href: "/buy" },
-  { name: "Rent", href: "/rent" },
-  { name: "Sell", href: "/sell" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+const links = [
+  {
+    title: "Home",
+    href: "/",
+    icon: Home,
+  },
+  {
+    title: "Find",
+    href: "/Find",
+    icon: Building2,
+  },
+  {
+    title: "List",
+    href: "/list",
+    icon: KeyRound,
+  },
+
+  {
+    title: "About",
+    href: "/about",
+    icon: Info,
+  },
+  {
+    title: "Contact",
+    href: "/contact",
+    icon: Phone,
+  },
 ];
 
-const MobileMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+export default function MobileMenu() {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="lg:hidden">
+    <>
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle Menu"
-        className="rounded-xl p-2 hover:bg-slate-100 transition"
+        onClick={() => setOpen(true)}
+        className="rounded-xl border border-white/10 bg-white/5 p-2 text-white backdrop-blur-lg"
       >
-        {isOpen ? (
-          <X size={26} className="text-slate-800" />
-        ) : (
-          <Menu size={26} className="text-slate-800" />
-        )}
+        <Menu size={24} />
       </button>
 
-      {isOpen && (
-        <div className="absolute left-0 top-20 w-full bg-white border-t border-slate-200 shadow-xl">
-          <nav className="flex flex-col p-6">
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Overlay */}
 
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="py-4 border-b border-slate-100 text-slate-700 font-medium hover:text-blue-600 transition"
-              >
-                {link.name}
-              </Link>
-            ))}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-md"
+            />
 
-            <div className="flex flex-col gap-3 mt-6">
-              <Link
-                href="/login"
-                className="rounded-xl border border-slate-300 py-3 text-center font-medium hover:bg-slate-100 transition"
-              >
-                Login
-              </Link>
+            {/* Drawer */}
 
-              <Link
-                href="/register"
-                className="rounded-xl bg-blue-600 py-3 text-center text-white font-semibold hover:bg-blue-700 transition"
-              >
-                Register
-              </Link>
-            </div>
+            <motion.aside
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{
+                type: "spring",
+                stiffness: 280,
+                damping: 30,
+              }}
+              className="fixed right-0 top-0 z-50 flex h-screen w-[85%] max-w-sm flex-col border-l border-white/10 bg-[#050816]/95 backdrop-blur-2xl"
+            >
+              {/* Header */}
 
-          </nav>
-        </div>
-      )}
-    </div>
+              <div className="flex items-center justify-between border-b border-white/10 p-6">
+
+                <h2 className="text-3xl font-black text-white">
+                  Rent
+                  <span className="text-blue-500">
+                    z
+                  </span>
+                </h2>
+
+                <button
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl bg-white/5 p-2 text-white"
+                >
+                  <X size={24} />
+                </button>
+
+              </div>
+
+              {/* Nav */}
+
+              <nav className="flex-1 px-6 py-8">
+
+                <div className="space-y-2">
+
+                  {links.map(({ title, href, icon: Icon }) => (
+
+                    <Link
+                      key={title}
+                      href={href}
+                      onClick={() => setOpen(false)}
+                      className="group flex items-center gap-4 rounded-2xl border border-transparent px-4 py-4 text-slate-300 transition hover:border-blue-500/20 hover:bg-blue-500/10 hover:text-white"
+                    >
+                      <Icon
+                        size={20}
+                        className="text-blue-400"
+                      />
+
+                      <span>{title}</span>
+
+                    </Link>
+
+                  ))}
+
+                </div>
+
+              </nav>
+
+              {/* Bottom */}
+
+              <div className="border-t border-white/10 p-6">
+
+                <button className="mb-3 w-full rounded-xl border border-white/10 py-3 text-white transition hover:border-blue-500">
+                  Login
+                </button>
+
+                <button className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-500">
+                  Register
+                </button>
+
+                <div className="mt-8 border-t border-white/10 pt-6 text-center">
+
+                  <p className="text-xs text-slate-500">
+                    Developed with ❤️ by
+                  </p>
+
+                  <p className="mt-2">
+
+                    <span className="font-semibold text-blue-400">
+                      @UtsavKarki
+                    </span>
+
+                    <span className="mx-2 text-slate-600">
+                      ×
+                    </span>
+
+                    <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text font-bold text-transparent">
+                      CodeDrip
+                    </span>
+
+                  </p>
+
+                </div>
+
+              </div>
+
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
-};
-
-export default MobileMenu;
+}
