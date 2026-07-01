@@ -1,6 +1,8 @@
-
+import LoginPage from "@/routes/loginPage";
 const Login = () => {
-   <div> yoyo honey singer</div>
+    return (
+        <LoginPage />
+    );
 };
 
 export default Login;
