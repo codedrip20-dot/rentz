@@ -1,6 +1,5 @@
-import HomeP from "./homepage/homeP";
-import About from "./about/about";
-import Navbar from "./navbar/navbar";
+import HomeP from "./homepage/page";
+import Navbar from "./navbar/page";
 export default function Home() {
   return (
     <div >
