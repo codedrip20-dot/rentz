@@ -95,7 +95,7 @@ const CompleteRegistration = () => {
    
         await completeRegistration();
         console.log("Registration completed successfully Navigating....");
-          router.replace("/homepage");
+          router.replace("/profile");
         
 
       } catch (error) {

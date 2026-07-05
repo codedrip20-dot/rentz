@@ -9,10 +9,11 @@ import {
   Home,
   Building2,
   KeyRound,
-  BadgeDollarSign,
   Info,
   Phone,
 } from "lucide-react";
+
+import { useAuth } from "@/context/AuthContext";
 
 const links = [
   {
@@ -22,7 +23,7 @@ const links = [
   },
   {
     title: "Find",
-    href: "/Find",
+    href: "/find",
     icon: Building2,
   },
   {
@@ -30,7 +31,6 @@ const links = [
     href: "/list",
     icon: KeyRound,
   },
-
   {
     title: "About",
     href: "/about",
@@ -43,11 +43,24 @@ const links = [
   },
 ];
 
-export default function MobileMenu() {
+const MobileMenu = () => {
   const [open, setOpen] = useState(false);
+
+  const { currentUser } = useAuth();
+
+  const displayName =
+    currentUser?.displayName ?? "Profile";
+
+  const firstName =
+    displayName.split(" ")[0];
+
+  const initial =
+    displayName.charAt(0).toUpperCase();
 
   return (
     <>
+      {/* Menu Button */}
+
       <button
         onClick={() => setOpen(true)}
         className="rounded-xl border border-white/10 bg-white/5 p-2 text-white backdrop-blur-lg"
@@ -56,6 +69,7 @@ export default function MobileMenu() {
       </button>
 
       <AnimatePresence>
+
         {open && (
           <>
             {/* Overlay */}
@@ -101,30 +115,51 @@ export default function MobileMenu() {
 
               </div>
 
-              {/* Nav */}
+              {/* Navigation */}
 
               <nav className="flex-1 px-6 py-8">
 
                 <div className="space-y-2">
 
-                  {links.map(({ title, href, icon: Icon }) => (
+                  {links.map(
+                    ({
+                      title,
+                      href,
+                      icon: Icon,
+                    }) => (
+                      <Link
+                        key={title}
+                        href={href}
+                        onClick={() =>
+                          setOpen(false)
+                        }
+                        className="
+                          group
+                          flex
+                          items-center
+                          gap-4
+                          rounded-2xl
+                          border
+                          border-transparent
+                          px-4
+                          py-4
+                          text-slate-300
+                          transition
+                          hover:border-blue-500/20
+                          hover:bg-blue-500/10
+                          hover:text-white
+                        "
+                      >
+                        <Icon
+                          size={20}
+                          className="text-blue-400"
+                        />
 
-                    <Link
-                      key={title}
-                      href={href}
-                      onClick={() => setOpen(false)}
-                      className="group flex items-center gap-4 rounded-2xl border border-transparent px-4 py-4 text-slate-300 transition hover:border-blue-500/20 hover:bg-blue-500/10 hover:text-white"
-                    >
-                      <Icon
-                        size={20}
-                        className="text-blue-400"
-                      />
+                        <span>{title}</span>
 
-                      <span>{title}</span>
-
-                    </Link>
-
-                  ))}
+                      </Link>
+                    )
+                  )}
 
                 </div>
 
@@ -134,13 +169,138 @@ export default function MobileMenu() {
 
               <div className="border-t border-white/10 p-6">
 
-                <button className="mb-3 w-full rounded-xl border border-white/10 py-3 text-white transition hover:border-blue-500">
-                  Login
-                </button>
+                {currentUser ? (
 
-                <button className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-500">
-                  Register
-                </button>
+                  <Link
+                    href="/profile"
+                    onClick={() =>
+                      setOpen(false)
+                    }
+                    className="
+                      group
+                      flex
+                      items-center
+                      gap-4
+                      rounded-2xl
+                      border
+                      border-white/10
+                      bg-white/5
+                      p-4
+                      transition-all
+                      duration-300
+                      hover:border-blue-500/40
+                      hover:bg-blue-500/10
+                    "
+                  >
+                    {/* Avatar */}
+
+                    <div className="relative">
+
+                      <div
+                        className="
+                          flex
+                          h-12
+                          w-12
+                          items-center
+                          justify-center
+                          rounded-full
+                          bg-gradient-to-br
+                          from-sky-400
+                          via-blue-500
+                          to-cyan-400
+                          text-lg
+                          font-bold
+                          text-white
+                          shadow-lg
+                        "
+                      >
+                        {initial}
+                      </div>
+
+                      <span
+                        className="
+                          absolute
+                          bottom-0
+                          right-0
+                          h-3.5
+                          w-3.5
+                          rounded-full
+                          border-2
+                          border-[#050816]
+                          bg-emerald-400
+                        "
+                      />
+
+                    </div>
+
+                    {/* User Info */}
+
+                    <div>
+
+                      <h3 className="font-semibold text-white">
+                        {firstName}
+                      </h3>
+
+                      <p className="text-sm text-slate-400">
+                        My Profile
+                      </p>
+
+                    </div>
+
+                  </Link>
+
+                ) : (
+
+                  <>
+                    <Link
+                      href="/login"
+                      onClick={() =>
+                        setOpen(false)
+                      }
+                      className="
+                        mb-3
+                        flex
+                        w-full
+                        items-center
+                        justify-center
+                        rounded-xl
+                        border
+                        border-white/10
+                        py-3
+                        text-white
+                        transition
+                        hover:border-blue-500
+                      "
+                    >
+                      Login
+                    </Link>
+
+                    <Link
+                      href="/register"
+                      onClick={() =>
+                        setOpen(false)
+                      }
+                      className="
+                        flex
+                        w-full
+                        items-center
+                        justify-center
+                        rounded-xl
+                        bg-blue-600
+                        py-3
+                        font-semibold
+                        text-white
+                        transition
+                        hover:bg-blue-500
+                      "
+                    >
+                      Register
+                    </Link>
+                  </>
+
+                )}
+
+                {/* Footer */}
 
                 <div className="mt-8 border-t border-white/10 pt-6 text-center">
 
@@ -171,7 +331,10 @@ export default function MobileMenu() {
             </motion.aside>
           </>
         )}
+
       </AnimatePresence>
     </>
   );
-}
+};
+
+export default MobileMenu;

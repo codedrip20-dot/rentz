@@ -2,19 +2,29 @@
 
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "@/context/AuthContext";
+import RegisterLoading from "../loading/RegisterLoading";
+import { useState } from "react";
 
 const SocialLogin = () => {
   const { googleLogin } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const handleGoogleLogin = async () => {
+    setLoading(true);
     try {
       await googleLogin();
+
     } catch (error) {
       console.error("Error during Google login:", error);
       alert(error.message || "An error occurred during Google login.");
+    } finally {
+      setLoading(false);
     }
   };
 
+  if (loading) {
+    return <RegisterLoading />;
+  }
   return (
     <div className="w-full" onClick={handleGoogleLogin}>
       <button

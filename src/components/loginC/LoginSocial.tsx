@@ -1,12 +1,55 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 
+import { useAuth } from "@/context/AuthContext";
+import LoginLoading from "@/components/loading/LoginLoading";
+
 const LoginSocial = () => {
+  const router = useRouter();
+
+  const { googleLogin } = useAuth();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      await googleLogin();
+
+      router.push("/profile");
+    } catch (error) {
+      console.error(error);
+
+      setError(
+        "Unable to sign in with Google. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <LoginLoading />;
+  }
+
   return (
-    <div className="w-full">
+    <div className="w-full space-y-3">
+
+      {error && (
+        <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+          {error}
+        </div>
+      )}
+
       <button
         type="button"
+        onClick={handleGoogleLogin}
         className="
           group
           flex
@@ -35,6 +78,7 @@ const LoginSocial = () => {
           Sign in with Google
         </span>
       </button>
+
     </div>
   );
 };

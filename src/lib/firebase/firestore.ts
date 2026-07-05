@@ -122,3 +122,62 @@ export const markProfileCompleted = async (
     updatedAt: serverTimestamp(),
   });
 };
+
+/* -------------------------------------------------------------------------- */
+/*                           Get User Profile                      */
+/* -------------------------------------------------------------------------- */
+
+export const getUserProfile = async (uid: string) => {
+  const userRef = doc(db, "users", uid);
+
+  const snapshot = await getDoc(userRef);
+
+  if (!snapshot.exists()) {
+    throw new Error("User profile not found.");
+  }
+
+  return snapshot.data();
+};
+
+
+/* -------------------------------------------------------------------------- */
+/*                           Update User Profile                      */
+/* -------------------------------------------------------------------------- */
+
+export const updateUserProfile = async (
+  uid: string,
+  data: Record<string, unknown>
+): Promise<void> => {
+  const userRef = doc(db, "users", uid);
+
+  await updateDoc(userRef, {
+    ...data,
+    updatedAt: serverTimestamp(),
+  });
+};
+
+/* -------------------------------------------------------------------------- */
+/*                           Check if User Profile Exists                      */
+/* -------------------------------------------------------------------------- */
+
+export const userProfileExists = async (
+  uid: string
+): Promise<boolean> => {
+  const userRef = doc(db, "users", uid);
+
+  const snapshot = await getDoc(userRef);
+
+  return snapshot.exists();
+};
+
+/* -------------------------------------------------------------------------- */
+/*                          Get only one field from user Profile              */
+/* -------------------------------------------------------------------------- */
+
+export const getUserRole = async (
+  uid: string
+): Promise<string | null> => {
+  const user = await getUserProfile(uid);
+
+  return user.role ?? null;
+};
