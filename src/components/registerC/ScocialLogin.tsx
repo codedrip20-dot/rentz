@@ -1,10 +1,22 @@
 "use client";
 
 import { FcGoogle } from "react-icons/fc";
+import { useAuth } from "@/context/AuthContext";
 
 const SocialLogin = () => {
+  const { googleLogin } = useAuth();
+
+  const handleGoogleLogin = async () => {
+    try {
+      await googleLogin();
+    } catch (error) {
+      console.error("Error during Google login:", error);
+      alert(error.message || "An error occurred during Google login.");
+    }
+  };
+
   return (
-    <div className="w-full">
+    <div className="w-full" onClick={handleGoogleLogin}>
       <button
         type="button"
         className="

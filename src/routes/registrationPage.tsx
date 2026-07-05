@@ -1,6 +1,6 @@
-import AuthHeader from "@/components/RegisterC/AuthHeader";
-import AuthSidePanel from "@/components/RegisterC/AuthSidePannel";
-import RegistrationForm from "@/components/RegisterC/RegistrationForm";
+import AuthHeader from "@/components/registerC/AuthHeader";
+import AuthSidePanel from "@/components/registerC/AuthSidePannel";
+import RegistrationForm from "@/components/registerC/RegistrationForm";
 
 const RegistrationPage = () => {
   return (
