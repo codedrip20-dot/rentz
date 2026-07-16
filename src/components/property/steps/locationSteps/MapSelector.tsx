@@ -1,6 +1,10 @@
 "use client";
 
-import { MapPin } from "lucide-react";
+import { useEffect, useRef } from "react";
+
+import { loadGoogleMaps } from "@/lib/google/maps";
+
+import useLocationUpdater from "@/hooks/location/useLocationUpdater";
 
 interface MapSelectorProps {
     latitude: number;
@@ -11,7 +15,236 @@ export default function MapSelector({
     latitude,
     longitude,
 }: MapSelectorProps) {
-    return (
+
+    const {
+        updateLocationFromCoordinates,
+    } = useLocationUpdater();
+
+    /**
+     * DOM element that hosts Google Maps.
+     */
+    const mapRef =
+        useRef<HTMLDivElement | null>(null);
+
+    /**
+     * Google Map instance.
+     */
+    const mapInstance =
+        useRef<google.maps.Map | null>(null);
+
+    /**
+     * Advanced Marker instance.
+     */
+    const markerInstance =
+        useRef<google.maps.marker.AdvancedMarkerElement | null>(
+            null
+        );
+
+    /**
+     * Prevents feedback loops while
+     * dragging the marker.
+     */
+    const dragging =
+        useRef(false);
+
+    /**
+     * Initializes Google Maps only once.
+     */
+    useEffect(() => {
+
+        let cancelled = false;
+
+     async function initializeMap() {
+
+    if (!mapRef.current) return;
+
+    if (mapInstance.current) return;
+
+    try {
+
+        await loadGoogleMaps();
+
+        if (
+            cancelled ||
+            !mapRef.current
+        ) {
+            return;
+        }
+
+        const {
+            AdvancedMarkerElement,
+            PinElement,
+        } =
+            await google.maps.importLibrary(
+                "marker"
+            ) as google.maps.MarkerLibrary;
+
+        const center = {
+            lat: latitude,
+            lng: longitude,
+        };
+
+        mapInstance.current =
+            new google.maps.Map(
+                mapRef.current,
+                {
+                    center,
+                    zoom: 17,
+                    mapId:
+                        process.env
+                            .NEXT_PUBLIC_GOOGLE_MAP_ID,
+
+                    mapTypeControl: false,
+                    streetViewControl: false,
+                    fullscreenControl: false,
+                    rotateControl: false,
+                    scaleControl: true,
+                    clickableIcons: false,
+                    gestureHandling: "greedy",
+                }
+            );
+
+        const pin =
+            new PinElement({
+                glyph: "🏠",
+                scale: 1.1,
+            });
+
+        markerInstance.current =
+            new AdvancedMarkerElement({
+                map: mapInstance.current,
+                position: center,
+                gmpDraggable: true,
+                content: pin.element,
+            });
+
+        /**
+         * Register drag events immediately
+         * after creating the marker.
+         */
+        markerInstance.current.addListener(
+            "dragstart",
+            () => {
+                dragging.current = true;
+            }
+        );
+
+        markerInstance.current.addListener(
+            "dragend",
+            async () => {
+
+                try {
+
+                    console.log("Drag ended");
+
+                    const position =
+                        markerInstance.current?.position;
+
+                    if (!position) {
+                        return;
+                    }
+
+                    let latitude: number;
+                    let longitude: number;
+
+                    if (
+                        position instanceof
+                        google.maps.LatLng
+                    ) {
+
+                        latitude =
+                            position.lat();
+
+                        longitude =
+                            position.lng();
+
+                    } else {
+
+                        latitude =
+                            position.lat;
+
+                        longitude =
+                            position.lng;
+
+                    }
+
+                    await updateLocationFromCoordinates(
+                        latitude,
+                        longitude
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Failed to update dragged location.",
+                        error
+                    );
+
+                } finally {
+
+                    dragging.current = false;
+
+                }
+
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Failed to initialize Google Maps:",
+            error
+        );
+
+    }
+
+}
+
+        initializeMap();
+
+        return () => {
+            cancelled = true;
+        };
+
+    }, []);
+    /**
+ * Synchronizes the map whenever the
+ * property coordinates change.
+ */
+useEffect(() => {
+
+    if (
+        !mapInstance.current ||
+        !markerInstance.current
+    ) {
+        return;
+    }
+
+    /**
+     * Ignore updates while the
+     * user is actively dragging
+     * the marker.
+     */
+    if (dragging.current) {
+        return;
+    }
+
+    const position = {
+        lat: latitude,
+        lng: longitude,
+    };
+
+    mapInstance.current.panTo(position);
+
+    markerInstance.current.position = position;
+
+}, [latitude, longitude]);
+
+/**
+ * Registers the drag listener once.
+ */
+
+return (
         <section className="space-y-6">
 
             <div>
@@ -20,69 +253,35 @@ export default function MapSelector({
                 </h2>
 
                 <p className="mt-1 text-sm text-slate-500">
-                    Verify the propertys location before publishing.
-                    Interactive Google Maps will be integrated here.
+                    Verify the property's location before publishing.
+                    Drag the marker to fine-tune the exact property
+                    location if necessary.
                 </p>
             </div>
 
             <div
                 className="
-                    flex
-                    h-[420px]
-                    w-full
-                    flex-col
-                    items-center
-                    justify-center
+                    overflow-hidden
                     rounded-2xl
-                    border-2
-                    border-dashed
-                    border-slate-300
-                    bg-slate-100
-                    text-center
-                    transition-colors
-                    hover:border-blue-500
+                    border
+                    border-slate-200
+                    bg-white
+                    shadow-sm
                 "
             >
+                <div
+                    ref={mapRef}
+                    className="h-[420px] w-full"
+                />
 
                 <div
                     className="
-                        flex
-                        h-20
-                        w-20
-                        items-center
-                        justify-center
-                        rounded-full
-                        bg-blue-100
-                    "
-                >
-                    <MapPin
-                        size={38}
-                        className="text-blue-600"
-                    />
-                </div>
-
-                <h3 className="mt-6 text-lg font-semibold text-slate-900">
-                    Interactive Google Map
-                </h3>
-
-                <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-500">
-                    Google Maps will appear here after integration.
-                    Owners will be able to drag the pin or search
-                    for a different location.
-                </p>
-
-                <div
-                    className="
-                        mt-8
-                        w-full
-                        max-w-sm
-                        rounded-xl
-                        bg-white
+                        border-t
+                        border-slate-200
+                        bg-slate-50
                         p-4
-                        shadow-sm
                     "
                 >
-
                     <div className="flex justify-between text-sm">
                         <span className="font-medium text-slate-600">
                             Latitude
@@ -102,9 +301,7 @@ export default function MapSelector({
                             {longitude.toFixed(6)}
                         </span>
                     </div>
-
                 </div>
-
             </div>
 
         </section>

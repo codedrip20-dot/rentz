@@ -12,7 +12,7 @@ if (!GOOGLE_MAPS_API_KEY) {
 export const googleMapsLoader = new Loader({
     apiKey: GOOGLE_MAPS_API_KEY,
     version: "weekly",
-    libraries: ["places"],
+    libraries: ["places", "marker"],
 });
 
 let googleMapsPromise: Promise<typeof google> | null = null;

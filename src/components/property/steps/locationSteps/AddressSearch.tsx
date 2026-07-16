@@ -9,19 +9,8 @@ import CurrentLocationButton from "./CurrentLocationButton";
 import Dropdown from "./dropdown";
 
 import usePlacesAutocomplete from "@/hooks/google/usePlacesAutocomplete";
-
-import { usePropertyWizard } from "@/context/PropertyWizardContext";
-
-import {
-    getCurrentLocation,
-    reverseGeocode,
-} from "@/lib/location";
-
-import { parsePlace } from "@/lib/google/placeParser";
-import mapParsedPlaceToLocation from "@/lib/google/placeMapper";
-
-import type { ParsedPlace } from "@/types/google";
-
+import {getCurrentLocation} from "@/lib/location/getCurrentLocation";
+import useLocationUpdater from "@/hooks/location/useLocationUpdater";
 export default function AddressSearch() {
     const {
         query,
@@ -33,8 +22,7 @@ export default function AddressSearch() {
         clearSuggestions,
     } = usePlacesAutocomplete();
 
-    const { updateProperty } =
-        usePropertyWizard();
+  const { updateLocation, updateLocationFromCoordinates } = useLocationUpdater();
 
     const [locating, setLocating] =
         useState(false);
@@ -43,18 +31,7 @@ export default function AddressSearch() {
      * Updates the Property Wizard
      * with a parsed Google location.
      */
-    const updateLocation =
-        useCallback(
-            (place: ParsedPlace) => {
-                updateProperty({
-                    location:
-                        mapParsedPlaceToLocation(
-                            place
-                        ),
-                });
-            },
-            [updateProperty]
-        );
+   
 
     /**
      * Synchronizes the selected
@@ -88,21 +65,11 @@ export default function AddressSearch() {
                 } =
                     await getCurrentLocation();
 
-                const result =
-                    await reverseGeocode(
-                        latitude,
-                        longitude
-                    );
-
-                const parsedPlace =
-                    parsePlace(result);
-
-                updateLocation(parsedPlace);
-
-                setQuery(
-                    parsedPlace.formattedAddress
+               const parsedPlace = await updateLocationFromCoordinates(
+                    latitude,
+                    longitude
                 );
-
+                setQuery(parsedPlace.formattedAddress);
                 clearSuggestions();
             } catch (error) {
                 console.error(
