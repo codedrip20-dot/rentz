@@ -171,29 +171,16 @@ export const validateInformationStep = (
 
     const errors: Record<string, string> = {};
 
-    const pricing = property.information.pricing;
-
-    if (pricing.monthlyRent <= 0) {
-        errors.monthlyRent =
-            "Monthly rent must be greater than zero.";
-    }
-
-    if (pricing.securityDeposit < 0) {
-        errors.securityDeposit =
-            "Security deposit cannot be negative.";
-    }
-
-    if (pricing.maintenanceCharge < 0) {
-        errors.maintenanceCharge =
-            "Maintenance charge cannot be negative.";
-    }
-
     return {
-        isValid: Object.keys(errors).length === 0,
-        errors,
-    };
-};
 
+        isValid:
+            Object.keys(errors).length === 0,
+
+        errors,
+
+    };
+
+};
 /* ------------------------------------------ */
 /* Step 4 - Images                            */
 /* ------------------------------------------ */

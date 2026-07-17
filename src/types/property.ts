@@ -82,27 +82,66 @@ export interface PropertyDetails {
 /* ==========================================================
    Information
 ========================================================== */
-
-export interface Pricing {
-    monthlyRent: number;
-
-    securityDeposit: number;
-
-    maintenanceCharge: number;
-}
-
-export interface Availability {
-    availableFrom: string;
-
-    leaseDuration: string;
-
-    preferredTenant: string;
-}
-
 export interface Information {
-    pricing: Pricing;
 
-    availability: Availability;
+    amenities: BuildingAmenities;
+
+    parking: Parking;
+
+    utilities: Utilities;
+
+    security: Security;
+
+}
+export interface BuildingAmenities {
+
+    lift: boolean;
+
+    gym: boolean;
+
+    swimmingPool: boolean;
+
+    garden: boolean;
+
+    visitorParking: boolean;
+
+}
+export interface Parking {
+
+    available: boolean;
+
+    covered: boolean;
+
+    open: boolean;
+
+    totalSpaces: number;
+
+}
+
+export interface Utilities {
+
+    powerBackup: boolean;
+
+    waterSupply: boolean;
+
+    internetReady: boolean;
+
+    gasPipeline: boolean;
+
+}
+
+export interface Security {
+
+    cctv: boolean;
+
+    securityGuard: boolean;
+
+    gatedCommunity: boolean;
+
+    intercom: boolean;
+
+    fireSafety: boolean;
+
 }
 
 /* ==========================================================

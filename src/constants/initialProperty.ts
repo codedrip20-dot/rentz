@@ -46,23 +46,61 @@ export const initialProperty: Property = {
         facing: "",
     },
 
-    information: {
-        pricing: {
-            monthlyRent: 0,
+   information: {
 
-            securityDeposit: 0,
+    amenities: {
 
-            maintenanceCharge: 0,
-        },
+        lift: false,
 
-        availability: {
-            availableFrom: "",
+        gym: false,
 
-            leaseDuration: "",
+        swimmingPool: false,
 
-            preferredTenant: "",
-        },
+        garden: false,
+
+        visitorParking: false,
+
     },
+
+    parking: {
+
+        available: false,
+
+        covered: false,
+
+        open: false,
+
+        totalSpaces: 0,
+
+    },
+
+    utilities: {
+
+        powerBackup: false,
+
+        waterSupply: false,
+
+        internetReady: false,
+
+        gasPipeline: false,
+
+    },
+
+    security: {
+
+        cctv: false,
+
+        securityGuard: false,
+
+        gatedCommunity: false,
+
+        intercom: false,
+
+        fireSafety: false,
+
+    },
+
+},
 
     images: [],
 

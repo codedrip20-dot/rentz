@@ -1,10 +1,34 @@
+"use client";
 
+import {
+    BuildingAmenities,
+    ParkingSection,
+    SecuritySection,
+    UtilitiesSection,
+} from "./informationSteps";
 
-const InformationStep = () => {
+export default function InformationStep() {
+
     return (
-        <div>
-            I am the information step
-        </div>
+
+        <section
+            className="
+                mx-auto
+                max-w-5xl
+                space-y-8
+            "
+        >
+
+            <BuildingAmenities />
+
+            <ParkingSection />
+
+            <UtilitiesSection />
+
+            <SecuritySection />
+
+        </section>
+
     );
+
 }
-export default InformationStep;
