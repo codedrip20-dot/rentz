@@ -75,28 +75,90 @@ export const validateDetailsStep = (
 
     const details = property.details;
 
+    /* ------------------------------------------ */
+    /* Title                                      */
+    /* ------------------------------------------ */
+
     if (!details.title.trim()) {
-        errors.title = "Property title is required.";
+
+        errors.title =
+            "Property title is required.";
+
     }
+
+    /* ------------------------------------------ */
+    /* Description                                */
+    /* ------------------------------------------ */
 
     if (!details.description.trim()) {
-        errors.description = "Description is required.";
+
+        errors.description =
+            "Description is required.";
+
     }
 
+    /* ------------------------------------------ */
+    /* Area                                       */
+    /* ------------------------------------------ */
+
     if (details.builtUpArea < 0) {
+
         errors.builtUpArea =
             "Built-up area cannot be negative.";
+
     }
 
     if (details.carpetArea < 0) {
+
         errors.carpetArea =
             "Carpet area cannot be negative.";
+
     }
 
+    /* ------------------------------------------ */
+    /* Floor                                      */
+    /* ------------------------------------------ */
+
+    if (details.floorNumber < 0) {
+
+        errors.floorNumber =
+            "Floor number cannot be negative.";
+
+    }
+
+    if (details.totalFloors <= 0) {
+
+        errors.totalFloors =
+            "Total floors must be greater than zero.";
+
+    }
+
+    if (
+        details.floorNumber >= 0 &&
+        details.totalFloors > 0 &&
+        details.floorNumber > details.totalFloors
+    ) {
+
+        errors.floorNumber =
+            "Floor number cannot exceed total floors.";
+
+    }
+    if (!details.furnishing) {
+
+    errors.furnishing =
+        "Please select the furnishing status.";
+
+        }
+
     return {
-        isValid: Object.keys(errors).length === 0,
+
+        isValid:
+            Object.keys(errors).length === 0,
+
         errors,
+
     };
+
 };
 
 /* ------------------------------------------ */
