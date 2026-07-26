@@ -7,8 +7,10 @@ import MapSelector from "./locationSteps/MapSelector";
 
 import { usePropertyWizard } from "@/context/PropertyWizardContext";
 import { reverseGeocode } from "@/lib/location/reverseGeocode";
+import useScrollToTop from "@/hooks/google/useScroolToTop";
 
 export default function LocationStep() {
+    useScrollToTop()
     const {
         propertyData,
         setPropertyData,
@@ -76,7 +78,7 @@ export default function LocationStep() {
                 </h2>
 
                 <p className="text-sm text-slate-500">
-                    Search your property's address using
+                    Search your propertys address using
                     Google Places. You can review and edit
                     the address details before continuing.
                 </p>

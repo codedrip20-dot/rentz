@@ -6,9 +6,10 @@ import {
     SecuritySection,
     UtilitiesSection,
 } from "./informationSteps";
+import useScrollToTop from "@/hooks/google/useScroolToTop";
 
 export default function InformationStep() {
-
+    useScrollToTop();
     return (
 
         <section

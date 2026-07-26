@@ -181,3 +181,46 @@ export const getUserRole = async (
 
   return user.role ?? null;
 };
+export interface OwnerRegistrationStatus {
+    userExists: boolean;
+    profileComplete: boolean;
+    isOwner: boolean;
+    ownerRole: string | null;
+}
+
+export async function getOwnerRegistrationStatus(
+    uid: string
+): Promise<OwnerRegistrationStatus> {
+    try {
+        const userRef = doc(db, "users", uid);
+        const ownerRef = doc(db, "ownerProfiles", uid);
+
+        const [userSnap, ownerSnap] = await Promise.all([
+            getDoc(userRef),
+            getDoc(ownerRef),
+        ]);
+
+        if (!userSnap.exists()) {
+            return {
+                userExists: false,
+                profileComplete: false,
+                isOwner: false,
+                ownerRole: null,
+            };
+        }
+
+        const userData = userSnap.data();
+
+        return {
+            userExists: true,
+            profileComplete: userData.profileComplete ?? false,
+            isOwner: ownerSnap.exists(),
+            ownerRole: ownerSnap.exists()
+                ? ownerSnap.data().role ?? null
+                : null,
+        };
+    } catch (error) {
+        console.error("Error fetching owner registration status:", error);
+        throw error;
+    }
+}

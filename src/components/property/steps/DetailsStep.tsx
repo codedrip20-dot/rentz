@@ -8,8 +8,10 @@ import {
     PropertyDescription,
     PropertyTitle,
 } from "./detailsSteps";
+import useScrollToTop from "@/hooks/google/useScroolToTop";
 
 export default function DetailsStep() {
+   useScrollToTop();
 
     return (
 

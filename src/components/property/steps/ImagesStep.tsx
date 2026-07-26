@@ -6,8 +6,10 @@ import {
     ImagesHeader,
     ImageUploader,
 } from "./imageSteps";
+import useScrollToTop from "@/hooks/google/useScroolToTop";
 
 export default function ImagesStep() {
+  useScrollToTop();
     return (
         <motion.section
             initial={{

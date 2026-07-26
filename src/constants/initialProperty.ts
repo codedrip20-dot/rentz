@@ -33,7 +33,7 @@ export const initialProperty: Property = {
         title: "",
         description: "",
 
-        furnishing: "",
+        furnishing: "Unfurnished",
 
         builtUpArea: 0,
 
@@ -102,8 +102,15 @@ export const initialProperty: Property = {
 
 },
 
+
     images: [],
 
+draftProgress: {
+    location: false,
+    details: false,
+    information: false,
+    images: false,
+},
     createdAt: undefined,
 
     updatedAt: undefined,

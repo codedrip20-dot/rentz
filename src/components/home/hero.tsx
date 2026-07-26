@@ -77,7 +77,7 @@ const Hero = () => {
           <div className="mt-12 flex flex-wrap gap-5">
 
             <Link
-              href="/register"
+              href="/owner/ownerRegister"
               className="
               rounded-2xl
               bg-blue-600
@@ -92,7 +92,7 @@ const Hero = () => {
               hover:bg-blue-700
             "
             >
-              Get Started
+              register as an owner
             </Link>
 
             <Link
@@ -112,7 +112,7 @@ const Hero = () => {
               hover:bg-white/20
             "
             >
-              Browse Properties
+              looking for rooms?
             </Link>
 
           </div>

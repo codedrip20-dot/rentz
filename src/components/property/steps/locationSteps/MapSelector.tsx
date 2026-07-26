@@ -253,7 +253,7 @@ return (
                 </h2>
 
                 <p className="mt-1 text-sm text-slate-500">
-                    Verify the property's location before publishing.
+                    Verify the propertys location before publishing.
                     Drag the marker to fine-tune the exact property
                     location if necessary.
                 </p>

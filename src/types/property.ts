@@ -88,9 +88,9 @@ export interface Information {
 
     parking: Parking;
 
-    utilities: Utilities;
+    utilities: BuildingUtilities;
 
-    security: Security;
+    security: BuildingSecurity;
 
 }
 export interface BuildingAmenities {
@@ -118,7 +118,7 @@ export interface Parking {
 
 }
 
-export interface Utilities {
+export interface BuildingUtilities {
 
     powerBackup: boolean;
 
@@ -130,7 +130,7 @@ export interface Utilities {
 
 }
 
-export interface Security {
+export interface BuildingSecurity {
 
     cctv: boolean;
 

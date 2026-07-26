@@ -1,9 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 
-import { PropertyWizardProvider, usePropertyWizard } from "@/context/PropertyWizardContext";
+import {
+    PropertyWizardProvider,
+    usePropertyWizard,
+} from "@/context/PropertyWizardContext";
 
 import PropertyStepper from "./PropertyStepper";
 import WizardNavigation from "./WizardNavigation";
@@ -13,6 +16,7 @@ import DetailsStep from "./steps/DetailsStep";
 import InformationStep from "./steps/InformationStep";
 import ImagesStep from "./steps/ImagesStep";
 import ReviewStep from "./steps/ReviewStep";
+import { createProperty } from "@/lib/firebase/property";
 
 const steps = [
     "Location",
@@ -22,15 +26,17 @@ const steps = [
     "Review",
 ];
 
-const PropertyWizardContent = () => {
+function PropertyWizardContent() {
     const {
         currentStep,
         nextStep,
         previousStep,
+        propertyData,
+        isSaving,
+        setIsSaving,
     } = usePropertyWizard();
 
-    const progress =
-        ((currentStep + 1) / steps.length) * 100;
+    const progress = ((currentStep + 1) / steps.length) * 100;
 
     const StepComponents = useMemo(
         () => [
@@ -43,8 +49,31 @@ const PropertyWizardContent = () => {
         []
     );
 
-    const CurrentStep =
-        StepComponents[currentStep];
+    const CurrentStep = StepComponents[currentStep];
+
+    const handleFinish = useCallback(async () => {
+        try {
+            setIsSaving(true);
+
+            console.log("Publishing Property...");
+            console.log(propertyData);
+
+            /**
+             * Next Mission
+             *
+             * await publishProperty(propertyData);
+             */
+            await createProperty(propertyData)
+            alert("Property is ready to publish.");
+        } catch (error) {
+            console.error(
+                "Failed to publish property.",
+                error
+            );
+        } finally {
+            setIsSaving(false);
+        }
+    }, [propertyData, setIsSaving]);
 
     return (
         <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-8">
@@ -98,11 +127,13 @@ const PropertyWizardContent = () => {
                     <div className="h-2 overflow-hidden rounded-full bg-slate-200">
 
                         <motion.div
+                            initial={{ width: "20%" }}
                             animate={{
                                 width: `${progress}%`,
                             }}
                             transition={{
-                                duration: 0.3,
+                                duration: 0.35,
+                                ease: "easeInOut",
                             }}
                             className="
                                 h-full
@@ -120,7 +151,7 @@ const PropertyWizardContent = () => {
 
             </section>
 
-            {/* Active Step */}
+            {/* Current Step */}
 
             <AnimatePresence mode="wait">
 
@@ -128,7 +159,7 @@ const PropertyWizardContent = () => {
                     key={currentStep}
                     initial={{
                         opacity: 0,
-                        y: 24,
+                        y: 20,
                     }}
                     animate={{
                         opacity: 1,
@@ -136,11 +167,10 @@ const PropertyWizardContent = () => {
                     }}
                     exit={{
                         opacity: 0,
-                        y: -24,
+                        y: -20,
                     }}
                     transition={{
                         duration: 0.25,
-                        ease: "easeOut",
                     }}
                     className="
                         min-h-[560px]
@@ -154,9 +184,7 @@ const PropertyWizardContent = () => {
                         lg:p-10
                     "
                 >
-
                     <CurrentStep />
-
                 </motion.section>
 
             </AnimatePresence>
@@ -170,22 +198,20 @@ const PropertyWizardContent = () => {
                     totalSteps={steps.length}
                     onNext={nextStep}
                     onPrevious={previousStep}
+                    onFinish={handleFinish}
+                    isSubmitting={isSaving}
                 />
 
             </section>
 
         </div>
     );
-};
+}
 
-const PropertyWizard = () => {
+export default function PropertyWizard() {
     return (
         <PropertyWizardProvider>
-
             <PropertyWizardContent />
-
         </PropertyWizardProvider>
     );
-};
-
-export default PropertyWizard;
+}

@@ -94,7 +94,7 @@ export default function ImageRequirements() {
                     </h4>
 
                     <p className="mt-2 text-sm text-slate-600">
-                        Choose your best photo as the property's cover image.
+                        Choose your best photo as the propertys cover image.
                     </p>
                 </div>
 

@@ -1,64 +1,96 @@
 "use client";
 
 interface WizardNavigationProps {
-  currentStep: number;
-  totalSteps: number;
-  onNext: () => void;
-  onPrevious: () => void;
+    currentStep: number;
+    totalSteps: number;
+
+    onNext: () => void;
+    onPrevious: () => void;
+    onFinish: () => void;
+
+    isSubmitting?: boolean;
 }
 
-const WizardNavigation = ({
-  currentStep,
-  totalSteps,
-  onNext,
-  onPrevious,
-}: WizardNavigationProps) => {
-  const isFirstStep = currentStep === 0;
-  const isLastStep = currentStep === totalSteps - 1;
+export default function WizardNavigation({
+    currentStep,
+    totalSteps,
+    onNext,
+    onPrevious,
+    onFinish,
+    isSubmitting = false,
+}: WizardNavigationProps) {
+    const isFirstStep = currentStep === 0;
+    const isLastStep = currentStep === totalSteps - 1;
 
-  return (
-    <div className="flex items-center justify-between rounded-xl border bg-white p-6 shadow-sm">
+    function handlePrimaryAction() {
+        if (isSubmitting) return;
 
-      <button
-        type="button"
-        onClick={onPrevious}
-        disabled={isFirstStep}
-        className="
-          rounded-lg
-          border
-          border-slate-300
-          px-6
-          py-2.5
-          font-medium
-          text-slate-700
-          transition-all
-          hover:bg-slate-100
-          disabled:cursor-not-allowed
-          disabled:opacity-50
-        "
-      >
-        Previous
-      </button>
+        if (isLastStep) {
+            onFinish();
+            return;
+        }
 
-      <button
-        type="button"
-        onClick={onNext}
-        className="
-          rounded-lg
-          bg-blue-600
-          px-6
-          py-2.5
-          font-medium
-          text-white
-          transition-all
-          hover:bg-blue-700
-        "
-      >
-        {isLastStep ? "Finish" : "Next"}
-      </button>
+        onNext();
+    }
 
-    </div>
-  );
-};
+    return (
+        <div
+            className="
+                flex
+                items-center
+                justify-between
+                rounded-2xl
+                border
+                border-slate-200
+                bg-white
+                p-6
+                shadow-sm
+            "
+        >
+            <button
+                type="button"
+                onClick={onPrevious}
+                disabled={isFirstStep || isSubmitting}
+                className="
+                    rounded-xl
+                    border
+                    border-slate-300
+                    px-6
+                    py-3
+                    font-medium
+                    text-slate-700
+                    transition
+                    hover:bg-slate-100
+                    disabled:cursor-not-allowed
+                    disabled:opacity-50
+                "
+            >
+                Previous
+            </button>
 
-export default WizardNavigation;
+            <button
+                type="button"
+                onClick={handlePrimaryAction}
+                disabled={isSubmitting}
+                className="
+                    rounded-xl
+                    bg-blue-600
+                    px-6
+                    py-3
+                    font-medium
+                    text-white
+                    transition
+                    hover:bg-blue-700
+                    disabled:cursor-not-allowed
+                    disabled:bg-blue-400
+                "
+            >
+                {isSubmitting
+                    ? "Publishing..."
+                    : isLastStep
+                    ? "Publish Property"
+                    : "Next"}
+            </button>
+        </div>
+    );
+}
