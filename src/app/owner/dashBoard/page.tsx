@@ -1,4 +1,4 @@
-import OwnerDashBoardPage from "@/routes/ownerDashBoardPage";
+import OwnerDashBoardPage from "@/routes/ownerDashBoardPage"
 
 const OwnerDashboard = () => {
     return (
