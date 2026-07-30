@@ -4,16 +4,19 @@ import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "@/context/AuthContext";
 import RegisterLoading from "../loading/RegisterLoading";
 import { useState } from "react";
+import { useRouter } from "next/navigation"
 
 const SocialLogin = () => {
   const { googleLogin } = useAuth();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleGoogleLogin = async () => {
     setLoading(true);
     try {
       await googleLogin();
 
+      router.replace("/")
     } catch (error) {
       console.error("Error during Google login:", error);
       alert(error.message || "An error occurred during Google login.");

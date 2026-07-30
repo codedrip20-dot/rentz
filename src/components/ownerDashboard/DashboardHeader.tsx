@@ -2,7 +2,29 @@
 
 import { Bell } from "lucide-react";
 
+import { useAuth } from "@/context/AuthContext";
+import { useOwnerProfile } from "@/hooks/useOwnerProfile";
+
 const DashboardHeader = () => {
+    const { currentUser } = useAuth();
+
+    const {
+        ownerProfile,
+        loading,
+    } = useOwnerProfile();
+
+    const ownerName =
+        currentUser?.displayName ??
+        currentUser?.email?.split("@")[0] ??
+        "Owner";
+
+    const ownerInitial =
+        ownerName.charAt(0).toUpperCase();
+
+    const planName =
+        ownerProfile?.subscription.planId ??
+        "Basic";
+
     return (
         <header className="flex flex-col gap-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
             {/* Left Section */}
@@ -19,7 +41,7 @@ const DashboardHeader = () => {
 
             {/* Right Section */}
             <div className="flex items-center gap-4">
-                {/* Notification */}
+                {/* Notifications */}
                 <button
                     type="button"
                     className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white transition-all duration-200 hover:bg-slate-100"
@@ -34,17 +56,25 @@ const DashboardHeader = () => {
                     type="button"
                     className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 transition-all duration-200 hover:bg-slate-100"
                 >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white">
-                        U
-                    </div>
+                    {currentUser?.photoURL ? (
+                        <img
+                            src={currentUser.photoURL}
+                            alt={ownerName}
+                            className="h-11 w-11 rounded-full object-cover"
+                        />
+                    ) : (
+                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white">
+                            {ownerInitial}
+                        </div>
+                    )}
 
                     <div className="hidden text-left md:block">
                         <p className="text-sm font-semibold text-slate-900">
-                            Owner
+                            {loading ? "Loading..." : ownerName}
                         </p>
 
-                        <p className="text-xs text-slate-500">
-                            Basic Plan
+                        <p className="text-xs capitalize text-slate-500">
+                            {loading ? "Loading..." : `${planName} Plan`}
                         </p>
                     </div>
                 </button>

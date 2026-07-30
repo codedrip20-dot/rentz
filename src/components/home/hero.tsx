@@ -1,9 +1,15 @@
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
+import { useUser } from "@/hooks/useUser";
 
 import heroBg2 from "@/assets/herobgII.png";
 
 const Hero = () => {
+  const { userData } = useUser();
+
+  const isOwner = userData?.role === "owner";
   return (
     <section className="relative min-h-screen  overflow-hidden">
 
@@ -76,24 +82,30 @@ const Hero = () => {
 
           <div className="mt-12 flex flex-wrap gap-5">
 
-            <Link
-              href="/owner/ownerRegister"
-              className="
-              rounded-2xl
-              bg-blue-600
-              px-8
-              py-4
-              font-semibold
-              text-white
-              shadow-xl
-              transition-all
-              duration-300
-              hover:-translate-y-1
-              hover:bg-blue-700
+        <Link
+            href={
+                isOwner
+                    ? "/owner/dashBoard"
+                    : "/owner/ownerRegister"
+            }
+            className="
+                rounded-2xl
+                bg-blue-600
+                px-8
+                py-4
+                font-semibold
+                text-white
+                shadow-xl
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:bg-blue-700
             "
-            >
-              register as an owner
-            </Link>
+        >
+            {isOwner
+                ? "Owner Dashboard"
+                : "Register as an Owner"}
+</Link>
 
             <Link
               href="/buy"

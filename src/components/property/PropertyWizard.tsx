@@ -2,11 +2,13 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useCallback } from "react";
+import {useRouter } from "next/navigation";
 
 import {
     PropertyWizardProvider,
     usePropertyWizard,
 } from "@/context/PropertyWizardContext";
+import { useAuth } from "@/context/AuthContext";
 
 import PropertyStepper from "./PropertyStepper";
 import WizardNavigation from "./WizardNavigation";
@@ -36,6 +38,10 @@ function PropertyWizardContent() {
         setIsSaving,
     } = usePropertyWizard();
 
+    const { currentUser } = useAuth();
+
+    const router = useRouter()
+
     const progress = ((currentStep + 1) / steps.length) * 100;
 
     const StepComponents = useMemo(
@@ -55,16 +61,20 @@ function PropertyWizardContent() {
         try {
             setIsSaving(true);
 
+            if (!currentUser) {
+                throw new Error("User not authenticated.");
+            }
+
             console.log("Publishing Property...");
             console.log(propertyData);
 
-            /**
-             * Next Mission
-             *
-             * await publishProperty(propertyData);
-             */
-            await createProperty(propertyData)
-            alert("Property is ready to publish.");
+            await createProperty({
+                ...propertyData,
+                ownerId: currentUser.uid,
+            });
+
+            alert("property published successful");
+            router.push("/owner/dashBoard");
         } catch (error) {
             console.error(
                 "Failed to publish property.",
@@ -73,7 +83,7 @@ function PropertyWizardContent() {
         } finally {
             setIsSaving(false);
         }
-    }, [propertyData, setIsSaving]);
+    }, [propertyData, currentUser, setIsSaving]);
 
     return (
         <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-8">

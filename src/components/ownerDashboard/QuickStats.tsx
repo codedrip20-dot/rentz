@@ -9,7 +9,11 @@ import {
 
 import StatCard from "./StatCard";
 
+import { useProperties } from "@/hooks/useProperties";
+
 const QuickStats = () => {
+    const { properties, loading } = useProperties();
+
     return (
         <section className="space-y-5">
             <div>
@@ -25,7 +29,7 @@ const QuickStats = () => {
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
                 <StatCard
                     title="Properties"
-                    value={0}
+                    value={loading ? "..." : properties.length}
                     subtitle="Registered properties"
                     icon={Building2}
                 />

@@ -7,7 +7,36 @@ import {
     CreditCard,
 } from "lucide-react";
 
+import { useOwnerProfile } from "@/hooks/useOwnerProfile";
+
 const SubscriptionCard = () => {
+    const { ownerProfile, loading } = useOwnerProfile();
+
+    const planName =
+        ownerProfile?.subscription.planId ?? "Basic";
+
+    const propertyLimit =
+        ownerProfile?.subscription.propertyLimit ?? 1;
+
+    const subscriptionStatus =
+        ownerProfile?.subscription.active ?? false;
+
+    const updatedAt =
+        ownerProfile?.updatedAt?.toDate?.();
+
+    const renewalDate = updatedAt
+        ? new Date(updatedAt)
+        : new Date();
+
+    renewalDate.setMonth(renewalDate.getMonth() + 1);
+
+    const formattedRenewalDate =
+        renewalDate.toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+        });
+
     return (
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
@@ -31,8 +60,8 @@ const SubscriptionCard = () => {
                                 Current Plan
                             </p>
 
-                            <p className="mt-1 font-semibold text-slate-900">
-                                Basic
+                            <p className="mt-1 font-semibold capitalize text-slate-900">
+                                {loading ? "Loading..." : planName}
                             </p>
                         </div>
 
@@ -42,7 +71,13 @@ const SubscriptionCard = () => {
                             </p>
 
                             <p className="mt-1 font-semibold text-slate-900">
-                                1 Property
+                                {loading
+                                    ? "..."
+                                    : `${propertyLimit} ${
+                                          propertyLimit === 1
+                                              ? "Property"
+                                              : "Properties"
+                                      }`}
                             </p>
                         </div>
 
@@ -51,8 +86,18 @@ const SubscriptionCard = () => {
                                 Status
                             </p>
 
-                            <p className="mt-1 font-semibold text-green-600">
-                                Active
+                            <p
+                                className={`mt-1 font-semibold ${
+                                    subscriptionStatus
+                                        ? "text-green-600"
+                                        : "text-red-600"
+                                }`}
+                            >
+                                {loading
+                                    ? "Loading..."
+                                    : subscriptionStatus
+                                    ? "Active"
+                                    : "Inactive"}
                             </p>
                         </div>
                     </div>
@@ -73,7 +118,9 @@ const SubscriptionCard = () => {
                     </p>
 
                     <p className="mt-1 text-lg font-bold text-slate-900">
-                        15 August 2026
+                        {loading
+                            ? "Loading..."
+                            : formattedRenewalDate}
                     </p>
 
                     <button
@@ -81,7 +128,9 @@ const SubscriptionCard = () => {
                         className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
                     >
                         <CreditCard className="h-4 w-4" />
+
                         Manage Subscription
+
                         <ArrowUpRight className="h-4 w-4" />
                     </button>
                 </div>

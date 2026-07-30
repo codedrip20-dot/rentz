@@ -24,7 +24,7 @@ export default function LoginRequired() {
                     </p>
 
                     <p className="mt-2 text-sm text-slate-500">
-                        If you don't have an account yet, create one first and
+                        If you dont have an account yet, create one first and
                         then return here to continue your owner registration.
                     </p>
 

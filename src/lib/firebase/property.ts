@@ -149,3 +149,29 @@ export const getOwnerProperties = async (
         throw new Error("Unable to fetch owner properties.");
     }
 };
+/* -------------------------------------------------------------------------- */
+/*                            Fetch Properties                                */
+/* -------------------------------------------------------------------------- */
+
+export const fetchProperties = async (
+    ownerId: string
+): Promise<Property[]> => {
+    try {
+        const q = query(
+            propertiesCollection,
+            where("ownerId", "==", ownerId),
+            orderBy("createdAt", "desc")
+        );
+
+        const snapshot = await getDocs(q);
+
+        return snapshot.docs.map((doc) => ({
+            ...(doc.data() as Property),
+            id: doc.id,
+        }));
+    } catch (error) {
+        console.error("Failed to fetch properties:", error);
+
+        throw new Error("Unable to fetch properties.");
+    }
+};
