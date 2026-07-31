@@ -184,26 +184,34 @@ export async function updateRoomImages(
    Update Room Availability
 ============================================================================ */
 
+/* ============================================================================
+   Update Room Availability
+============================================================================ */
+
 export async function updateRoomAvailability(
     roomId: string,
-    availability: Room["availability"]
+    updatedAvailability: Room["availability"]
 ): Promise<void> {
     try {
+        if (!roomId) {
+            throw new Error("Room ID is required.");
+        }
+
         const roomRef = doc(db, "rooms", roomId);
 
         await updateDoc(roomRef, {
-            availability,
+            availability: updatedAvailability,
             updatedAt: serverTimestamp(),
         });
     } catch (error) {
         console.error(
-            "Error updating availability:",
+            "Error updating room availability:",
             error
         );
+
         throw error;
     }
 }
-
 /* ============================================================================
    Update Room Status
 ============================================================================ */

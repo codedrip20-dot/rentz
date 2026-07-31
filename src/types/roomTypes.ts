@@ -169,6 +169,7 @@ export interface Room {
     propertyId: string;
     ownerId: string;
     propertyName: string;
+    tenantId: string;
 
     // Basic Information
     roomName: string;

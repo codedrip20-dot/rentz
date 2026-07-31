@@ -8,6 +8,7 @@ export const initialRoom: Room = {
     // Relationships
     propertyId: "",
     ownerId: "",
+    tenantId: "",
 
     // Basic Information
     roomName: "",

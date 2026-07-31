@@ -76,6 +76,7 @@ export function mapRoomForUpdate(room: Room) {
 
         propertyId: room.propertyId.trim(),
         ownerId: room.ownerId.trim(),
+        tenantId:room.tenantId,
 
         roomName: room.roomName.trim(),
         roomNumber: room.roomNumber.trim(),
