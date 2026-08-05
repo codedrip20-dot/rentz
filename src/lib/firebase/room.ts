@@ -18,6 +18,7 @@ import { db } from "./firebase";
 
 import { Room } from "@/types/roomTypes";
 
+
 const roomsCollection = collection(db, "rooms");
 
 /* ============================================================================

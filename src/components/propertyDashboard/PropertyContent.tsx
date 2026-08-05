@@ -36,6 +36,7 @@ const PropertyContent = ({
 
     return (
         <RoomGrid
+            propertyId={propertyId}
             rooms={rooms}
             onRefresh={onRefresh}
         />

@@ -25,10 +25,7 @@ interface RoomWizardContextType {
     room: Room;
     setRoom: Dispatch<SetStateAction<Room>>;
 
-    // General
     updateRoom: (updates: Partial<Room>) => void;
-
-    // Nested Updates
     updatePricing: (updates: Partial<RoomPricing>) => void;
     updateAvailability: (
         updates: Partial<RoomAvailability>
@@ -37,7 +34,6 @@ interface RoomWizardContextType {
     updateAmenities: (updates: Partial<RoomAmenities>) => void;
     updateImages: (images: RoomImage[]) => void;
 
-    // Utilities
     resetRoom: () => void;
 
     loading: boolean;
@@ -64,20 +60,12 @@ export function RoomWizardProvider({
 
     const [error, setError] = useState<string | null>(null);
 
-    /* ==========================================================
-       General Update
-    ========================================================== */
-
     const updateRoom = (updates: Partial<Room>) => {
         setRoom((prev) => ({
             ...prev,
             ...updates,
         }));
     };
-
-    /* ==========================================================
-       Pricing
-    ========================================================== */
 
     const updatePricing = (
         updates: Partial<RoomPricing>
@@ -91,10 +79,6 @@ export function RoomWizardProvider({
         }));
     };
 
-    /* ==========================================================
-       Availability
-    ========================================================== */
-
     const updateAvailability = (
         updates: Partial<RoomAvailability>
     ) => {
@@ -106,10 +90,6 @@ export function RoomWizardProvider({
             },
         }));
     };
-
-    /* ==========================================================
-       Capacity
-    ========================================================== */
 
     const updateCapacity = (
         updates: Partial<RoomCapacity>
@@ -123,10 +103,6 @@ export function RoomWizardProvider({
         }));
     };
 
-    /* ==========================================================
-       Amenities
-    ========================================================== */
-
     const updateAmenities = (
         updates: Partial<RoomAmenities>
     ) => {
@@ -139,20 +115,12 @@ export function RoomWizardProvider({
         }));
     };
 
-    /* ==========================================================
-       Images
-    ========================================================== */
-
     const updateImages = (images: RoomImage[]) => {
         setRoom((prev) => ({
             ...prev,
             images,
         }));
     };
-
-    /* ==========================================================
-       Reset
-    ========================================================== */
 
     const resetRoom = () => {
         setRoom(initialRoom);

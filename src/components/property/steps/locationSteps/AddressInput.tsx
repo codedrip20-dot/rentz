@@ -48,6 +48,7 @@ export default function AddressInput({
                     pl-12
                     pr-12
                     text-sm
+                    text-black
                     shadow-sm
                     outline-none
                     transition

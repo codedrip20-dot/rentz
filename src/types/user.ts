@@ -4,7 +4,7 @@ export interface UserData {
     email: string;
     phone: string;
     photoURL: string;
-    role: "normalUser" | "owner";
+    role: "normalUser" | "owner" |"tenant";
     emailVerified: boolean;
     profileComplete: boolean;
     createdAt: unknown;

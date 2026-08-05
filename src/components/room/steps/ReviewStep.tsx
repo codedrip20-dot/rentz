@@ -66,7 +66,7 @@ export default function ReviewStep() {
 
             resetRoom();
 
-            router.push("/owner/dashBoard/properties");
+            router.push("/ownerDashboard/properties");
         } catch (err) {
             console.error(err);
 

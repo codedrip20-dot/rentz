@@ -4,21 +4,10 @@ import { useState } from "react";
 
 import { RoomImage } from "@/types/roomTypes";
 
-import {
-    uploadRoomImages,
-} from "@/lib/cloudinary/room/uploadRoomImages";
-
-import {
-    validateRoomImages,
-} from "@/lib/cloudinary/room/validateRoomImages";
-
-import {
-    deleteRoomImage,
-} from "@/lib/cloudinary/room/deleteRoomImage";
-
-import {
-    mapUploadedImageToRoomImage,
-} from "@/lib/cloudinary/room/roomImageMapper";
+import { uploadRoomImages } from "@/lib/cloudinary/room/uploadRoomImages";
+import { validateRoomImages } from "@/lib/cloudinary/room/validateRoomImages";
+import { deleteRoomImage } from "@/lib/cloudinary/room/deleteRoomImage";
+import { mapUploadedImageToRoomImage } from "@/lib/cloudinary/room/roomImageMapper";
 
 export function useRoomImages(
     initialImages: RoomImage[] = [],
@@ -69,16 +58,14 @@ export function useRoomImages(
                 mapUploadedImageToRoomImage
             );
 
-            setImages((prev) => {
-                const updatedImages = [
-                    ...prev,
-                    ...mappedImages,
-                ];
+            const updatedImages = [
+                ...images,
+                ...mappedImages,
+            ];
 
-                onImagesChange?.(updatedImages);
+            setImages(updatedImages);
 
-                return updatedImages;
-            });
+            onImagesChange?.(updatedImages);
         } catch (error) {
             console.error(error);
 
@@ -98,16 +85,14 @@ export function useRoomImages(
         try {
             await deleteRoomImage(publicId);
 
-            setImages((prev) => {
-                const updatedImages = prev.filter(
-                    (image) =>
-                        image.publicId !== publicId
-                );
+            const updatedImages = images.filter(
+                (image) =>
+                    image.publicId !== publicId
+            );
 
-                onImagesChange?.(updatedImages);
+            setImages(updatedImages);
 
-                return updatedImages;
-            });
+            onImagesChange?.(updatedImages);
         } catch (error) {
             console.error(error);
 
@@ -131,6 +116,7 @@ export function useRoomImages(
         roomImages: RoomImage[]
     ) {
         setImages(roomImages);
+
         onImagesChange?.(roomImages);
     }
 
