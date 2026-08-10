@@ -15,7 +15,7 @@ const OwnerDashboardPage = () => {
 
                 <QuickStats />
 
-                <QuickActions />
+                {/* <QuickActions /> */}
 
                 <SubscriptionCard />
 

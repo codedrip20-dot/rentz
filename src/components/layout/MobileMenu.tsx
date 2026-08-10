@@ -23,13 +23,8 @@ const links = [
   },
   {
     title: "Find",
-    href: "/find",
+    href: "/buy",
     icon: Building2,
-  },
-  {
-    title: "List",
-    href: "/list",
-    icon: KeyRound,
   },
   {
     title: "About",

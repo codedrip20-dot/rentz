@@ -348,3 +348,248 @@ export async function getAvailableRoomsByPropertyId(
     }
 
 }
+/* ==========================================================
+   Check Room Exists
+========================================================== */
+
+export async function roomExists(
+    roomId: string
+): Promise<boolean> {
+
+    try {
+
+        const room = await getRoomById(
+            roomId
+        );
+
+        return room !== null;
+
+    } catch (error) {
+
+        console.error(
+            "[RoomService] Failed to check room existence:",
+            error
+        );
+
+        throw error;
+
+    }
+
+}
+
+/* ==========================================================
+   Count Available Rooms
+========================================================== */
+
+export async function countAvailableRooms(): Promise<number> {
+
+    try {
+
+        const rooms =
+            await getAvailableRooms();
+
+        return rooms.length;
+
+    } catch (error) {
+
+        console.error(
+            "[RoomService] Failed to count available rooms:",
+            error
+        );
+
+        throw error;
+
+    }
+
+}
+
+/* ==========================================================
+   Count Owner Rooms
+========================================================== */
+
+export async function countOwnerRooms(
+    ownerId: string
+): Promise<number> {
+
+    try {
+
+        const rooms =
+            await getRoomsByOwnerId(
+                ownerId
+            );
+
+        return rooms.length;
+
+    } catch (error) {
+
+        console.error(
+            "[RoomService] Failed to count owner rooms:",
+            error
+        );
+
+        throw error;
+
+    }
+
+}
+
+/* ==========================================================
+   Count Property Rooms
+========================================================== */
+
+export async function countPropertyRooms(
+    propertyId: string
+): Promise<number> {
+
+    try {
+
+        const rooms =
+            await getRoomsByPropertyId(
+                propertyId
+            );
+
+        return rooms.length;
+
+    } catch (error) {
+
+        console.error(
+            "[RoomService] Failed to count property rooms:",
+            error
+        );
+
+        throw error;
+
+    }
+
+}
+
+/* ==========================================================
+   Get Cheapest Available Room
+========================================================== */
+
+export async function getCheapestRoom(
+    propertyId: string
+): Promise<Room | null> {
+
+    try {
+
+        const rooms =
+            await getAvailableRoomsByPropertyId(
+                propertyId
+            );
+
+        if (rooms.length === 0) {
+
+            return null;
+
+        }
+
+        return rooms.reduce(
+            (lowest, room) =>
+
+                room.pricing.rent <
+                lowest.pricing.rent
+
+                    ? room
+
+                    : lowest
+        );
+
+    } catch (error) {
+
+        console.error(
+            "[RoomService] Failed to fetch cheapest room:",
+            error
+        );
+
+        throw error;
+
+    }
+
+}
+
+/* ==========================================================
+   Get Highest Rent Room
+========================================================== */
+
+export async function getHighestRentRoom(
+    propertyId: string
+): Promise<Room | null> {
+
+    try {
+
+        const rooms =
+            await getRoomsByPropertyId(
+                propertyId
+            );
+
+        if (rooms.length === 0) {
+
+            return null;
+
+        }
+
+        return rooms.reduce(
+            (highest, room) =>
+
+                room.pricing.rent >
+                highest.pricing.rent
+
+                    ? room
+
+                    : highest
+        );
+
+    } catch (error) {
+
+        console.error(
+            "[RoomService] Failed to fetch highest rent room:",
+            error
+        );
+
+        throw error;
+
+    }
+
+}
+
+/* ==========================================================
+   Search Rooms
+========================================================== */
+
+export async function searchRooms(
+    keyword: string
+): Promise<Room[]> {
+
+    try {
+
+        const rooms =
+            await getAvailableRooms();
+
+        const search =
+            keyword.toLowerCase();
+
+        return rooms.filter(
+            (room) =>
+
+                room.roomName
+                    ?.toLowerCase()
+                    .includes(search) ||
+
+                room.roomNumber
+                    ?.toLowerCase()
+                    .includes(search)
+        );
+
+    } catch (error) {
+
+        console.error(
+            "[RoomService] Failed to search rooms:",
+            error
+        );
+
+        throw error;
+
+    }
+
+}

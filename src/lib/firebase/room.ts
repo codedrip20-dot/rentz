@@ -12,6 +12,7 @@ import {
     serverTimestamp,
     updateDoc,
     where,
+    getCountFromServer,
 } from "firebase/firestore";
 
 import { db } from "./firebase";
@@ -20,6 +21,7 @@ import { Room } from "@/types/roomTypes";
 
 
 const roomsCollection = collection(db, "rooms");
+const ROOMS_COLLECTION = "rooms"
 
 /* ============================================================================
    Types
@@ -250,6 +252,69 @@ export async function deleteRoom(
         await deleteDoc(roomRef);
     } catch (error) {
         console.error("Error deleting room:", error);
+        throw error;
+    }
+}
+
+
+/**
+ * Fetch all rooms that are available
+ * for the marketplace.
+ */
+export async function getAvailableRooms(): Promise<Room[]> {
+    try {
+        const roomsRef = collection(db, ROOMS_COLLECTION);
+
+        const roomsQuery = query(
+            roomsRef,
+            where("status", "==", "available"),
+            orderBy("updatedAt", "desc")
+        );
+
+        const snapshot = await getDocs(roomsQuery);
+
+        return snapshot.docs.map(
+            (doc) => doc.data() as Room
+        );
+    } catch (error) {
+        console.error(
+            "[RoomService] Failed to fetch available rooms:",
+            error
+        );
+
+        throw error;
+    }
+}
+
+/**
+ * Get total number of rooms belonging to an owner.
+ */
+export async function getRoomCountByOwner(
+    ownerId: string
+): Promise<number> {
+    try {
+        const roomsRef = collection(
+            db,
+            ROOMS_COLLECTION
+        );
+
+        const roomsQuery = query(
+            roomsRef,
+            where("ownerId", "==", ownerId)
+        );
+
+        const snapshot =
+            await getCountFromServer(
+                roomsQuery
+            );
+
+        return snapshot.data().count;
+    } catch (error) {
+        console.error(
+            "[RoomService] Failed to count owner rooms:",
+            error
+        );
+
         throw error;
     }
 }

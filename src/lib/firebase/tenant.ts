@@ -6,6 +6,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  getCountFromServer,
   query,
   serverTimestamp,
   setDoc,
@@ -267,4 +268,38 @@ export async function activateTenantRole(
   });
 
   return tenant;
+}
+
+/**
+ * Get number of active tenants belonging to an owner.
+ */
+export async function getActiveTenantCountByOwner(
+  ownerId: string
+): Promise<number> {
+  try {
+    const tenantsRef = collection(
+      db,
+      TENANTS_COLLECTION
+    );
+
+    const tenantsQuery = query(
+      tenantsRef,
+      where("ownerId", "==", ownerId),
+      where("status", "==", "active")
+    );
+
+    const snapshot =
+      await getCountFromServer(
+        tenantsQuery
+      );
+
+    return snapshot.data().count;
+  } catch (error) {
+    console.error(
+      "[TenantService] Failed to count active tenants:",
+      error
+    );
+
+    throw error;
+  }
 }

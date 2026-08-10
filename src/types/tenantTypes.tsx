@@ -8,6 +8,7 @@ export interface Tenant {
   officialName: string;
   phoneNumber: string;
   email: string;
+  profileClaimed?:boolean;
 
   // Booking Information
   bookingId: string;

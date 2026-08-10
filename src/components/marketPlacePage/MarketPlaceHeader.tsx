@@ -57,7 +57,7 @@ export default function MarketPlaceHeader({
         <div className="flex items-center justify-between">
 
             <Link
-                href="/homepage"
+                href="/"
                 className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-xl transition hover:bg-white/20"
             >
 

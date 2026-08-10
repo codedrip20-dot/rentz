@@ -107,7 +107,7 @@ export default function LoadingState() {
                         text-white/70
                     "
                 >
-                    We're preparing the room details,
+                    We re preparing the room details,
                     images, amenities and booking
                     information for you.
                 </p>

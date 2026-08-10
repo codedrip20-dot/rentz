@@ -137,7 +137,7 @@ const RoomCard = ({
                 >
                     <Pencil className="h-4 w-4" />
 
-                    Edit
+                    View Details
 
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </motion.button>

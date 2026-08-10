@@ -8,12 +8,9 @@ const navLinks = [
  
   {
     title: "Find",
-    href: "/rent",
+    href: "/marketplace",
   },
-  {
-    title: "List",
-    href: "/sell",
-  },
+ 
   {
     title: "About",
     href: "/about",

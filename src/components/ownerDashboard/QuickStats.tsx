@@ -10,9 +10,19 @@ import {
 import StatCard from "./StatCard";
 
 import { useProperties } from "@/hooks/useProperties";
+import { useDashboardStats } from "@/hooks/useDashboardStats";
 
 const QuickStats = () => {
-    const { properties, loading } = useProperties();
+    const {
+        properties,
+        loading: propertiesLoading,
+    } = useProperties();
+
+    const {
+        roomCount,
+        activeTenantCount,
+        loading: statsLoading,
+    } = useDashboardStats();
 
     return (
         <section className="space-y-5">
@@ -29,21 +39,33 @@ const QuickStats = () => {
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
                 <StatCard
                     title="Properties"
-                    value={loading ? "..." : properties.length}
+                    value={
+                        propertiesLoading
+                            ? "..."
+                            : properties.length
+                    }
                     subtitle="Registered properties"
                     icon={Building2}
                 />
 
                 <StatCard
                     title="Rooms"
-                    value={0}
+                    value={
+                        statsLoading
+                            ? "..."
+                            : roomCount
+                    }
                     subtitle="Total rooms"
                     icon={DoorOpen}
                 />
 
                 <StatCard
                     title="Tenants"
-                    value={0}
+                    value={
+                        statsLoading
+                            ? "..."
+                            : activeTenantCount
+                    }
                     subtitle="Active tenants"
                     icon={Users}
                 />
