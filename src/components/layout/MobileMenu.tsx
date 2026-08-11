@@ -21,9 +21,9 @@ const links = [
     href: "/",
     icon: Home,
   },
-  {
+  { 
     title: "Find",
-    href: "/buy",
+    href: "/marketplace",
     icon: Building2,
   },
   {
