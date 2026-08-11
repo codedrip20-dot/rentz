@@ -17,10 +17,19 @@ const SocialLogin = () => {
       await googleLogin();
 
       router.replace("/")
-    } catch (error) {
-      console.error("Error during Google login:", error);
-      alert(error.message || "An error occurred during Google login.");
-    } finally {
+    } 
+    catch (error) {
+    console.error("Error during Google login:", error);
+
+    const message =
+        error instanceof Error
+            ? error.message
+            : "An error occurred during Google login.";
+
+    alert(message);
+}
+    
+    finally {
       setLoading(false);
     }
   };

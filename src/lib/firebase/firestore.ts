@@ -18,7 +18,8 @@ export type UserRole =
   | "normalUser"
   | "owner"
   | "freelancer"
-  | "admin";
+  | "admin"
+  | "tenant";
 
 export interface UserData {
   uid: string;

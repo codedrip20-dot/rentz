@@ -1,10 +1,12 @@
 import OwnerRegistraionPage from "@/routes/ownerRegistrationPage"
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 const OwnerRegistration = () => {
     return (
         <div>
-            <h1> I am the owner registration </h1>
+            <ProtectedRoute >
             <OwnerRegistraionPage />
+            </ProtectedRoute>
         </div>
     )
 }

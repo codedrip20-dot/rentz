@@ -1,6 +1,6 @@
 "use client";
 
-import { Room } from "@/types/propertyManagementTypes";
+import { Room } from "@/types/roomTypes";
 
 import RoomEmptyState from "./RoomEmptyState";
 import RoomGrid from "./RoomGrid";

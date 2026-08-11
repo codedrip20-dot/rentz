@@ -14,7 +14,9 @@ export function mapRoomForCreate(room: Room) {
 
         // Relationships
         propertyId: room.propertyId.trim(),
+        propertyName: room.propertyName.trim(),
         ownerId: room.ownerId.trim(),
+        tenantId: room.tenantId,
 
         // Basic Information
         roomName: room.roomName.trim(),
@@ -75,8 +77,9 @@ export function mapRoomForUpdate(room: Room) {
         roomId: room.roomId,
 
         propertyId: room.propertyId.trim(),
+        propertyName: room.propertyName.trim(),
         ownerId: room.ownerId.trim(),
-        tenantId:room.tenantId,
+        tenantId: room.tenantId,
 
         roomName: room.roomName.trim(),
         roomNumber: room.roomNumber.trim(),
