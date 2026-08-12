@@ -25,18 +25,22 @@ const QuickStats = () => {
     } = useDashboardStats();
 
     return (
-        <section className="space-y-5">
-            <div>
-                <h2 className="text-xl font-bold text-slate-900">
+        <section className="space-y-4 sm:space-y-5">
+
+            <div className="min-w-0">
+
+                <h2 className="text-lg font-bold text-slate-900 sm:text-xl">
                     Quick Statistics
                 </h2>
 
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm leading-6 text-slate-500">
                     An overview of your rental business.
                 </p>
+
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-4 xl:gap-6">
+
                 <StatCard
                     title="Properties"
                     value={
@@ -77,7 +81,9 @@ const QuickStats = () => {
                     icon={IndianRupee}
                     trend="+0%"
                 />
+
             </div>
+
         </section>
     );
 };

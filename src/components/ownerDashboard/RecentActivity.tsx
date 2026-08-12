@@ -49,67 +49,119 @@ const activities = [
 
 const RecentActivity = () => {
     return (
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="mb-8 flex items-center justify-between">
-                <div>
-                    <h2 className="text-xl font-bold text-slate-900">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:rounded-3xl sm:p-6">
+
+            {/* Header */}
+
+            <div className="mb-6 flex items-start justify-between gap-4 sm:mb-8">
+
+                <div className="min-w-0">
+
+                    <h2 className="text-lg font-bold text-slate-900 sm:text-xl">
                         Recent Activity
                     </h2>
 
-                    <p className="mt-1 text-sm text-slate-500">
+                    <p className="mt-1 text-sm leading-6 text-slate-500">
                         Track the latest updates to your account.
                     </p>
+
                 </div>
 
                 <button
                     type="button"
-                    className="flex items-center gap-2 text-sm font-medium text-blue-600 transition-colors hover:text-blue-700"
+                    className="
+                        flex
+                        shrink-0
+                        items-center
+                        gap-1
+                        text-xs
+                        font-medium
+                        text-blue-600
+                        transition-colors
+                        hover:text-blue-700
+                        sm:gap-2
+                        sm:text-sm
+                    "
                 >
                     View All
 
                     <ArrowRight className="h-4 w-4" />
                 </button>
+
             </div>
 
-            <div className="space-y-6">
+            {/* Activities */}
+
+            <div className="space-y-5 sm:space-y-6">
+
                 {activities.map((activity) => {
+
                     const Icon = activity.icon;
 
                     return (
-                      
                         <div
                             key={activity.id}
-                            className="flex items-start gap-4"
+                            className="flex items-start gap-3 sm:gap-4"
                         >
+
+                            {/* Icon */}
+
                             <div
-                                className={`flex h-12 w-12 items-center justify-center rounded-2xl ${activity.iconBg}`}
+                                className={`
+                                    flex
+                                    h-10
+                                    w-10
+                                    shrink-0
+                                    items-center
+                                    justify-center
+                                    rounded-xl
+                                    sm:h-12
+                                    sm:w-12
+                                    sm:rounded-2xl
+                                    ${activity.iconBg}
+                                `}
                             >
                                 <Icon
-                                    className={`h-6 w-6 ${activity.iconColor}`}
+                                    className={`
+                                        h-5
+                                        w-5
+                                        sm:h-6
+                                        sm:w-6
+                                        ${activity.iconColor}
+                                    `}
                                 />
                             </div>
 
-                            <div className="flex-1">
-                                <div className="flex items-center justify-between">
-                                    <h3 className="font-semibold text-slate-900">
+                            {/* Content */}
+
+                            <div className="min-w-0 flex-1">
+
+                                <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+
+                                    <h3 className="min-w-0 text-sm font-semibold leading-5 text-slate-900 sm:text-base">
                                         {activity.title}
                                     </h3>
 
-                                    <span className="text-xs text-slate-400">
+                                    <span className="shrink-0 text-[11px] text-slate-400 sm:text-xs">
                                         {activity.time}
                                     </span>
+
                                 </div>
 
                                 <p className="mt-1 text-sm leading-6 text-slate-500">
                                     {activity.description}
                                 </p>
+
                             </div>
+
                         </div>
                     );
+
                 })}
+
             </div>
+
         </section>
-      
     );
 };
 

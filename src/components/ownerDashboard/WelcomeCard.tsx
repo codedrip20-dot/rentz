@@ -15,8 +15,7 @@ const WelcomeCard = () => {
 
     const { ownerProfile, loading } = useOwnerProfile();
 
-    const { properties } = useProperties()
-    
+    const { properties } = useProperties();
 
     const ownerName =
         currentUser?.displayName ??
@@ -33,19 +32,18 @@ const WelcomeCard = () => {
         ownerProfile?.subscription.active ?? false;
 
     const handleAddProperty = () => {
-            const propertyLimit =
-                ownerProfile?.subscription?.propertyLimit ?? 0;
+        const propertyLimit =
+            ownerProfile?.subscription?.propertyLimit ?? 0;
 
-            const propertyCount =
-                properties.length;
+        const propertyCount =
+            properties.length;
 
-            if (propertyCount >= propertyLimit) {
-                alert(
-                    "You have reached your property limit. Please upgrade your plan."
-                );
-                return;
-            } else {
-
+        if (propertyCount >= propertyLimit) {
+            alert(
+                "You have reached your property limit. Please upgrade your plan."
+            );
+            return;
+        } else {
             router.push(
                 "/ownerDashboard/properties/create"
             );
@@ -53,72 +51,140 @@ const WelcomeCard = () => {
     };
 
     return (
-        <section className="overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-blue-700 to-slate-900 p-8 text-white shadow-lg">
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <section className="overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-blue-700 to-slate-900 p-5 text-white shadow-lg sm:rounded-3xl sm:p-8">
+
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
+
                 {/* Left Content */}
-                <div className="max-w-2xl">
+
+                <div className="min-w-0 max-w-2xl">
+
                     <span className="inline-flex items-center rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur">
                         Welcome Back 👋
                     </span>
 
-                    <h2 className="mt-4 text-3xl font-bold tracking-tight">
+                    <h2 className="mt-3 text-2xl font-bold leading-tight tracking-tight sm:mt-4 sm:text-3xl">
                         {loading
                             ? "Loading..."
                             : `Ready to grow your rental business, ${ownerName}?`}
                     </h2>
 
-                    <p className="mt-3 text-sm leading-7 text-blue-100">
+                    <p className="mt-3 text-sm leading-6 text-blue-100 sm:leading-7">
                         Manage properties, publish rooms, track tenants and
                         monitor your subscription from one dashboard.
                     </p>
 
-                    <div className="mt-8 flex flex-wrap gap-4">
+                    {/* Actions */}
+
+                    <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
+
                         <button
                             type="button"
-                            onClick={handleAddProperty
-                            }
-                            className="flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:scale-[1.02] hover:bg-slate-100"
+                            onClick={handleAddProperty}
+                            className="
+                                flex
+                                min-h-11
+                                w-full
+                                items-center
+                                justify-center
+                                gap-2
+                                rounded-xl
+                                bg-white
+                                px-5
+                                py-3
+                                text-sm
+                                font-semibold
+                                text-slate-900
+                                transition
+                                hover:scale-[1.02]
+                                hover:bg-slate-100
+                                active:scale-[0.99]
+                                sm:w-auto
+                                sm:px-6
+                            "
                         >
-                            <Building2 className="h-5 w-5" />
+                            <Building2 className="h-5 w-5 shrink-0" />
+
                             Add Property
+
                         </button>
 
                         <button
                             type="button"
-                            onClick={() => router.push("/ownerDashboard/properties")}
-                            className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold backdrop-blur transition hover:bg-white/20"
+                            onClick={() =>
+                                router.push(
+                                    "/ownerDashboard/properties"
+                                )
+                            }
+                            className="
+                                flex
+                                min-h-11
+                                w-full
+                                items-center
+                                justify-center
+                                gap-2
+                                rounded-xl
+                                border
+                                border-white/20
+                                bg-white/10
+                                px-5
+                                py-3
+                                text-sm
+                                font-semibold
+                                backdrop-blur
+                                transition
+                                hover:bg-white/20
+                                active:scale-[0.99]
+                                sm:w-auto
+                                sm:px-6
+                            "
                         >
                             View Properties
-                            <ArrowRight className="h-4 w-4" />
+
+                            <ArrowRight className="h-4 w-4 shrink-0" />
+
                         </button>
+
                     </div>
+
                 </div>
 
                 {/* Right Info Card */}
-                <div className="w-full max-w-sm rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur">
-                    <h3 className="text-lg font-semibold">
+
+                <div className="w-full shrink-0 rounded-xl border border-white/15 bg-white/10 p-4 backdrop-blur sm:rounded-2xl sm:p-6 lg:max-w-sm">
+
+                    <h3 className="text-base font-semibold sm:text-lg">
                         Subscription Overview
                     </h3>
 
-                    <div className="mt-6 space-y-5">
-                        <div className="flex items-center justify-between">
+                    <div className="mt-5 space-y-4 sm:mt-6 sm:space-y-5">
+
+                        {/* Current Plan */}
+
+                        <div className="flex items-center justify-between gap-4">
+
                             <span className="text-sm text-blue-100">
                                 Current Plan
                             </span>
 
-                            <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold capitalize text-blue-700">
+                            <span className="max-w-[50%] truncate rounded-full bg-white px-3 py-1 text-xs font-semibold capitalize text-blue-700">
                                 {loading
                                     ? "Loading..."
                                     : planName}
                             </span>
+
                         </div>
 
-                        <div className="flex items-center justify-between">
+                        {/* Property Limit */}
+
+                        <div className="flex items-center justify-between gap-4">
+
                             <span className="text-sm text-blue-100">
                                 Property Limit
                             </span>
 
-                            <span className="font-semibold">
+                            <span className="text-right text-sm font-semibold sm:text-base">
+
                                 {loading
                                     ? "..."
                                     : `${propertyLimit} ${
@@ -126,16 +192,21 @@ const WelcomeCard = () => {
                                               ? "Property"
                                               : "Properties"
                                       }`}
+
                             </span>
+
                         </div>
 
-                        <div className="flex items-center justify-between">
+                        {/* Status */}
+
+                        <div className="flex items-center justify-between gap-4">
+
                             <span className="text-sm text-blue-100">
                                 Status
                             </span>
 
                             <span
-                                className={`font-semibold ${
+                                className={`shrink-0 text-sm font-semibold sm:text-base ${
                                     subscriptionStatus
                                         ? "text-green-300"
                                         : "text-red-300"
@@ -147,10 +218,15 @@ const WelcomeCard = () => {
                                     ? "Active"
                                     : "Inactive"}
                             </span>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
     );
 };

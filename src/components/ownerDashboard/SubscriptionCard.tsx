@@ -38,39 +38,54 @@ const SubscriptionCard = () => {
         });
 
     return (
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-                {/* Left Section */}
-                <div>
-                    <div className="flex items-center gap-2">
-                        <BadgeCheck className="h-6 w-6 text-blue-600" />
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:rounded-3xl sm:p-6">
 
-                        <h2 className="text-xl font-bold text-slate-900">
+            <div className="flex flex-col gap-5 sm:gap-6 lg:flex-row lg:items-center lg:justify-between">
+
+                {/* Left Section */}
+
+                <div className="min-w-0">
+
+                    <div className="flex items-center gap-2">
+
+                        <BadgeCheck className="h-5 w-5 shrink-0 text-blue-600 sm:h-6 sm:w-6" />
+
+                        <h2 className="text-lg font-bold text-slate-900 sm:text-xl">
                             Subscription
                         </h2>
+
                     </div>
 
-                    <p className="mt-2 text-sm text-slate-500">
+                    <p className="mt-2 text-sm leading-6 text-slate-500">
                         Manage your current plan and billing information.
                     </p>
 
-                    <div className="mt-6 flex flex-wrap gap-4">
-                        <div className="rounded-2xl bg-slate-50 px-4 py-3">
+                    <div className="mt-5 grid grid-cols-1 gap-3 sm:mt-6 sm:flex sm:flex-wrap sm:gap-4">
+
+                        {/* Current Plan */}
+
+                        <div className="min-w-0 rounded-xl bg-slate-50 px-4 py-3 sm:rounded-2xl">
+
                             <p className="text-xs text-slate-500">
                                 Current Plan
                             </p>
 
-                            <p className="mt-1 font-semibold capitalize text-slate-900">
+                            <p className="mt-1 truncate font-semibold capitalize text-slate-900">
                                 {loading ? "Loading..." : planName}
                             </p>
+
                         </div>
 
-                        <div className="rounded-2xl bg-slate-50 px-4 py-3">
+                        {/* Property Limit */}
+
+                        <div className="min-w-0 rounded-xl bg-slate-50 px-4 py-3 sm:rounded-2xl">
+
                             <p className="text-xs text-slate-500">
                                 Property Limit
                             </p>
 
                             <p className="mt-1 font-semibold text-slate-900">
+
                                 {loading
                                     ? "..."
                                     : `${propertyLimit} ${
@@ -78,10 +93,15 @@ const SubscriptionCard = () => {
                                               ? "Property"
                                               : "Properties"
                                       }`}
+
                             </p>
+
                         </div>
 
-                        <div className="rounded-2xl bg-slate-50 px-4 py-3">
+                        {/* Status */}
+
+                        <div className="min-w-0 rounded-xl bg-slate-50 px-4 py-3 sm:rounded-2xl">
+
                             <p className="text-xs text-slate-500">
                                 Status
                             </p>
@@ -99,25 +119,32 @@ const SubscriptionCard = () => {
                                     ? "Active"
                                     : "Inactive"}
                             </p>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 {/* Right Section */}
-                <div className="w-full max-w-sm rounded-2xl border border-blue-100 bg-blue-50 p-5">
+
+                <div className="w-full shrink-0 rounded-xl border border-blue-100 bg-blue-50 p-4 sm:max-w-sm sm:rounded-2xl sm:p-5">
+
                     <div className="flex items-center gap-2">
-                        <CalendarDays className="h-5 w-5 text-blue-600" />
+
+                        <CalendarDays className="h-5 w-5 shrink-0 text-blue-600" />
 
                         <p className="font-semibold text-slate-900">
                             Next Billing
                         </p>
+
                     </div>
 
-                    <p className="mt-3 text-sm text-slate-600">
+                    <p className="mt-3 text-sm leading-6 text-slate-600">
                         Your subscription renews on
                     </p>
 
-                    <p className="mt-1 text-lg font-bold text-slate-900">
+                    <p className="mt-1 text-base font-bold text-slate-900 sm:text-lg">
                         {loading
                             ? "Loading..."
                             : formattedRenewalDate}
@@ -125,16 +152,40 @@ const SubscriptionCard = () => {
 
                     <button
                         type="button"
-                        className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+                        className="
+                            mt-5
+                            flex
+                            min-h-11
+                            w-full
+                            items-center
+                            justify-center
+                            gap-2
+                            rounded-xl
+                            bg-blue-600
+                            px-4
+                            py-3
+                            text-sm
+                            font-semibold
+                            text-white
+                            transition
+                            hover:bg-blue-700
+                            active:scale-[0.99]
+                            sm:mt-6
+                        "
                     >
-                        <CreditCard className="h-4 w-4" />
+                        <CreditCard className="h-4 w-4 shrink-0" />
 
-                        Manage Subscription
+                        <span className="truncate">
+                            Manage Subscription
+                        </span>
 
-                        <ArrowUpRight className="h-4 w-4" />
+                        <ArrowUpRight className="h-4 w-4 shrink-0" />
                     </button>
+
                 </div>
+
             </div>
+
         </section>
     );
 };
