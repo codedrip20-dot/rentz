@@ -15,11 +15,13 @@ import type { RegistrationStep } from "@/types/registration";
 import { registerOwner } from "@/lib/firebase/owner";
 import { useAuth } from "@/context/AuthContext";
 
-
 export default function OwnerRegistration() {
-    const { currentUser } = useAuth()
+    const { currentUser } = useAuth();
+
     const [currentStep, setCurrentStep] =
-        useState<RegistrationStep>("basic-information");
+        useState<RegistrationStep>(
+            "basic-information"
+        );
 
     const [selectedPlan, setSelectedPlan] =
         useState<OwnerPlan | null>(null);
@@ -53,7 +55,9 @@ export default function OwnerRegistration() {
     const handlePrevious = () => {
         switch (currentStep) {
             case "plan-selection":
-                setCurrentStep("basic-information");
+                setCurrentStep(
+                    "basic-information"
+                );
                 break;
 
             case "payment":
@@ -69,75 +73,137 @@ export default function OwnerRegistration() {
         }
     };
 
-    const handlePlanSelection = (plan: OwnerPlan) => {
+    const handlePlanSelection = (
+        plan: OwnerPlan
+    ) => {
         setSelectedPlan(plan);
     };
 
- const handlePayment = async () => {
-    if (!selectedPlan) return;
+    const handlePayment = async () => {
+        if (!selectedPlan) return;
 
-    if (!currentUser) {
-        alert("You must be logged in to continue.");
-        return;
-    }
-
-    setPaymentLoading(true);
-
-    try {
-        const response = await fetch("/api/payment/create", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                planId: selectedPlan.id,
-            }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok || !data.success) {
-            throw new Error(data.message || "Payment failed");
+        if (!currentUser) {
+            alert(
+                "You must be logged in to continue."
+            );
+            return;
         }
 
-        console.log("Payment Successful");
-        console.log("Transaction ID:", data.transactionId);
+        setPaymentLoading(true);
 
-        const registration = await registerOwner({
-            uid: currentUser.uid,
-            planId: selectedPlan.id,
-            transactionId: data.transactionId,
-        });
+        try {
+            const response = await fetch(
+                "/api/payment/create",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+                    },
+                    body: JSON.stringify({
+                        planId:
+                            selectedPlan.id,
+                    }),
+                }
+            );
 
-        if (!registration.success) {
-            throw new Error("Unable to register owner.");
+            const data =
+                await response.json();
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+                throw new Error(
+                    data.message ||
+                        "Payment failed"
+                );
+            }
+
+            console.log(
+                "Payment Successful"
+            );
+
+            console.log(
+                "Transaction ID:",
+                data.transactionId
+            );
+
+            const registration =
+                await registerOwner({
+                    uid: currentUser.uid,
+                    planId: selectedPlan.id,
+                    transactionId:
+                        data.transactionId,
+                });
+
+            if (!registration.success) {
+                throw new Error(
+                    "Unable to register owner."
+                );
+            }
+
+            console.log(
+                "Owner registration completed."
+            );
+
+            setCurrentStep("success");
+        } catch (error) {
+            console.error(
+                "Payment Error:",
+                error
+            );
+
+            alert(
+                error instanceof Error
+                    ? error.message
+                    : "Unable to complete payment."
+            );
+        } finally {
+            setPaymentLoading(false);
         }
-
-        console.log("Owner registration completed.");
-
-        setCurrentStep("success");
-    } catch (error) {
-        console.error("Payment Error:", error);
-
-        alert(
-            error instanceof Error
-                ? error.message
-                : "Unable to complete payment."
-        );
-    } finally {
-        setPaymentLoading(false);
-    }
-};
+    };
 
     return (
-        <div className="mx-auto max-w-7xl space-y-10 px-6 py-10">
+        <div
+            className="
+                mx-auto
+                w-full
+                max-w-7xl
+                space-y-6
+                px-4
+                py-6
+
+                sm:space-y-8
+                sm:px-6
+                sm:py-8
+
+                lg:space-y-10
+                lg:py-10
+            "
+        >
+            {/* ==================================================
+                Registration Header
+            ================================================== */}
+
             <RegistrationHeader />
 
-            <RegistrationStepper
-                currentStep={currentStep}
-            />
+            {/* ==================================================
+                Registration Stepper
+            ================================================== */}
 
-            {currentStep === "basic-information" && (
+            <div className="w-full overflow-x-auto">
+                <RegistrationStepper
+                    currentStep={currentStep}
+                />
+            </div>
+
+            {/* ==================================================
+                Basic Information
+            ================================================== */}
+
+            {currentStep ===
+                "basic-information" && (
                 <BasicInformation>
                     <BasicInformationForm
                         email={email}
@@ -146,18 +212,64 @@ export default function OwnerRegistration() {
                 </BasicInformation>
             )}
 
-            {currentStep === "plan-selection" && (
-                <div className="space-y-8">
+            {/* ==================================================
+                Plan Selection
+            ================================================== */}
+
+            {currentStep ===
+                "plan-selection" && (
+                <div
+                    className="
+                        space-y-6
+
+                        sm:space-y-8
+                    "
+                >
                     <PlanSelection
                         selectedPlan={selectedPlan}
-                        onSelect={handlePlanSelection}
+                        onSelect={
+                            handlePlanSelection
+                        }
                     />
 
-                    <div className="flex justify-between">
+                    {/* Navigation */}
+
+                    <div
+                        className="
+                            flex
+                            flex-col-reverse
+                            gap-3
+
+                            sm:flex-row
+                            sm:items-center
+                            sm:justify-between
+                        "
+                    >
                         <button
                             type="button"
-                            onClick={handlePrevious}
-                            className="rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 transition hover:bg-slate-100"
+                            onClick={
+                                handlePrevious
+                            }
+                            className="
+                                min-h-12
+                                w-full
+                                rounded-xl
+                                border
+                                border-slate-300
+                                px-6
+                                py-3
+                                text-sm
+                                font-medium
+                                text-slate-700
+                                transition
+
+                                active:scale-[0.98]
+
+                                hover:bg-slate-100
+
+                                sm:w-auto
+                                sm:text-base
+                            "
                         >
                             Previous
                         </button>
@@ -165,8 +277,33 @@ export default function OwnerRegistration() {
                         <button
                             type="button"
                             onClick={handleNext}
-                            disabled={!selectedPlan}
-                            className="rounded-xl bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+                            disabled={
+                                !selectedPlan
+                            }
+                            className="
+                                min-h-12
+                                w-full
+                                rounded-xl
+                                bg-blue-600
+                                px-6
+                                py-3
+                                text-sm
+                                font-medium
+                                text-white
+                                transition
+
+                                active:scale-[0.98]
+
+                                hover:bg-blue-700
+
+                                disabled:cursor-not-allowed
+                                disabled:bg-slate-300
+                                disabled:hover:bg-slate-300
+                                disabled:active:scale-100
+
+                                sm:w-auto
+                                sm:text-base
+                            "
                         >
                             Continue
                         </button>
@@ -174,26 +311,72 @@ export default function OwnerRegistration() {
                 </div>
             )}
 
+            {/* ==================================================
+                Payment
+            ================================================== */}
+
             {currentStep === "payment" && (
-                <div className="space-y-8">
+                <div
+                    className="
+                        space-y-6
+
+                        sm:space-y-8
+                    "
+                >
                     <PaymentSection
                         plan={selectedPlan}
                         loading={paymentLoading}
-                        onPayment={handlePayment}
+                        onPayment={
+                            handlePayment
+                        }
                     />
 
-                    <div className="flex justify-start">
+                    {/* Navigation */}
+
+                    <div className="flex">
                         <button
                             type="button"
-                            onClick={handlePrevious}
-                            disabled={paymentLoading}
-                            className="rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 transition hover:bg-slate-100 disabled:opacity-50"
+                            onClick={
+                                handlePrevious
+                            }
+                            disabled={
+                                paymentLoading
+                            }
+                            className="
+                                min-h-12
+                                w-full
+                                rounded-xl
+                                border
+                                border-slate-300
+                                px-6
+                                py-3
+                                text-sm
+                                font-medium
+                                text-slate-700
+                                transition
+
+                                active:scale-[0.98]
+
+                                hover:bg-slate-100
+
+                                disabled:cursor-not-allowed
+                                disabled:opacity-50
+                                disabled:hover:bg-transparent
+                                disabled:active:scale-100
+
+                                sm:w-auto
+                                sm:text-base
+                            "
                         >
                             Previous
                         </button>
                     </div>
                 </div>
             )}
+
+            {/* ==================================================
+                Success
+            ================================================== */}
 
             {currentStep === "success" && (
                 <RegistrationSuccess />

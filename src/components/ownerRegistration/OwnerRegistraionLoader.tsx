@@ -1,31 +1,152 @@
 "use client";
 
-import { Loader2, ShieldCheck } from "lucide-react";
+import {
+    Loader2,
+    ShieldCheck,
+} from "lucide-react";
 
 export default function OwnerRegistrationLoader() {
-  return (
-    <div className="flex min-h-[70vh] items-center justify-center px-6">
-      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-lg">
-        <div className="flex flex-col items-center text-center">
-          <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
-            <ShieldCheck className="h-8 w-8 text-blue-600" />
-          </div>
+    return (
+        <div
+            className="
+                flex
+                min-h-[70vh]
+                w-full
+                items-center
+                justify-center
+                px-4
+                py-6
 
-          <h2 className="text-2xl font-bold text-slate-900">
-            Verifying Your Account
-          </h2>
+                sm:px-6
+                sm:py-8
+            "
+        >
+            <div
+                className="
+                    w-full
+                    max-w-md
+                    rounded-2xl
+                    border
+                    border-slate-200
+                    bg-white
+                    p-5
+                    shadow-lg
 
-          <p className="mt-2 text-sm text-slate-600">
-            Please wait while we verify your account and registration status.
-          </p>
+                    sm:rounded-3xl
+                    sm:p-8
+                "
+            >
+                <div
+                    className="
+                        flex
+                        flex-col
+                        items-center
+                        text-center
+                    "
+                >
+                    {/* ==================================================
+                        Verification Icon
+                    ================================================== */}
 
-          <Loader2 className="mt-8 h-8 w-8 animate-spin text-blue-600" />
+                    <div
+                        className="
+                            mb-5
+                            flex
+                            h-14
+                            w-14
+                            items-center
+                            justify-center
+                            rounded-full
+                            bg-blue-100
 
-          <p className="mt-4 text-sm text-slate-500">
-            This will only take a few seconds...
-          </p>
+                            sm:h-16
+                            sm:w-16
+                        "
+                    >
+                        <ShieldCheck
+                            className="
+                                h-7
+                                w-7
+                                text-blue-600
+
+                                sm:h-8
+                                sm:w-8
+                            "
+                        />
+                    </div>
+
+                    {/* ==================================================
+                        Title
+                    ================================================== */}
+
+                    <h2
+                        className="
+                            text-xl
+                            font-bold
+                            leading-tight
+                            text-slate-900
+
+                            sm:text-2xl
+                        "
+                    >
+                        Verifying Your Account
+                    </h2>
+
+                    {/* ==================================================
+                        Description
+                    ================================================== */}
+
+                    <p
+                        className="
+                            mt-2
+                            max-w-sm
+                            text-sm
+                            leading-6
+                            text-slate-600
+                        "
+                    >
+                        Please wait while we verify
+                        your account and registration
+                        status.
+                    </p>
+
+                    {/* ==================================================
+                        Loader
+                    ================================================== */}
+
+                    <Loader2
+                        className="
+                            mt-7
+                            h-7
+                            w-7
+                            animate-spin
+                            text-blue-600
+
+                            sm:mt-8
+                            sm:h-8
+                            sm:w-8
+                        "
+                    />
+
+                    {/* ==================================================
+                        Status
+                    ================================================== */}
+
+                    <p
+                        className="
+                            mt-3
+                            text-xs
+                            text-slate-500
+
+                            sm:mt-4
+                            sm:text-sm
+                        "
+                    >
+                        This will only take a few
+                        seconds...
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }

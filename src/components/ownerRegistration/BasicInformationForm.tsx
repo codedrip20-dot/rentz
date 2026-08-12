@@ -21,7 +21,11 @@ export default function BasicInformationForm({
 
     return (
         <form
-            className="space-y-8"
+            className="
+                space-y-6
+
+                sm:space-y-8
+            "
             onSubmit={(e) => {
                 e.preventDefault();
 
@@ -30,12 +34,19 @@ export default function BasicInformationForm({
                 onNext();
             }}
         >
-            {/* Full Name */}
+            {/* ==================================================
+                Full Name
+            ================================================== */}
 
             <div className="space-y-2">
                 <label
                     htmlFor="fullName"
-                    className="block text-sm font-medium text-slate-700"
+                    className="
+                        block
+                        text-sm
+                        font-medium
+                        text-slate-700
+                    "
                 >
                     Full Name
                 </label>
@@ -45,17 +56,47 @@ export default function BasicInformationForm({
                     type="text"
                     placeholder="Enter your full name"
                     value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100 text-black"
+                    onChange={(e) =>
+                        setFullName(e.target.value)
+                    }
+                    autoComplete="name"
+                    className="
+                        w-full
+                        rounded-xl
+                        border
+                        border-slate-300
+                        bg-white
+                        px-4
+                        py-3
+                        text-sm
+                        text-black
+                        outline-none
+                        transition
+
+                        placeholder:text-slate-400
+
+                        focus:border-blue-600
+                        focus:ring-2
+                        focus:ring-blue-100
+
+                        sm:text-base
+                    "
                 />
             </div>
 
-            {/* Phone */}
+            {/* ==================================================
+                Phone
+            ================================================== */}
 
             <div className="space-y-2">
                 <label
                     htmlFor="phone"
-                    className="block text-sm font-medium text-slate-700"
+                    className="
+                        block
+                        text-sm
+                        font-medium
+                        text-slate-700
+                    "
                 >
                     Phone Number
                 </label>
@@ -63,19 +104,52 @@ export default function BasicInformationForm({
                 <input
                     id="phone"
                     type="tel"
+                    inputMode="tel"
                     placeholder="Enter your phone number"
                     value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="w-full text-black rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                    onChange={(e) =>
+                        setPhoneNumber(
+                            e.target.value
+                        )
+                    }
+                    autoComplete="tel"
+                    className="
+                        w-full
+                        rounded-xl
+                        border
+                        border-slate-300
+                        bg-white
+                        px-4
+                        py-3
+                        text-sm
+                        text-black
+                        outline-none
+                        transition
+
+                        placeholder:text-slate-400
+
+                        focus:border-blue-600
+                        focus:ring-2
+                        focus:ring-blue-100
+
+                        sm:text-base
+                    "
                 />
             </div>
 
-            {/* Email */}
+            {/* ==================================================
+                Email
+            ================================================== */}
 
             <div className="space-y-2">
                 <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-slate-700"
+                    className="
+                        block
+                        text-sm
+                        font-medium
+                        text-slate-700
+                    "
                 >
                     Email Address
                 </label>
@@ -85,17 +159,70 @@ export default function BasicInformationForm({
                     type="email"
                     value={email}
                     readOnly
-                    className="w-full text-black cursor-not-allowed rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-500"
+                    autoComplete="email"
+                    className="
+                        w-full
+                        cursor-not-allowed
+                        rounded-xl
+                        border
+                        border-slate-200
+                        bg-slate-100
+                        px-4
+                        py-3
+                        text-sm
+                        text-slate-500
+                        outline-none
+
+                        sm:text-base
+                    "
                 />
             </div>
 
-            {/* Continue */}
+            {/* ==================================================
+                Continue
+            ================================================== */}
 
-            <div className="flex justify-end">
+            <div
+                className="
+                    flex
+                    justify-stretch
+                    pt-1
+
+                    sm:justify-end
+                    sm:pt-0
+                "
+            >
                 <button
                     type="submit"
                     disabled={!canContinue}
-                    className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+                    className="
+                        inline-flex
+                        min-h-12
+                        w-full
+                        items-center
+                        justify-center
+                        gap-2
+                        rounded-xl
+                        bg-blue-600
+                        px-6
+                        py-3
+                        text-sm
+                        font-medium
+                        text-white
+                        transition
+
+                        active:scale-[0.98]
+
+                        hover:bg-blue-700
+
+                        disabled:cursor-not-allowed
+                        disabled:bg-slate-300
+                        disabled:hover:bg-slate-300
+                        disabled:active:scale-100
+
+                        sm:w-auto
+                        sm:text-base
+                    "
                 >
                     Continue
 
