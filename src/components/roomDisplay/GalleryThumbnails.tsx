@@ -26,7 +26,7 @@ export default function GalleryThumbnails({
             className="
                 border-t
                 border-white/10
-                bg-white/5
+                bg-white/[0.04]
                 px-3
                 py-3
 
@@ -37,17 +37,22 @@ export default function GalleryThumbnails({
             <div
                 className="
                     flex
-                    gap-2.5
+                    gap-2
                     overflow-x-auto
                     overscroll-x-contain
+                    px-0.5
                     pb-1
                     touch-pan-x
-                    scrollbar-thin
-                    scrollbar-thumb-white/20
-                    scrollbar-track-transparent
+                    snap-x
+                    snap-mandatory
+
+                    [-ms-overflow-style:none]
+                    [scrollbar-width:none]
+                    [&::-webkit-scrollbar]:hidden
 
                     sm:gap-3
-                    sm:pb-2
+                    sm:px-0
+                    sm:pb-0
                 "
             >
                 {images.map((image, index) => {
@@ -80,17 +85,19 @@ export default function GalleryThumbnails({
                             }
                             className={`
                                 relative
-                                h-[68px]
-                                w-[92px]
+                                h-[64px]
+                                w-[86px]
                                 flex-shrink-0
+                                snap-start
                                 overflow-hidden
-                                rounded-xl
+                                rounded-lg
                                 border
                                 transition-all
                                 duration-300
 
-                                xs:h-20
-                                xs:w-28
+                                xs:h-[70px]
+                                xs:w-[96px]
+                                xs:rounded-xl
 
                                 sm:h-24
                                 sm:w-36
@@ -124,7 +131,8 @@ export default function GalleryThumbnails({
                                 }`}
                                 fill
                                 sizes="
-                                    (max-width: 640px) 92px,
+                                    (max-width: 475px) 86px,
+                                    (max-width: 640px) 96px,
                                     144px
                                 "
                                 className="
@@ -139,6 +147,7 @@ export default function GalleryThumbnails({
 
                             <div
                                 className="
+                                    pointer-events-none
                                     absolute
                                     inset-0
                                     bg-gradient-to-t
@@ -152,8 +161,8 @@ export default function GalleryThumbnails({
                             <div
                                 className="
                                     absolute
-                                    bottom-1.5
-                                    right-1.5
+                                    bottom-1
+                                    right-1
                                     flex
                                     h-5
                                     min-w-5
@@ -186,9 +195,11 @@ export default function GalleryThumbnails({
                                         pointer-events-none
                                         absolute
                                         inset-0
-                                        rounded-xl
+                                        rounded-lg
                                         border-2
                                         border-white/40
+
+                                        xs:rounded-xl
 
                                         sm:rounded-2xl
                                     "

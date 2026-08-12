@@ -73,6 +73,7 @@ export default function BookingCard({
             }}
             className="
                 w-full
+                min-w-0
                 overflow-hidden
                 rounded-2xl
                 border
@@ -85,15 +86,16 @@ export default function BookingCard({
             "
         >
             {/* ==================================================
-                Header
+                Price Header
             ================================================== */}
 
             <div
                 className="
                     border-b
                     border-white/10
-                    bg-gradient-to-r
+                    bg-gradient-to-br
                     from-blue-600/15
+                    via-blue-500/5
                     to-cyan-500/10
                     px-4
                     py-5
@@ -105,15 +107,17 @@ export default function BookingCard({
                 <div
                     className="
                         flex
-                        items-start
+                        min-w-0
+                        items-center
                         justify-between
-                        gap-4
+                        gap-3
                     "
                 >
                     <div className="min-w-0">
                         <p
                             className="
                                 text-xs
+                                font-medium
                                 text-blue-300
 
                                 sm:text-sm
@@ -126,12 +130,12 @@ export default function BookingCard({
                             className="
                                 mt-1.5
                                 flex
-                                flex-wrap
+                                min-w-0
                                 items-baseline
-                                gap-1.5
+                                gap-1
 
                                 sm:mt-2
-                                sm:gap-2
+                                sm:gap-1.5
                             "
                         >
                             <IndianRupee
@@ -147,10 +151,12 @@ export default function BookingCard({
 
                             <h2
                                 className="
-                                    break-all
+                                    min-w-0
+                                    truncate
                                     text-3xl
                                     font-black
                                     leading-none
+                                    tracking-tight
                                     text-white
 
                                     sm:text-4xl
@@ -161,8 +167,9 @@ export default function BookingCard({
 
                             <span
                                 className="
+                                    shrink-0
                                     text-xs
-                                    text-white/60
+                                    text-white/50
 
                                     sm:text-sm
                                 "
@@ -172,16 +179,31 @@ export default function BookingCard({
                         </div>
                     </div>
 
-                    <BadgeCheck
-                        size={28}
+                    <div
                         className="
+                            flex
+                            h-9
+                            w-9
                             shrink-0
-                            text-emerald-400
+                            items-center
+                            justify-center
+                            rounded-full
+                            bg-emerald-500/10
 
-                            sm:h-[34px]
-                            sm:w-[34px]
+                            sm:h-11
+                            sm:w-11
                         "
-                    />
+                    >
+                        <BadgeCheck
+                            size={22}
+                            className="
+                                text-emerald-400
+
+                                sm:h-7
+                                sm:w-7
+                            "
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -199,32 +221,56 @@ export default function BookingCard({
                 "
             >
                 {/* ==================================================
-                    Pricing Details
+                    Pricing Breakdown
                 ================================================== */}
 
-                <div className="space-y-4">
+                <div
+                    className="
+                        rounded-xl
+                        border
+                        border-white/10
+                        bg-white/[0.025]
+                        px-4
+                        py-1
+
+                        sm:rounded-2xl
+                        sm:px-5
+                    "
+                >
                     {/* Monthly Rent */}
 
                     <div
                         className="
                             flex
-                            items-start
+                            min-w-0
+                            items-center
                             justify-between
                             gap-4
-                            text-sm
-                            text-white/70
+                            py-3
+
+                            sm:py-3.5
                         "
                     >
-                        <span>
+                        <span
+                            className="
+                                min-w-0
+                                text-sm
+                                text-white/65
+
+                                sm:text-base
+                            "
+                        >
                             Monthly Rent
                         </span>
 
                         <span
                             className="
                                 shrink-0
-                                text-right
+                                text-sm
                                 font-semibold
                                 text-white
+
+                                sm:text-base
                             "
                         >
                             ₹{formatCurrency(rent)}
@@ -236,23 +282,37 @@ export default function BookingCard({
                     <div
                         className="
                             flex
-                            items-start
+                            min-w-0
+                            items-center
                             justify-between
                             gap-4
-                            text-sm
-                            text-white/70
+                            border-t
+                            border-white/5
+                            py-3
+
+                            sm:py-3.5
                         "
                     >
-                        <span>
+                        <span
+                            className="
+                                min-w-0
+                                text-sm
+                                text-white/65
+
+                                sm:text-base
+                            "
+                        >
                             Security Deposit
                         </span>
 
                         <span
                             className="
                                 shrink-0
-                                text-right
+                                text-sm
                                 font-semibold
                                 text-white
+
+                                sm:text-base
                             "
                         >
                             ₹
@@ -267,23 +327,37 @@ export default function BookingCard({
                     <div
                         className="
                             flex
-                            items-start
+                            min-w-0
+                            items-center
                             justify-between
                             gap-4
-                            text-sm
-                            text-white/70
+                            border-t
+                            border-white/5
+                            py-3
+
+                            sm:py-3.5
                         "
                     >
-                        <span>
+                        <span
+                            className="
+                                min-w-0
+                                text-sm
+                                text-white/65
+
+                                sm:text-base
+                            "
+                        >
                             Maintenance
                         </span>
 
                         <span
                             className="
                                 shrink-0
-                                text-right
+                                text-sm
                                 font-semibold
                                 text-white
+
+                                sm:text-base
                             "
                         >
                             ₹
@@ -300,35 +374,56 @@ export default function BookingCard({
 
                 <div
                     className="
-                        border-t
-                        border-white/10
-                        pt-4
+                        rounded-xl
+                        border
+                        border-blue-500/20
+                        bg-blue-500/10
+                        px-4
+                        py-4
 
-                        sm:pt-5
+                        sm:rounded-2xl
+                        sm:px-5
+                        sm:py-5
                     "
                 >
                     <div
                         className="
                             flex
+                            min-w-0
                             items-center
                             justify-between
                             gap-4
                         "
                     >
+                        <div className="min-w-0">
+                            <p
+                                className="
+                                    text-sm
+                                    font-semibold
+                                    text-white
+
+                                    sm:text-base
+                                "
+                            >
+                                Total Upfront
+                            </p>
+
+                            <p
+                                className="
+                                    mt-0.5
+                                    text-[11px]
+                                    text-white/50
+
+                                    sm:text-xs
+                                "
+                            >
+                                Before move-in
+                            </p>
+                        </div>
+
                         <span
                             className="
-                                text-base
-                                font-semibold
-                                text-white
-
-                                sm:text-lg
-                            "
-                        >
-                            Total Upfront
-                        </span>
-
-                        <span
-                            className="
+                                shrink-0
                                 text-xl
                                 font-black
                                 text-blue-400
@@ -336,7 +431,10 @@ export default function BookingCard({
                                 sm:text-2xl
                             "
                         >
-                            ₹{formatCurrency(totalUpfront)}
+                            ₹
+                            {formatCurrency(
+                                totalUpfront
+                            )}
                         </span>
                     </div>
                 </div>
@@ -360,24 +458,37 @@ export default function BookingCard({
                     <div
                         className="
                             flex
-                            items-start
+                            min-w-0
+                            items-center
                             gap-3
                         "
                     >
-                        <CalendarDays
-                            size={20}
+                        <div
                             className="
-                                mt-0.5
+                                flex
+                                h-9
+                                w-9
                                 shrink-0
-                                text-blue-400
+                                items-center
+                                justify-center
+                                rounded-xl
+                                bg-blue-500/10
+
+                                sm:h-10
+                                sm:w-10
                             "
-                        />
+                        >
+                            <CalendarDays
+                                size={19}
+                                className="text-blue-400"
+                            />
+                        </div>
 
                         <div className="min-w-0">
                             <p
                                 className="
                                     text-xs
-                                    text-white/60
+                                    text-white/55
 
                                     sm:text-sm
                                 "
@@ -387,10 +498,10 @@ export default function BookingCard({
 
                             <p
                                 className={`
-                                    mt-1
+                                    mt-0.5
+                                    truncate
                                     text-sm
                                     font-semibold
-                                    leading-5
 
                                     sm:text-base
 
@@ -415,42 +526,50 @@ export default function BookingCard({
 
                 <div
                     className="
-                        flex
-                        items-start
-                        gap-3
                         rounded-xl
                         border
                         border-blue-500/20
                         bg-blue-500/10
-                        p-3.5
+                        p-4
 
                         sm:rounded-2xl
-                        sm:p-4
+                        sm:p-5
                     "
                 >
-                    <ShieldCheck
-                        size={21}
+                    <div
                         className="
-                            mt-0.5
-                            shrink-0
-                            text-blue-400
-                        "
-                    />
-
-                    <p
-                        className="
-                            text-xs
-                            leading-6
-                            text-white/75
-
-                            sm:text-sm
+                            flex
+                            min-w-0
+                            items-start
+                            gap-3
                         "
                     >
-                        Every booking is securely
-                        managed through Rentz.
-                        Pricing is transparent and
-                        verified before confirmation.
-                    </p>
+                        <ShieldCheck
+                            size={21}
+                            className="
+                                mt-0.5
+                                shrink-0
+                                text-blue-400
+                            "
+                        />
+
+                        <p
+                            className="
+                                min-w-0
+                                text-xs
+                                leading-6
+                                text-white/70
+
+                                sm:text-sm
+                                sm:leading-7
+                            "
+                        >
+                            Every booking is securely
+                            managed through Rentz.
+                            Pricing is transparent and
+                            verified before confirmation.
+                        </p>
+                    </div>
                 </div>
 
                 {/* ==================================================
@@ -463,10 +582,11 @@ export default function BookingCard({
                         border
                         border-white/10
                         bg-white/5
-                        p-4
+                        px-4
+                        py-2
 
                         sm:rounded-2xl
-                        sm:p-5
+                        sm:px-5
                     "
                 >
                     {/* Billing Cycle */}
@@ -474,25 +594,29 @@ export default function BookingCard({
                     <div
                         className="
                             flex
-                            items-start
+                            min-w-0
+                            items-center
                             justify-between
                             gap-4
-                            text-xs
+                            py-2.5
 
-                            sm:text-sm
+                            sm:py-3
                         "
                     >
-                        <span className="text-white/60">
+                        <span className="text-xs text-white/55 sm:text-sm">
                             Billing Cycle
                         </span>
 
                         <span
                             className="
                                 max-w-[55%]
+                                truncate
                                 text-right
+                                text-xs
                                 font-medium
-                                break-words
                                 text-white
+
+                                sm:text-sm
                             "
                         >
                             {formattedBillingType}
@@ -503,26 +627,32 @@ export default function BookingCard({
 
                     <div
                         className="
-                            mt-4
                             flex
-                            items-start
+                            min-w-0
+                            items-center
                             justify-between
                             gap-4
-                            text-xs
+                            border-t
+                            border-white/5
+                            py-2.5
 
-                            sm:text-sm
+                            sm:py-3
                         "
                     >
-                        <span className="text-white/60">
+                        <span className="text-xs text-white/55 sm:text-sm">
                             Electricity
                         </span>
 
                         <span
                             className="
                                 max-w-[55%]
+                                truncate
                                 text-right
+                                text-xs
                                 font-medium
                                 text-white
+
+                                sm:text-sm
                             "
                         >
                             {electricityIncluded
@@ -535,26 +665,32 @@ export default function BookingCard({
 
                     <div
                         className="
-                            mt-4
                             flex
-                            items-start
+                            min-w-0
+                            items-center
                             justify-between
                             gap-4
-                            text-xs
+                            border-t
+                            border-white/5
+                            py-2.5
 
-                            sm:text-sm
+                            sm:py-3
                         "
                     >
-                        <span className="text-white/60">
+                        <span className="text-xs text-white/55 sm:text-sm">
                             Water
                         </span>
 
                         <span
                             className="
                                 max-w-[55%]
+                                truncate
                                 text-right
+                                text-xs
                                 font-medium
                                 text-white
+
+                                sm:text-sm
                             "
                         >
                             {waterIncluded
@@ -610,10 +746,10 @@ export default function BookingCard({
                                     active:scale-[0.98]
                                   `
                                 : `
+                                    pointer-events-none
                                     cursor-not-allowed
                                     bg-slate-700
                                     text-slate-400
-                                    pointer-events-none
                                   `
                         }
                     `}
@@ -642,16 +778,15 @@ export default function BookingCard({
                         text-center
                         text-[11px]
                         leading-5
-                        text-white/50
+                        text-white/45
 
                         sm:text-xs
                         sm:leading-6
                     "
                 >
-                    You wont be charged until
-                    your booking request is
-                    reviewed and confirmed by the
-                    property owner.
+                    You wont be charged until your
+                    booking request is reviewed and
+                    confirmed by the property owner.
                 </p>
             </div>
         </motion.aside>

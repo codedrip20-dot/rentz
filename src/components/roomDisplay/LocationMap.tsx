@@ -142,26 +142,21 @@ export default function LocationMap({
                 </div>
 
                 {/* ==================================================
-                    Map & Address
+                    Map
                 ================================================== */}
 
                 <div
                     className="
-                        grid
-                        gap-4
-                        p-4
+                        px-4
+                        pt-4
 
-                        sm:gap-6
-                        sm:p-6
+                        sm:px-6
+                        sm:pt-6
 
-                        lg:grid-cols-[1.4fr_0.8fr]
-                        lg:p-8
+                        lg:px-8
+                        lg:pt-8
                     "
                 >
-                    {/* ==================================================
-                        Map
-                    ================================================== */}
-
                     <div
                         className="
                             min-w-0
@@ -191,24 +186,38 @@ export default function LocationMap({
                             referrerPolicy="no-referrer-when-downgrade"
                         />
                     </div>
+                </div>
 
-                    {/* ==================================================
-                        Address Card
-                    ================================================== */}
+                {/* ==================================================
+                    Address
+                ================================================== */}
 
+                <div
+                    className="
+                        px-4
+                        py-5
+
+                        sm:px-6
+                        sm:py-6
+
+                        lg:px-8
+                        lg:py-8
+                    "
+                >
                     <div
                         className="
-                            min-w-0
                             rounded-2xl
                             border
                             border-white/10
-                            bg-white/[0.04]
+                            bg-white/[0.035]
                             p-4
 
                             sm:rounded-3xl
                             sm:p-6
                         "
                     >
+                        {/* Address Header */}
+
                         <div
                             className="
                                 flex
@@ -216,16 +225,23 @@ export default function LocationMap({
                                 gap-3
                             "
                         >
-                            <Navigation
-                                size={20}
+                            <div
                                 className="
+                                    flex
+                                    h-9
+                                    w-9
                                     shrink-0
-                                    text-blue-400
-
-                                    sm:h-[22px]
-                                    sm:w-[22px]
+                                    items-center
+                                    justify-center
+                                    rounded-xl
+                                    bg-blue-500/10
                                 "
-                            />
+                            >
+                                <Navigation
+                                    size={18}
+                                    className="text-blue-400"
+                                />
+                            </div>
 
                             <h3
                                 className="
@@ -240,31 +256,46 @@ export default function LocationMap({
                             </h3>
                         </div>
 
+                        {/* Address Fields */}
+
                         <div
                             className="
                                 mt-5
-                                space-y-4
+                                grid
+                                grid-cols-2
+                                gap-x-5
+                                gap-y-5
 
                                 sm:mt-6
-                                sm:space-y-5
+                                sm:gap-x-8
+                                sm:gap-y-6
                             "
                         >
                             {/* Street */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     Street
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {address.street}
@@ -274,19 +305,28 @@ export default function LocationMap({
                             {/* Area */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     Area
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {address.area}
@@ -296,19 +336,28 @@ export default function LocationMap({
                             {/* City */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     City
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {address.city}
@@ -318,19 +367,28 @@ export default function LocationMap({
                             {/* State */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     State
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {address.state}
@@ -340,74 +398,83 @@ export default function LocationMap({
                             {/* Pincode */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     Pincode
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {address.pincode}
                                 </p>
                             </div>
-
-                            {/* Google Maps */}
-
-                            <a
-                                href={googleMapsUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="
-                                    mt-2
-                                    inline-flex
-                                    min-h-12
-                                    w-full
-                                    items-center
-                                    justify-center
-                                    gap-2
-                                    rounded-xl
-                                    bg-gradient-to-r
-                                    from-blue-600
-                                    to-cyan-500
-                                    px-4
-                                    py-3
-                                    text-sm
-                                    font-semibold
-                                    text-white
-                                    transition-all
-                                    duration-300
-
-                                    active:scale-[0.98]
-
-                                    sm:mt-6
-                                    sm:rounded-2xl
-                                    sm:px-5
-                                    sm:py-4
-                                    sm:text-base
-
-                                    sm:hover:scale-[1.02]
-                                    sm:hover:shadow-xl
-                                    sm:hover:shadow-blue-500/30
-                                "
-                            >
-                                <ExternalLink
-                                    size={18}
-                                    className="shrink-0"
-                                />
-
-                                <span>
-                                    Open in Google Maps
-                                </span>
-                            </a>
                         </div>
+
+                        {/* Google Maps */}
+
+                        <a
+                            href={googleMapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="
+                                mt-6
+                                inline-flex
+                                min-h-12
+                                w-full
+                                items-center
+                                justify-center
+                                gap-2
+                                rounded-xl
+                                bg-gradient-to-r
+                                from-blue-600
+                                to-cyan-500
+                                px-4
+                                py-3
+                                text-sm
+                                font-semibold
+                                text-white
+                                transition-all
+                                duration-300
+
+                                active:scale-[0.98]
+
+                                sm:mt-7
+                                sm:rounded-2xl
+                                sm:px-5
+                                sm:py-4
+                                sm:text-base
+
+                                sm:hover:scale-[1.02]
+                                sm:hover:shadow-xl
+                                sm:hover:shadow-blue-500/30
+                            "
+                        >
+                            <ExternalLink
+                                size={18}
+                                className="shrink-0"
+                            />
+
+                            <span>
+                                Open in Google Maps
+                            </span>
+                        </a>
                     </div>
                 </div>
 
@@ -569,9 +636,7 @@ export default function LocationMap({
                         </div>
                     </div>
 
-                    {/* ==================================================
-                        Directions
-                    ================================================== */}
+                    {/* Directions */}
 
                     {property.location.directions && (
                         <div

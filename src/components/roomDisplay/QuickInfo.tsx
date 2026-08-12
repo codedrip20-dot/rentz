@@ -225,10 +225,9 @@ export default function QuickInfo({
             <div
                 className="
                     grid
-                    grid-cols-2
+                    grid-cols-[repeat(2,minmax(0,1fr))]
                     gap-2.5
 
-                    sm:grid-cols-2
                     sm:gap-4
 
                     xl:grid-cols-3
@@ -256,9 +255,10 @@ export default function QuickInfo({
                                     index * 0.05,
                                 duration: 0.35,
                             }}
-                            className="
+                            className={`
                                 group
                                 min-w-0
+                                overflow-hidden
                                 rounded-xl
                                 border
                                 border-white/10
@@ -275,14 +275,23 @@ export default function QuickInfo({
                                 sm:hover:bg-white/[0.06]
                                 sm:hover:shadow-xl
                                 sm:hover:shadow-blue-500/10
-                            "
+
+                                ${
+                                    item.title ===
+                                    "Location"
+                                        ? "col-span-2 xl:col-span-1"
+                                        : ""
+                                }
+                            `}
                         >
                             <div
                                 className="
                                     flex
-                                    items-start
+                                    min-w-0
+                                    items-center
                                     gap-2.5
 
+                                    sm:items-start
                                     sm:gap-4
                                 "
                             >
@@ -319,6 +328,7 @@ export default function QuickInfo({
                                 >
                                     <p
                                         className="
+                                            truncate
                                             text-[11px]
                                             font-medium
                                             leading-4
@@ -341,6 +351,7 @@ export default function QuickInfo({
 
                                             sm:mt-2
                                             sm:text-base
+                                            sm:leading-6
                                         "
                                     >
                                         {item.value}

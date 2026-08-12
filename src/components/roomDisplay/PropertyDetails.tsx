@@ -206,14 +206,12 @@ export default function PropertyDetails({
                 <div
                     className="
                         grid
-                        grid-cols-2
+                        grid-cols-[repeat(2,minmax(0,1fr))]
                         gap-2.5
                         p-3
 
                         sm:gap-4
                         sm:p-6
-
-                        md:grid-cols-2
 
                         lg:gap-5
                         lg:p-8
@@ -246,11 +244,13 @@ export default function PropertyDetails({
                                 className="
                                     group
                                     min-w-0
+                                    overflow-hidden
                                     rounded-xl
                                     border
                                     border-white/10
                                     bg-white/5
-                                    p-3
+                                    px-3
+                                    py-3.5
                                     transition-all
                                     duration-300
 
@@ -261,59 +261,77 @@ export default function PropertyDetails({
                                     sm:hover:bg-white/10
                                 "
                             >
-                                {/* Icon */}
-
                                 <div
                                     className="
-                                        mb-3
                                         flex
-                                        h-9
-                                        w-9
+                                        min-w-0
                                         items-center
-                                        justify-center
-                                        rounded-xl
-                                        bg-blue-500/10
+                                        gap-2.5
 
-                                        sm:mb-4
-                                        sm:h-12
-                                        sm:w-12
-                                        sm:rounded-xl
+                                        sm:items-start
+                                        sm:gap-4
                                     "
                                 >
-                                    {item.icon}
+                                    {/* Icon */}
+
+                                    <div
+                                        className="
+                                            flex
+                                            h-9
+                                            w-9
+                                            shrink-0
+                                            items-center
+                                            justify-center
+                                            rounded-xl
+                                            bg-blue-500/10
+
+                                            sm:h-12
+                                            sm:w-12
+                                            sm:rounded-xl
+                                        "
+                                    >
+                                        {item.icon}
+                                    </div>
+
+                                    {/* Content */}
+
+                                    <div
+                                        className="
+                                            min-w-0
+                                            flex-1
+                                        "
+                                    >
+                                        <p
+                                            className="
+                                                truncate
+                                                text-[11px]
+                                                leading-4
+                                                text-white/60
+
+                                                sm:text-sm
+                                            "
+                                        >
+                                            {item.title}
+                                        </p>
+
+                                        <h3
+                                            className="
+                                                mt-1
+                                                break-words
+                                                text-xs
+                                                font-bold
+                                                leading-5
+                                                text-white
+
+                                                sm:mt-2
+                                                sm:text-lg
+                                                sm:leading-6
+                                            "
+                                        >
+                                            {item.value}
+                                        </h3>
+                                    </div>
                                 </div>
-
-                                {/* Label */}
-
-                                <p
-                                    className="
-                                        text-[11px]
-                                        leading-4
-                                        text-white/60
-
-                                        sm:text-sm
-                                    "
-                                >
-                                    {item.title}
-                                </p>
-
-                                {/* Value */}
-
-                                <h3
-                                    className="
-                                        mt-1.5
-                                        break-words
-                                        text-sm
-                                        font-bold
-                                        leading-5
-                                        text-white
-
-                                        sm:mt-2
-                                        sm:text-lg
-                                    "
-                                >
-                                    {item.value}
-                                </h3>
                             </motion.div>
                         )
                     )}
@@ -394,8 +412,8 @@ export default function PropertyDetails({
 
                             <div
                                 className="
-                                    mt-4
-                                    space-y-2.5
+                                    mt-3
+                                    space-y-2
                                     text-sm
                                     leading-6
                                     text-white/80
@@ -463,8 +481,8 @@ export default function PropertyDetails({
 
                             <div
                                 className="
-                                    mt-4
-                                    space-y-2.5
+                                    mt-3
+                                    space-y-2
                                     text-sm
                                     leading-6
                                     text-white/80
@@ -534,8 +552,8 @@ export default function PropertyDetails({
 
                             <div
                                 className="
-                                    mt-4
-                                    space-y-2.5
+                                    mt-3
+                                    space-y-2
                                     text-sm
                                     leading-6
                                     text-white/80

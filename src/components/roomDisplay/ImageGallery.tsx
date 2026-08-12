@@ -72,7 +72,8 @@ export default function ImageGallery({
                     rounded-2xl
                     border
                     border-white/10
-                    bg-white/5
+                    bg-white/[0.04]
+                    shadow-xl
                     backdrop-blur-xl
 
                     sm:rounded-3xl
@@ -81,25 +82,25 @@ export default function ImageGallery({
                 <div
                     className="
                         flex
-                        min-h-[240px]
+                        min-h-[220px]
                         items-center
                         justify-center
                         px-5
                         py-10
 
-                        sm:min-h-[360px]
+                        sm:min-h-[340px]
                         sm:px-6
 
-                        lg:min-h-[560px]
+                        lg:min-h-[520px]
                     "
                 >
-                    <div className="text-center">
+                    <div className="max-w-sm text-center">
                         <ImageIcon
                             className="
                                 mx-auto
                                 mb-4
-                                h-11
-                                w-11
+                                h-10
+                                w-10
                                 text-blue-300
 
                                 sm:h-16
@@ -111,6 +112,7 @@ export default function ImageGallery({
                             className="
                                 text-lg
                                 font-bold
+                                leading-tight
                                 text-white
 
                                 sm:text-2xl
@@ -121,14 +123,13 @@ export default function ImageGallery({
 
                         <p
                             className="
-                                mx-auto
                                 mt-2
-                                max-w-sm
                                 text-xs
-                                leading-relaxed
-                                text-white/70
+                                leading-6
+                                text-white/60
 
                                 sm:text-base
+                                sm:leading-7
                             "
                         >
                             Images will appear once
@@ -141,14 +142,19 @@ export default function ImageGallery({
     }
 
     return (
-        <section className="w-full">
+        <section
+            className="
+                w-full
+            "
+        >
             <div
                 className="
+                    w-full
                     overflow-hidden
                     rounded-2xl
                     border
                     border-white/10
-                    bg-white/5
+                    bg-white/[0.04]
                     shadow-2xl
                     backdrop-blur-xl
 

@@ -154,8 +154,8 @@ export default function OwnerCard({
                                     sm:text-sm
                                 "
                             >
-                                Verified owner profile
-                                managed by Rentz.
+                                Verified owner profile managed
+                                by Rentz.
                             </p>
                         </div>
                     </div>
@@ -181,11 +181,10 @@ export default function OwnerCard({
                     <div
                         className="
                             flex
-                            flex-col
-                            gap-5
+                            min-w-0
+                            items-center
+                            gap-3
 
-                            sm:flex-row
-                            sm:items-center
                             sm:gap-6
                         "
                     >
@@ -194,12 +193,11 @@ export default function OwnerCard({
                         <div
                             className="
                                 flex
-                                h-20
-                                w-20
+                                h-16
+                                w-16
                                 shrink-0
                                 items-center
                                 justify-center
-                                self-start
                                 rounded-2xl
                                 border
                                 border-blue-500/20
@@ -207,12 +205,11 @@ export default function OwnerCard({
 
                                 sm:h-24
                                 sm:w-24
-                                sm:self-auto
                                 sm:rounded-3xl
                             "
                         >
                             <User
-                                size={36}
+                                size={30}
                                 className="
                                     text-white/60
 
@@ -222,21 +219,22 @@ export default function OwnerCard({
                             />
                         </div>
 
+                        {/* Account Title */}
+
                         <div className="min-w-0 flex-1">
                             <div
                                 className="
                                     flex
                                     flex-wrap
                                     items-center
-                                    gap-2.5
+                                    gap-2
 
                                     sm:gap-3
                                 "
                             >
                                 <h3
                                     className="
-                                        break-words
-                                        text-xl
+                                        text-lg
                                         font-bold
                                         leading-tight
                                         text-white
@@ -251,14 +249,14 @@ export default function OwnerCard({
                                     className="
                                         inline-flex
                                         items-center
-                                        gap-1.5
+                                        gap-1
                                         rounded-full
                                         border
                                         border-emerald-500/30
                                         bg-emerald-500/15
-                                        px-2.5
+                                        px-2
                                         py-1
-                                        text-xs
+                                        text-[11px]
                                         font-semibold
                                         text-emerald-300
 
@@ -268,416 +266,447 @@ export default function OwnerCard({
                                     "
                                 >
                                     <BadgeCheck
-                                        size={15}
+                                        size={14}
                                     />
 
                                     Verified
                                 </span>
                             </div>
 
-                            {/* ==================================================
-                                Account Details
-                            ================================================== */}
-
-                            <div
+                            <p
                                 className="
-                                    mt-5
-                                    grid
-                                    grid-cols-1
-                                    gap-4
+                                    mt-1
+                                    text-xs
+                                    text-white/50
 
-                                    sm:grid-cols-2
+                                    sm:text-sm
                                 "
                             >
-                                {/* Role */}
+                                Registered Rentz owner
+                            </p>
+                        </div>
+                    </div>
 
-                                <div
-                                    className="
-                                        flex
-                                        items-start
-                                        gap-3
-                                    "
-                                >
-                                    <Crown
-                                        size={18}
-                                        className="
-                                            mt-0.5
-                                            shrink-0
-                                            text-blue-400
-                                        "
-                                    />
+                    {/* ==================================================
+                        Account Details
+                    ================================================== */}
 
-                                    <div className="min-w-0">
-                                        <p className="text-xs text-white/60">
-                                            Role
-                                        </p>
+                    <div
+                        className="
+                            mt-5
+                            grid
+                            grid-cols-2
+                            gap-x-4
+                            gap-y-4
 
-                                        <p
-                                            className="
-                                                mt-0.5
-                                                break-words
-                                                text-sm
-                                                font-semibold
-                                                capitalize
-                                                text-white
+                            sm:mt-6
+                            sm:grid-cols-2
+                            sm:gap-5
+                        "
+                    >
+                        {/* Role */}
 
-                                                sm:text-base
-                                            "
-                                        >
-                                            {profile.role}
-                                        </p>
-                                    </div>
-                                </div>
+                        <div
+                            className="
+                                flex
+                                min-w-0
+                                items-start
+                                gap-2.5
 
-                                {/* Subscription */}
-
-                                <div
-                                    className="
-                                        flex
-                                        items-start
-                                        gap-3
-                                    "
-                                >
-                                    <ShieldCheck
-                                        size={18}
-                                        className="
-                                            mt-0.5
-                                            shrink-0
-                                            text-blue-400
-                                        "
-                                    />
-
-                                    <div className="min-w-0">
-                                        <p className="text-xs text-white/60">
-                                            Subscription
-                                        </p>
-
-                                        <p
-                                            className={`
-                                                mt-0.5
-                                                text-sm
-                                                font-semibold
-
-                                                sm:text-base
-
-                                                ${
-                                                    subscription.active
-                                                        ? "text-emerald-400"
-                                                        : "text-red-400"
-                                                }
-                                            `}
-                                        >
-                                            {subscription.active
-                                                ? "Active"
-                                                : "Inactive"}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Property Limit */}
-
-                                <div
-                                    className="
-                                        flex
-                                        items-start
-                                        gap-3
-                                    "
-                                >
-                                    <ShieldCheck
-                                        size={18}
-                                        className="
-                                            mt-0.5
-                                            shrink-0
-                                            text-blue-400
-                                        "
-                                    />
-
-                                    <div className="min-w-0">
-                                        <p className="text-xs text-white/60">
-                                            Property Limit
-                                        </p>
-
-                                        <p
-                                            className="
-                                                mt-0.5
-                                                break-words
-                                                text-sm
-                                                font-semibold
-                                                text-white
-
-                                                sm:text-base
-                                            "
-                                        >
-                                            {
-                                                subscription.propertyLimit
-                                            }{" "}
-                                            Properties
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Payment Status */}
-
-                                <div
-                                    className="
-                                        flex
-                                        items-start
-                                        gap-3
-                                    "
-                                >
-                                    <BadgeCheck
-                                        size={18}
-                                        className="
-                                            mt-0.5
-                                            shrink-0
-                                            text-blue-400
-                                        "
-                                    />
-
-                                    <div className="min-w-0">
-                                        <p className="text-xs text-white/60">
-                                            Payment Status
-                                        </p>
-
-                                        <p
-                                            className="
-                                                mt-0.5
-                                                break-words
-                                                text-sm
-                                                font-semibold
-                                                capitalize
-                                                text-white
-
-                                                sm:text-base
-                                            "
-                                        >
-                                            {payment.status}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* ==================================================
-                                Owner Verification
-                            ================================================== */}
-
-                            <div
+                                sm:gap-3
+                            "
+                        >
+                            <Crown
+                                size={18}
                                 className="
-                                    mt-6
-                                    rounded-xl
-                                    border
-                                    border-blue-500/20
-                                    bg-blue-500/10
-                                    p-4
-
-                                    sm:mt-8
-                                    sm:rounded-2xl
-                                    sm:p-5
+                                    mt-0.5
+                                    shrink-0
+                                    text-blue-400
                                 "
-                            >
-                                <h4
-                                    className="
-                                        text-base
-                                        font-bold
-                                        text-white
+                            />
 
-                                        sm:text-lg
-                                    "
-                                >
-                                    Owner Verification
-                                </h4>
+                            <div className="min-w-0">
+                                <p className="text-[11px] text-white/60 sm:text-xs">
+                                    Role
+                                </p>
 
                                 <p
                                     className="
-                                        mt-2
+                                        mt-0.5
+                                        truncate
                                         text-sm
-                                        leading-6
-                                        text-white/70
+                                        font-semibold
+                                        capitalize
+                                        text-white
 
                                         sm:text-base
-                                        sm:leading-7
                                     "
                                 >
-                                    This owner has completed
-                                    the Rentz owner registration
-                                    process. Subscription and
-                                    payment information are
-                                    verified through the
-                                    platform.
+                                    {profile.role}
                                 </p>
                             </div>
+                        </div>
 
-                            {/* ==================================================
-                                Account Timeline
-                            ================================================== */}
+                        {/* Subscription */}
 
-                            <div
+                        <div
+                            className="
+                                flex
+                                min-w-0
+                                items-start
+                                gap-2.5
+
+                                sm:gap-3
+                            "
+                        >
+                            <ShieldCheck
+                                size={18}
                                 className="
-                                    mt-6
-                                    grid
-                                    grid-cols-1
-                                    gap-3
-
-                                    sm:mt-8
-                                    sm:grid-cols-2
-                                    sm:gap-4
+                                    mt-0.5
+                                    shrink-0
+                                    text-blue-400
                                 "
-                            >
-                                {/* Created */}
+                            />
 
-                                <div
-                                    className="
-                                        rounded-xl
-                                        border
-                                        border-white/10
-                                        bg-white/5
-                                        p-4
+                            <div className="min-w-0">
+                                <p className="text-[11px] text-white/60 sm:text-xs">
+                                    Subscription
+                                </p>
 
-                                        sm:rounded-2xl
-                                        sm:p-5
-                                    "
+                                <p
+                                    className={`
+                                        mt-0.5
+                                        truncate
+                                        text-sm
+                                        font-semibold
+
+                                        sm:text-base
+
+                                        ${
+                                            subscription.active
+                                                ? "text-emerald-400"
+                                                : "text-red-400"
+                                        }
+                                    `}
                                 >
-                                    <div
-                                        className="
-                                            flex
-                                            items-center
-                                            gap-3
-                                        "
-                                    >
-                                        <CalendarDays
-                                            size={20}
-                                            className="
-                                                shrink-0
-                                                text-blue-400
-                                            "
-                                        />
-
-                                        <div className="min-w-0">
-                                            <p className="text-xs text-white/60">
-                                                Created At
-                                            </p>
-
-                                            <p
-                                                className="
-                                                    mt-1
-                                                    text-sm
-                                                    font-semibold
-                                                    text-white
-
-                                                    sm:text-base
-                                                "
-                                            >
-                                                {createdAt}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Updated */}
-
-                                <div
-                                    className="
-                                        rounded-xl
-                                        border
-                                        border-white/10
-                                        bg-white/5
-                                        p-4
-
-                                        sm:rounded-2xl
-                                        sm:p-5
-                                    "
-                                >
-                                    <div
-                                        className="
-                                            flex
-                                            items-center
-                                            gap-3
-                                        "
-                                    >
-                                        <CalendarDays
-                                            size={20}
-                                            className="
-                                                shrink-0
-                                                text-blue-400
-                                            "
-                                        />
-
-                                        <div className="min-w-0">
-                                            <p className="text-xs text-white/60">
-                                                Last Updated
-                                            </p>
-
-                                            <p
-                                                className="
-                                                    mt-1
-                                                    text-sm
-                                                    font-semibold
-                                                    text-white
-
-                                                    sm:text-base
-                                                "
-                                            >
-                                                {updatedAt}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                    {subscription.active
+                                        ? "Active"
+                                        : "Inactive"}
+                                </p>
                             </div>
+                        </div>
 
-                            {/* ==================================================
-                                Trust Message
-                            ================================================== */}
+                        {/* Property Limit */}
 
-                            <div
+                        <div
+                            className="
+                                flex
+                                min-w-0
+                                items-start
+                                gap-2.5
+
+                                sm:gap-3
+                            "
+                        >
+                            <ShieldCheck
+                                size={18}
                                 className="
-                                    mt-6
-                                    rounded-xl
-                                    border
-                                    border-emerald-500/20
-                                    bg-emerald-500/10
-                                    p-4
-
-                                    sm:mt-8
-                                    sm:rounded-2xl
-                                    sm:p-5
+                                    mt-0.5
+                                    shrink-0
+                                    text-blue-400
                                 "
-                            >
-                                <div
+                            />
+
+                            <div className="min-w-0">
+                                <p className="text-[11px] text-white/60 sm:text-xs">
+                                    Property Limit
+                                </p>
+
+                                <p
                                     className="
-                                        flex
-                                        items-start
-                                        gap-3
+                                        mt-0.5
+                                        truncate
+                                        text-sm
+                                        font-semibold
+                                        text-white
+
+                                        sm:text-base
                                     "
                                 >
-                                    <BadgeCheck
-                                        size={21}
-                                        className="
-                                            mt-0.5
-                                            shrink-0
-                                            text-emerald-400
-                                        "
-                                    />
+                                    {
+                                        subscription.propertyLimit
+                                    }{" "}
+                                    Properties
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Payment Status */}
+
+                        <div
+                            className="
+                                flex
+                                min-w-0
+                                items-start
+                                gap-2.5
+
+                                sm:gap-3
+                            "
+                        >
+                            <BadgeCheck
+                                size={18}
+                                className="
+                                    mt-0.5
+                                    shrink-0
+                                    text-blue-400
+                                "
+                            />
+
+                            <div className="min-w-0">
+                                <p className="text-[11px] text-white/60 sm:text-xs">
+                                    Payment Status
+                                </p>
+
+                                <p
+                                    className="
+                                        mt-0.5
+                                        truncate
+                                        text-sm
+                                        font-semibold
+                                        capitalize
+                                        text-white
+
+                                        sm:text-base
+                                    "
+                                >
+                                    {payment.status}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ==================================================
+                        Owner Verification
+                    ================================================== */}
+
+                    <div
+                        className="
+                            mt-5
+                            rounded-xl
+                            border
+                            border-blue-500/20
+                            bg-blue-500/10
+                            p-4
+
+                            sm:mt-8
+                            sm:rounded-2xl
+                            sm:p-5
+                        "
+                    >
+                        <h4
+                            className="
+                                text-base
+                                font-bold
+                                text-white
+
+                                sm:text-lg
+                            "
+                        >
+                            Owner Verification
+                        </h4>
+
+                        <p
+                            className="
+                                mt-2
+                                text-sm
+                                leading-6
+                                text-white/70
+
+                                sm:text-base
+                                sm:leading-7
+                            "
+                        >
+                            This owner has completed the
+                            Rentz owner registration process.
+                            Subscription and payment information
+                            are verified through the platform.
+                        </p>
+                    </div>
+
+                    {/* ==================================================
+                        Account Timeline
+                    ================================================== */}
+
+                    <div
+                        className="
+                            mt-4
+                            grid
+                            grid-cols-2
+                            gap-2.5
+
+                            sm:mt-8
+                            sm:gap-4
+                        "
+                    >
+                        {/* Created */}
+
+                        <div
+                            className="
+                                min-w-0
+                                rounded-xl
+                                border
+                                border-white/10
+                                bg-white/5
+                                p-3
+
+                                sm:rounded-2xl
+                                sm:p-5
+                            "
+                        >
+                            <div
+                                className="
+                                    flex
+                                    items-center
+                                    gap-2.5
+
+                                    sm:gap-3
+                                "
+                            >
+                                <CalendarDays
+                                    size={19}
+                                    className="
+                                        shrink-0
+                                        text-blue-400
+                                    "
+                                />
+
+                                <div className="min-w-0">
+                                    <p className="text-[11px] text-white/60 sm:text-xs">
+                                        Created At
+                                    </p>
 
                                     <p
                                         className="
-                                            text-sm
-                                            leading-6
-                                            text-white/80
+                                            mt-1
+                                            truncate
+                                            text-xs
+                                            font-semibold
+                                            text-white
 
                                             sm:text-base
-                                            sm:leading-7
                                         "
                                     >
-                                        This owner is registered
-                                        on Rentz and has an active
-                                        owner account. Subscription
-                                        details and ownership
-                                        information are securely
-                                        managed through the
-                                        platform.
+                                        {createdAt}
                                     </p>
                                 </div>
                             </div>
+                        </div>
+
+                        {/* Updated */}
+
+                        <div
+                            className="
+                                min-w-0
+                                rounded-xl
+                                border
+                                border-white/10
+                                bg-white/5
+                                p-3
+
+                                sm:rounded-2xl
+                                sm:p-5
+                            "
+                        >
+                            <div
+                                className="
+                                    flex
+                                    items-center
+                                    gap-2.5
+
+                                    sm:gap-3
+                                "
+                            >
+                                <CalendarDays
+                                    size={19}
+                                    className="
+                                        shrink-0
+                                        text-blue-400
+                                    "
+                                />
+
+                                <div className="min-w-0">
+                                    <p className="text-[11px] text-white/60 sm:text-xs">
+                                        Last Updated
+                                    </p>
+
+                                    <p
+                                        className="
+                                            mt-1
+                                            truncate
+                                            text-xs
+                                            font-semibold
+                                            text-white
+
+                                            sm:text-base
+                                        "
+                                    >
+                                        {updatedAt}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ==================================================
+                        Trust Message
+                    ================================================== */}
+
+                    <div
+                        className="
+                            mt-4
+                            rounded-xl
+                            border
+                            border-emerald-500/20
+                            bg-emerald-500/10
+                            p-4
+
+                            sm:mt-8
+                            sm:rounded-2xl
+                            sm:p-5
+                        "
+                    >
+                        <div
+                            className="
+                                flex
+                                items-start
+                                gap-3
+                            "
+                        >
+                            <BadgeCheck
+                                size={20}
+                                className="
+                                    mt-0.5
+                                    shrink-0
+                                    text-emerald-400
+                                "
+                            />
+
+                            <p
+                                className="
+                                    text-sm
+                                    leading-6
+                                    text-white/80
+
+                                    sm:text-base
+                                    sm:leading-7
+                                "
+                            >
+                                This owner is registered on
+                                Rentz and has an active owner
+                                account. Subscription details and
+                                ownership information are securely
+                                managed through the platform.
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -269,13 +269,12 @@ export default function Amenities({
                 <div
                     className="
                         grid
-                        grid-cols-2
+                        grid-cols-[repeat(2,minmax(0,1fr))]
                         gap-2.5
                         p-3
 
                         sm:gap-4
                         sm:p-6
-                        sm:grid-cols-2
 
                         lg:grid-cols-3
                         lg:p-8
@@ -320,11 +319,13 @@ export default function Amenities({
                                         className="
                                             group
                                             min-w-0
+                                            overflow-hidden
                                             rounded-xl
                                             border
                                             border-white/10
-                                            bg-white/5
-                                            p-3
+                                            bg-white/[0.045]
+                                            px-3
+                                            py-3.5
                                             transition-all
                                             duration-300
 
@@ -338,15 +339,17 @@ export default function Amenities({
                                             sm:hover:shadow-blue-500/10
                                         "
                                     >
-                                        {/* Card Top */}
+                                        {/* Amenity Row */}
 
                                         <div
                                             className="
                                                 flex
-                                                items-start
-                                                justify-between
-                                                gap-2
+                                                min-w-0
+                                                items-center
+                                                gap-2.5
 
+                                                sm:items-start
+                                                sm:justify-between
                                                 sm:gap-4
                                             "
                                         >
@@ -378,6 +381,26 @@ export default function Amenities({
                                                 {item.icon}
                                             </div>
 
+                                            {/* Label */}
+
+                                            <h3
+                                                className="
+                                                    min-w-0
+                                                    flex-1
+                                                    break-words
+                                                    text-xs
+                                                    font-bold
+                                                    leading-5
+                                                    text-white
+
+                                                    sm:mt-1
+                                                    sm:text-base
+                                                    sm:leading-6
+                                                "
+                                            >
+                                                {item.label}
+                                            </h3>
+
                                             {/* Check */}
 
                                             <CheckCircle2
@@ -393,49 +416,27 @@ export default function Amenities({
                                             />
                                         </div>
 
-                                        {/* Card Content */}
+                                        {/* Desktop Description */}
 
-                                        <div
+                                        <p
                                             className="
                                                 mt-3
+                                                hidden
+                                                text-xs
+                                                leading-5
+                                                text-white/60
 
-                                                sm:mt-5
+                                                sm:block
+                                                sm:mt-4
+                                                sm:text-sm
+                                                sm:leading-6
                                             "
                                         >
-                                            <h3
-                                                className="
-                                                    break-words
-                                                    text-xs
-                                                    font-bold
-                                                    leading-5
-                                                    text-white
-
-                                                    sm:text-base
-                                                "
-                                            >
-                                                {item.label}
-                                            </h3>
-
-                                            <p
-                                                className="
-                                                    mt-1.5
-                                                    hidden
-                                                    text-xs
-                                                    leading-5
-                                                    text-white/60
-
-                                                    sm:mt-2
-                                                    sm:block
-                                                    sm:text-sm
-                                                    sm:leading-6
-                                                "
-                                            >
-                                                Included with
-                                                this room at
-                                                no additional
-                                                cost.
-                                            </p>
-                                        </div>
+                                            Included with
+                                            this room at
+                                            no additional
+                                            cost.
+                                        </p>
                                     </motion.div>
                                 );
                             }

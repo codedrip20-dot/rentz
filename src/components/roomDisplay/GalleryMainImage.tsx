@@ -2,10 +2,7 @@
 
 import Image from "next/image";
 
-import {
-    AnimatePresence,
-    motion,
-} from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import {
     ChevronLeft,
@@ -38,11 +35,12 @@ export default function GalleryMainImage({
         <div
             className="
                 relative
-                h-[240px]
+                h-[280px]
                 w-full
                 overflow-hidden
+                bg-slate-950
 
-                xs:h-[260px]
+                xs:h-[300px]
                 sm:h-[380px]
                 md:h-[460px]
                 lg:h-[560px]
@@ -55,7 +53,7 @@ export default function GalleryMainImage({
                     key={image.url}
                     initial={{
                         opacity: 0,
-                        scale: 1.05,
+                        scale: 1.035,
                     }}
                     animate={{
                         opacity: 1,
@@ -63,18 +61,17 @@ export default function GalleryMainImage({
                     }}
                     exit={{
                         opacity: 0,
-                        scale: 0.98,
+                        scale: 0.985,
                     }}
                     transition={{
                         duration: 0.35,
+                        ease: "easeOut",
                     }}
                     className="absolute inset-0"
                 >
                     <Image
                         src={image.url}
-                        alt={`Room Image ${
-                            activeIndex + 1
-                        }`}
+                        alt={`Room Image ${activeIndex + 1}`}
                         fill
                         priority={activeIndex === 0}
                         sizes="
@@ -87,21 +84,22 @@ export default function GalleryMainImage({
                 </motion.div>
             </AnimatePresence>
 
-            {/* Bottom Gradient */}
+            {/* Subtle Bottom Gradient */}
 
             <div
                 className="
                     pointer-events-none
                     absolute
-                    inset-0
+                    inset-x-0
+                    bottom-0
+                    h-24
                     bg-gradient-to-t
-                    from-black/75
-                    via-black/20
+                    from-black/55
                     to-transparent
                 "
             />
 
-            {/* Top Gradient */}
+            {/* Subtle Top Gradient */}
 
             <div
                 className="
@@ -109,12 +107,12 @@ export default function GalleryMainImage({
                     absolute
                     inset-x-0
                     top-0
-                    h-24
+                    h-20
                     bg-gradient-to-b
-                    from-black/45
+                    from-black/30
                     to-transparent
 
-                    sm:h-32
+                    sm:h-28
                 "
             />
 
@@ -125,25 +123,30 @@ export default function GalleryMainImage({
                     absolute
                     bottom-3
                     left-3
+                    z-10
                     rounded-full
                     border
-                    border-white/20
-                    bg-black/45
+                    border-white/15
+                    bg-black/35
                     px-2.5
                     py-1
                     text-[11px]
-                    font-semibold
+                    font-medium
                     text-white
-                    backdrop-blur-xl
+                    backdrop-blur-md
 
                     sm:bottom-5
                     sm:left-5
-                    sm:px-4
-                    sm:py-2
+                    sm:px-3.5
+                    sm:py-1.5
                     sm:text-sm
                 "
             >
-                {activeIndex + 1} / {totalImages}
+                {activeIndex + 1}
+                <span className="mx-1 text-white/50">
+                    /
+                </span>
+                {totalImages}
             </div>
 
             {/* Expand */}
@@ -155,6 +158,7 @@ export default function GalleryMainImage({
                     absolute
                     right-3
                     top-3
+                    z-10
                     flex
                     h-9
                     w-9
@@ -162,15 +166,14 @@ export default function GalleryMainImage({
                     justify-center
                     rounded-full
                     border
-                    border-white/20
-                    bg-black/45
+                    border-white/15
+                    bg-black/30
                     text-white
-                    backdrop-blur-xl
+                    backdrop-blur-md
                     transition-all
-                    duration-300
+                    duration-200
 
                     active:scale-95
-                    hover:scale-105
                     hover:bg-blue-600/70
 
                     sm:right-5
@@ -180,8 +183,9 @@ export default function GalleryMainImage({
                 "
             >
                 <Expand
-                    size={17}
-                    className="sm:h-[19px] sm:w-[19px]"
+                    size={16}
+                    strokeWidth={2}
+                    className="sm:h-[18px] sm:w-[18px]"
                 />
             </button>
 
@@ -194,8 +198,9 @@ export default function GalleryMainImage({
                     aria-label="Previous image"
                     className="
                         absolute
-                        left-2
+                        left-3
                         top-1/2
+                        z-10
                         flex
                         h-9
                         w-9
@@ -204,15 +209,14 @@ export default function GalleryMainImage({
                         justify-center
                         rounded-full
                         border
-                        border-white/20
-                        bg-black/45
+                        border-white/15
+                        bg-black/30
                         text-white
-                        backdrop-blur-xl
+                        backdrop-blur-md
                         transition-all
-                        duration-300
+                        duration-200
 
                         active:scale-95
-                        hover:scale-110
                         hover:bg-blue-600/70
 
                         sm:left-5
@@ -221,7 +225,8 @@ export default function GalleryMainImage({
                     "
                 >
                     <ChevronLeft
-                        size={20}
+                        size={19}
+                        strokeWidth={2}
                         className="sm:h-[22px] sm:w-[22px]"
                     />
                 </button>
@@ -236,8 +241,9 @@ export default function GalleryMainImage({
                     aria-label="Next image"
                     className="
                         absolute
-                        right-2
+                        right-3
                         top-1/2
+                        z-10
                         flex
                         h-9
                         w-9
@@ -246,15 +252,14 @@ export default function GalleryMainImage({
                         justify-center
                         rounded-full
                         border
-                        border-white/20
-                        bg-black/45
+                        border-white/15
+                        bg-black/30
                         text-white
-                        backdrop-blur-xl
+                        backdrop-blur-md
                         transition-all
-                        duration-300
+                        duration-200
 
                         active:scale-95
-                        hover:scale-110
                         hover:bg-blue-600/70
 
                         sm:right-5
@@ -263,7 +268,8 @@ export default function GalleryMainImage({
                     "
                 >
                     <ChevronRight
-                        size={20}
+                        size={19}
+                        strokeWidth={2}
                         className="sm:h-[22px] sm:w-[22px]"
                     />
                 </button>

@@ -97,7 +97,12 @@ export default function Description({
                         >
                             <AlignLeft
                                 size={20}
-                                className="text-blue-400 sm:h-6 sm:w-6"
+                                className="
+                                    text-blue-400
+
+                                    sm:h-6
+                                    sm:w-6
+                                "
                             />
                         </div>
 
@@ -138,14 +143,8 @@ export default function Description({
 
                 <div
                     className="
-                        grid
-                        gap-4
-                        p-4
-
-                        sm:gap-6
-                        sm:p-6
-
-                        lg:p-8
+                        divide-y
+                        divide-white/10
                     "
                 >
                     {/* ==================================================
@@ -154,31 +153,40 @@ export default function Description({
 
                     <div
                         className="
-                            min-w-0
-                            rounded-xl
-                            border
-                            border-white/10
-                            bg-white/[0.04]
-                            p-4
+                            px-4
+                            py-5
 
-                            sm:rounded-2xl
-                            sm:p-6
+                            sm:px-6
+                            sm:py-6
+
+                            lg:px-8
+                            lg:py-7
                         "
                     >
                         <div
                             className="
-                                mb-3
                                 flex
                                 items-center
                                 gap-3
-
-                                sm:mb-4
                             "
                         >
-                            <Home
-                                size={20}
-                                className="shrink-0 text-blue-400 sm:h-[22px] sm:w-[22px]"
-                            />
+                            <div
+                                className="
+                                    flex
+                                    h-9
+                                    w-9
+                                    shrink-0
+                                    items-center
+                                    justify-center
+                                    rounded-xl
+                                    bg-blue-500/10
+                                "
+                            >
+                                <Home
+                                    size={19}
+                                    className="text-blue-400"
+                                />
+                            </div>
 
                             <h3
                                 className="
@@ -196,12 +204,14 @@ export default function Description({
 
                         <p
                             className="
+                                mt-4
                                 break-words
                                 whitespace-pre-line
                                 text-sm
                                 leading-7
                                 text-white/75
 
+                                sm:mt-5
                                 sm:text-base
                                 sm:leading-8
                             "
@@ -216,31 +226,40 @@ export default function Description({
 
                     <div
                         className="
-                            min-w-0
-                            rounded-xl
-                            border
-                            border-white/10
-                            bg-white/[0.04]
-                            p-4
+                            px-4
+                            py-5
 
-                            sm:rounded-2xl
-                            sm:p-6
+                            sm:px-6
+                            sm:py-6
+
+                            lg:px-8
+                            lg:py-7
                         "
                     >
                         <div
                             className="
-                                mb-4
                                 flex
                                 items-center
                                 gap-3
-
-                                sm:mb-5
                             "
                         >
-                            <Building2
-                                size={20}
-                                className="shrink-0 text-blue-400 sm:h-[22px] sm:w-[22px]"
-                            />
+                            <div
+                                className="
+                                    flex
+                                    h-9
+                                    w-9
+                                    shrink-0
+                                    items-center
+                                    justify-center
+                                    rounded-xl
+                                    bg-blue-500/10
+                                "
+                            >
+                                <Building2
+                                    size={19}
+                                    className="text-blue-400"
+                                />
+                            </div>
 
                             <h3
                                 className="
@@ -258,32 +277,44 @@ export default function Description({
 
                         <div
                             className="
+                                mt-5
                                 grid
-                                grid-cols-1
-                                gap-x-6
-                                gap-y-4
+                                grid-cols-2
+                                gap-x-5
+                                gap-y-5
 
-                                sm:grid-cols-2
-                                sm:gap-y-5
+                                sm:mt-6
+                                sm:grid-cols-3
+                                sm:gap-x-8
+                                sm:gap-y-6
                             "
                         >
                             {/* Property Type */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     Property Type
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
                                         font-semibold
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {property.propertyType}
@@ -293,20 +324,29 @@ export default function Description({
                             {/* Furnishing */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     Furnishing
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
                                         font-semibold
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {details.furnishing}
@@ -316,20 +356,29 @@ export default function Description({
                             {/* Built-up Area */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     Built-up Area
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
                                         font-semibold
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {details.builtUpArea} sq ft
@@ -339,20 +388,29 @@ export default function Description({
                             {/* Carpet Area */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     Carpet Area
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
                                         font-semibold
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {details.carpetArea} sq ft
@@ -362,20 +420,29 @@ export default function Description({
                             {/* Floor */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     Floor
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
                                         font-semibold
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {details.floorNumber} /{" "}
@@ -386,20 +453,29 @@ export default function Description({
                             {/* Facing */}
 
                             <div className="min-w-0">
-                                <p className="text-xs text-white/50 sm:text-sm">
+                                <p
+                                    className="
+                                        text-xs
+                                        font-medium
+                                        text-white/45
+
+                                        sm:text-sm
+                                    "
+                                >
                                     Facing
                                 </p>
 
                                 <p
                                     className="
-                                        mt-1
+                                        mt-1.5
                                         break-words
                                         text-sm
                                         font-semibold
-                                        leading-6
+                                        leading-5
                                         text-white
 
                                         sm:text-base
+                                        sm:leading-6
                                     "
                                 >
                                     {details.facing}
@@ -414,34 +490,44 @@ export default function Description({
 
                     <div
                         className="
-                            min-w-0
-                            rounded-xl
-                            border
-                            border-blue-500/20
                             bg-gradient-to-br
-                            from-blue-500/10
-                            via-slate-900/40
-                            to-cyan-500/10
-                            p-4
+                            from-blue-500/[0.07]
+                            via-transparent
+                            to-cyan-500/[0.05]
+                            px-4
+                            py-5
 
-                            sm:rounded-2xl
-                            sm:p-6
+                            sm:px-6
+                            sm:py-6
+
+                            lg:px-8
+                            lg:py-7
                         "
                     >
                         <div
                             className="
-                                mb-4
                                 flex
                                 items-center
                                 gap-3
-
-                                sm:mb-5
                             "
                         >
-                            <Sparkles
-                                size={20}
-                                className="shrink-0 text-blue-400 sm:h-[22px] sm:w-[22px]"
-                            />
+                            <div
+                                className="
+                                    flex
+                                    h-9
+                                    w-9
+                                    shrink-0
+                                    items-center
+                                    justify-center
+                                    rounded-xl
+                                    bg-blue-500/10
+                                "
+                            >
+                                <Sparkles
+                                    size={19}
+                                    className="text-blue-400"
+                                />
+                            </div>
 
                             <h3
                                 className="
@@ -453,16 +539,18 @@ export default function Description({
                                     sm:text-xl
                                 "
                             >
-                                Why Youll Love This Place
+                                Why You'll Love This Place
                             </h3>
                         </div>
 
                         <div
                             className="
+                                mt-5
                                 grid
                                 grid-cols-1
                                 gap-3
 
+                                sm:mt-6
                                 sm:grid-cols-2
                                 sm:gap-4
                             "
@@ -475,11 +563,22 @@ export default function Description({
                                     rounded-xl
                                     border
                                     border-white/10
-                                    bg-white/5
+                                    bg-white/[0.045]
                                     p-4
+
+                                    sm:rounded-2xl
+                                    sm:p-5
                                 "
                             >
-                                <h4 className="text-sm font-semibold text-white sm:text-base">
+                                <h4
+                                    className="
+                                        text-sm
+                                        font-semibold
+                                        text-white
+
+                                        sm:text-base
+                                    "
+                                >
                                     Comfortable Living
                                 </h4>
 
@@ -488,7 +587,7 @@ export default function Description({
                                         mt-2
                                         text-xs
                                         leading-6
-                                        text-white/70
+                                        text-white/65
 
                                         sm:text-sm
                                         sm:leading-7
@@ -509,11 +608,22 @@ export default function Description({
                                     rounded-xl
                                     border
                                     border-white/10
-                                    bg-white/5
+                                    bg-white/[0.045]
                                     p-4
+
+                                    sm:rounded-2xl
+                                    sm:p-5
                                 "
                             >
-                                <h4 className="text-sm font-semibold text-white sm:text-base">
+                                <h4
+                                    className="
+                                        text-sm
+                                        font-semibold
+                                        text-white
+
+                                        sm:text-base
+                                    "
+                                >
                                     Great Location
                                 </h4>
 
@@ -523,7 +633,7 @@ export default function Description({
                                         break-words
                                         text-xs
                                         leading-6
-                                        text-white/70
+                                        text-white/65
 
                                         sm:text-sm
                                         sm:leading-7
@@ -549,11 +659,22 @@ export default function Description({
                                     rounded-xl
                                     border
                                     border-white/10
-                                    bg-white/5
+                                    bg-white/[0.045]
                                     p-4
+
+                                    sm:rounded-2xl
+                                    sm:p-5
                                 "
                             >
-                                <h4 className="text-sm font-semibold text-white sm:text-base">
+                                <h4
+                                    className="
+                                        text-sm
+                                        font-semibold
+                                        text-white
+
+                                        sm:text-base
+                                    "
+                                >
                                     Flexible Move In
                                 </h4>
 
@@ -562,7 +683,7 @@ export default function Description({
                                         mt-2
                                         text-xs
                                         leading-6
-                                        text-white/70
+                                        text-white/65
 
                                         sm:text-sm
                                         sm:leading-7
@@ -586,11 +707,22 @@ export default function Description({
                                     rounded-xl
                                     border
                                     border-white/10
-                                    bg-white/5
+                                    bg-white/[0.045]
                                     p-4
+
+                                    sm:rounded-2xl
+                                    sm:p-5
                                 "
                             >
-                                <h4 className="text-sm font-semibold text-white sm:text-base">
+                                <h4
+                                    className="
+                                        text-sm
+                                        font-semibold
+                                        text-white
+
+                                        sm:text-base
+                                    "
+                                >
                                     Premium Rentz Listing
                                 </h4>
 
@@ -599,7 +731,7 @@ export default function Description({
                                         mt-2
                                         text-xs
                                         leading-6
-                                        text-white/70
+                                        text-white/65
 
                                         sm:text-sm
                                         sm:leading-7
