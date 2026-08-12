@@ -21,15 +21,15 @@ const ErrorState = ({
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.45 }}
-            className="relative mx-auto flex w-full max-w-4xl overflow-hidden rounded-[32px] border border-white/10 bg-white/5 px-8 py-20 backdrop-blur-2xl"
+            className="relative mx-auto flex w-full max-w-4xl overflow-hidden rounded-[24px] border border-white/10 bg-white/5 px-4 py-12 backdrop-blur-2xl sm:rounded-[28px] sm:px-6 sm:py-16 md:rounded-[32px] md:px-8 md:py-20"
         >
             {/* Background */}
 
             <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-slate-950/40 to-blue-500/10" />
 
-            <div className="absolute -left-20 top-0 h-72 w-72 rounded-full bg-red-500/15 blur-[120px]" />
+            <div className="absolute -left-20 top-0 h-56 w-56 rounded-full bg-red-500/15 blur-[100px] sm:h-72 sm:w-72 sm:blur-[120px]" />
 
-            <div className="absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-blue-500/15 blur-[120px]" />
+            <div className="absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-blue-500/15 blur-[100px] sm:h-72 sm:w-72 sm:blur-[120px]" />
 
             {/* Content */}
 
@@ -45,30 +45,30 @@ const ErrorState = ({
                         duration: 2,
                         repeat: Infinity,
                     }}
-                    className="relative mb-8"
+                    className="relative mb-6 sm:mb-8"
                 >
                     <div className="absolute inset-0 rounded-full bg-red-500/30 blur-3xl" />
 
-                    <div className="relative flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-red-500 to-rose-600 shadow-[0_0_60px_rgba(239,68,68,0.45)]">
-                        <AlertTriangle className="h-14 w-14 text-white" />
+                    <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-rose-600 shadow-[0_0_60px_rgba(239,68,68,0.45)] sm:h-24 sm:w-24 sm:rounded-3xl md:h-28 md:w-28">
+                        <AlertTriangle className="h-10 w-10 text-white sm:h-12 sm:w-12 md:h-14 md:w-14" />
                     </div>
                 </motion.div>
 
                 {/* Badge */}
 
-                <div className="mb-6 rounded-full border border-red-400/20 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-300">
+                <div className="mb-5 rounded-full border border-red-400/20 bg-red-500/10 px-3.5 py-1.5 text-xs font-semibold text-red-300 sm:mb-6 sm:px-4 sm:py-2 sm:text-sm">
                     System Error
                 </div>
 
                 {/* Heading */}
 
-                <h2 className="text-5xl font-black tracking-tight text-white">
+                <h2 className="max-w-full text-3xl font-black tracking-tight text-white sm:text-4xl md:text-5xl">
                     Something Went Wrong
                 </h2>
 
                 {/* Description */}
 
-                <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+                <p className="mt-4 max-w-2xl break-words text-sm leading-6 text-slate-300 sm:mt-5 sm:text-base sm:leading-7 md:mt-6 md:text-lg md:leading-8">
                     {message}
                 </p>
 
@@ -82,18 +82,18 @@ const ErrorState = ({
                         scale: 0.97,
                     }}
                     onClick={onRetry}
-                    className="group mt-12 inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 px-8 py-4 font-semibold text-white shadow-[0_0_45px_rgba(37,99,235,0.45)] transition-all hover:shadow-[0_0_65px_rgba(37,99,235,0.65)]"
+                    className="group mt-8 inline-flex min-h-12 w-full max-w-xs items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 px-6 py-3.5 font-semibold text-white shadow-[0_0_45px_rgba(37,99,235,0.45)] transition-all hover:shadow-[0_0_65px_rgba(37,99,235,0.65)] sm:mt-10 sm:w-auto sm:max-w-none sm:gap-3 sm:px-8 sm:py-4 md:mt-12"
                 >
-                    <RefreshCw className="h-5 w-5 transition-transform duration-300 group-hover:rotate-180" />
+                    <RefreshCw className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:rotate-180" />
 
-                    Try Again
+                    <span>Try Again</span>
 
-                    <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </motion.button>
 
                 {/* Tips */}
 
-                <div className="mt-14 grid w-full max-w-3xl grid-cols-1 gap-4 md:grid-cols-3">
+                <div className="mt-10 grid w-full max-w-3xl grid-cols-1 gap-3 sm:mt-12 sm:gap-4 md:mt-14 md:grid-cols-3">
 
                     {[
                         "Check your internet connection",
@@ -102,9 +102,9 @@ const ErrorState = ({
                     ].map((tip) => (
                         <div
                             key={tip}
-                            className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl"
+                            className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl sm:p-5"
                         >
-                            <p className="text-sm font-medium text-slate-300">
+                            <p className="text-sm font-medium leading-5 text-slate-300">
                                 {tip}
                             </p>
                         </div>
