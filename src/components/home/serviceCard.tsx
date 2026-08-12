@@ -27,87 +27,136 @@ const ServiceCard = ({
         ease: "easeOut",
       }}
       className="
-      group
-      relative
-      overflow-hidden
-      rounded-3xl
-      border
-      border-white/10
-      bg-white/8
-      backdrop-blur-xl
-      transition-all
-      duration-500
-      hover:border-cyan-400/40
-      hover:bg-white/12
-      hover:shadow-[0_20px_60px_rgba(56,189,248,.20)]
+        group
+        relative
+        w-full
+        min-w-0
+        overflow-hidden
+        rounded-2xl
+        border
+        border-white/10
+        bg-white/[0.08]
+        backdrop-blur-xl
+        transition-all
+        duration-500
+
+        sm:rounded-3xl
+
+        sm:hover:border-cyan-400/40
+        sm:hover:bg-white/[0.12]
+        sm:hover:shadow-[0_20px_60px_rgba(56,189,248,.20)]
       "
     >
       {/* Animated Border */}
 
       <div
         className="
-        absolute
-        inset-0
-        rounded-3xl
-        bg-gradient-to-br
-        from-cyan-400/0
-        via-blue-400/0
-        to-cyan-400/0
-        opacity-0
-        transition-all
-        duration-500
-        group-hover:opacity-100
-      "
+          pointer-events-none
+          absolute
+          inset-0
+          rounded-2xl
+          bg-gradient-to-br
+          from-cyan-400/0
+          via-blue-400/0
+          to-cyan-400/0
+          opacity-0
+          transition-opacity
+          duration-500
+
+          sm:rounded-3xl
+          sm:group-hover:opacity-100
+        "
       />
 
       {/* Glow */}
 
       <div
         className="
-        absolute
-        -top-20
-        -right-20
-        h-40
-        w-40
-        rounded-full
-        bg-cyan-400/10
-        blur-3xl
-        opacity-0
-        transition
-        duration-500
-        group-hover:opacity-100
-      "
+          pointer-events-none
+          absolute
+          -right-16
+          -top-16
+          h-32
+          w-32
+          rounded-full
+          bg-cyan-400/10
+          opacity-0
+          blur-3xl
+          transition-opacity
+          duration-500
+
+          sm:-right-20
+          sm:-top-20
+          sm:h-40
+          sm:w-40
+          sm:group-hover:opacity-100
+        "
       />
 
       {/* Small Decoration */}
 
-      <div className="absolute right-5 top-5 h-2 w-2 rounded-full bg-cyan-300/70" />
+      <div
+        className="
+          pointer-events-none
+          absolute
+          right-4
+          top-4
+          h-1.5
+          w-1.5
+          rounded-full
+          bg-cyan-300/70
 
-      <div className="relative flex h-full flex-col p-5 md:p-7">
+          sm:right-5
+          sm:top-5
+          sm:h-2
+          sm:w-2
+        "
+      />
+
+      <div
+        className="
+          relative
+          flex
+          h-full
+          min-w-0
+          flex-col
+          p-4
+
+          sm:p-6
+          md:p-7
+        "
+      >
         {/* Icon */}
 
         <div
           className="
-          mb-6
-          flex
-          h-14
-          w-14
-          items-center
-          justify-center
-          rounded-2xl
-          border
-          border-cyan-400/20
-          bg-gradient-to-br
-          from-cyan-400/15
-          to-blue-500/15
-          text-cyan-300
-          shadow-lg
-          transition-all
-          duration-300
-          group-hover:scale-110
-          group-hover:rotate-3
-          group-hover:border-cyan-400/50
-        "
+            mb-5
+            flex
+            h-12
+            w-12
+            shrink-0
+            items-center
+            justify-center
+            rounded-xl
+            border
+            border-cyan-400/20
+            bg-gradient-to-br
+            from-cyan-400/15
+            to-blue-500/15
+            text-cyan-300
+            shadow-lg
+            transition-all
+            duration-300
+
+            sm:mb-6
+            sm:h-14
+            sm:w-14
+            sm:rounded-2xl
+
+            sm:group-hover:scale-110
+            sm:group-hover:rotate-3
+            sm:group-hover:border-cyan-400/50
+          "
         >
           {icon}
         </div>
@@ -116,13 +165,18 @@ const ServiceCard = ({
 
         <h3
           className="
-          text-lg
-          font-bold
-          text-white
-          transition-colors
-          duration-300
-          group-hover:text-cyan-300
-        "
+            min-w-0
+            break-words
+            text-base
+            font-bold
+            leading-6
+            text-white
+            transition-colors
+            duration-300
+
+            sm:text-lg
+            sm:group-hover:text-cyan-300
+          "
         >
           {title}
         </h3>
@@ -131,12 +185,17 @@ const ServiceCard = ({
 
         <p
           className="
-          mt-3
-          flex-1
-          text-sm
-          leading-7
-          text-slate-300
-        "
+            mt-2
+            min-w-0
+            flex-1
+            break-words
+            text-sm
+            leading-6
+            text-slate-300
+
+            sm:mt-3
+            sm:leading-7
+          "
         >
           {description}
         </p>
@@ -144,24 +203,42 @@ const ServiceCard = ({
         {/* CTA */}
 
         <button
+          type="button"
           className="
-          mt-7
-          inline-flex
-          items-center
-          gap-2
-          font-semibold
-          text-cyan-300
-          transition-all
-          duration-300
-          group-hover:gap-4
-          group-hover:text-white
-        "
+            mt-5
+            inline-flex
+            min-h-10
+            w-fit
+            max-w-full
+            items-center
+            gap-2
+            break-words
+            text-left
+            text-sm
+            font-semibold
+            text-cyan-300
+            transition-all
+            duration-300
+
+            sm:mt-7
+            sm:text-base
+            sm:group-hover:gap-4
+            sm:group-hover:text-white
+          "
         >
-          {buttonText}
+          <span className="break-words">
+            {buttonText}
+          </span>
 
           <ArrowRight
             size={18}
-            className="transition-transform duration-300 group-hover:translate-x-1"
+            className="
+              shrink-0
+              transition-transform
+              duration-300
+
+              sm:group-hover:translate-x-1
+            "
           />
         </button>
       </div>
