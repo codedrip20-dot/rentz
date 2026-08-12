@@ -210,6 +210,11 @@ export default function AddressSearch() {
                         text-slate-500
                     "
                 >
+                    Ones you select your
+                    current location, it will 
+                    appear in the suggestion tabs
+                    of above search bar. kindly
+                    select it to continue.
                     Use your devices
                     current location.
                     This option is
