@@ -55,7 +55,6 @@ const propertyTypes: {
 ];
 
 const PropertyTypeSelector = () => {
-
     const {
         propertyData,
         setPropertyData,
@@ -65,7 +64,6 @@ const PropertyTypeSelector = () => {
     const handleSelect = (
         propertyType: PropertyType
     ) => {
-
         setPropertyData((prev) => ({
             ...prev,
 
@@ -76,34 +74,50 @@ const PropertyTypeSelector = () => {
                 location: true,
             },
         }));
-
     };
 
     return (
-
-        <section className="space-y-8">
-
+        <section className="w-full space-y-6 sm:space-y-8">
             <div>
+                <h2
+                    className="
+                        text-lg
+                        font-semibold
+                        text-slate-900
 
-                <h2 className="text-xl font-semibold text-slate-900">
-
+                        sm:text-xl
+                    "
+                >
                     Property Type
-
                 </h2>
 
-                <p className="mt-1 text-sm text-slate-500">
-
-                    Select the type of property you want
-                    to list on Rentz.
-
+                <p
+                    className="
+                        mt-1
+                        max-w-2xl
+                        text-sm
+                        leading-6
+                        text-slate-500
+                    "
+                >
+                    Select the type of property you
+                    want to list on Rentz.
                 </p>
-
             </div>
 
-            <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
+            <div
+                className="
+                    grid
+                    grid-cols-2
+                    gap-3
 
+                    min-[400px]:gap-4
+                    sm:gap-5
+
+                    md:grid-cols-4
+                "
+            >
                 {propertyTypes.map((property) => {
-
                     const Icon = property.icon;
 
                     const selected =
@@ -111,7 +125,6 @@ const PropertyTypeSelector = () => {
                         property.label;
 
                     return (
-
                         <motion.button
                             key={property.label}
                             type="button"
@@ -129,12 +142,24 @@ const PropertyTypeSelector = () => {
                             aria-pressed={selected}
                             className={`
                                 relative
+                                flex
+                                min-h-[150px]
+                                flex-col
+                                items-center
+                                justify-center
                                 overflow-hidden
                                 rounded-2xl
                                 border
-                                p-6
+                                p-4
                                 transition-all
                                 duration-300
+
+                                min-[400px]:min-h-[160px]
+                                min-[400px]:p-5
+
+                                sm:min-h-[175px]
+                                sm:p-6
+
                                 ${
                                     selected
                                         ? `
@@ -155,33 +180,42 @@ const PropertyTypeSelector = () => {
                                 }
                             `}
                         >
-
                             {selected && (
-
                                 <CheckCircle2
-                                    size={22}
+                                    size={20}
                                     className="
                                         absolute
-                                        right-3
-                                        top-3
+                                        right-2.5
+                                        top-2.5
                                         text-blue-600
+
+                                        sm:right-3
+                                        sm:top-3
+                                        sm:h-[22px]
+                                        sm:w-[22px]
                                     "
                                 />
-
                             )}
 
                             <div
                                 className={`
-                                    mx-auto
-                                    mb-4
+                                    mb-3
                                     flex
-                                    h-16
-                                    w-16
+                                    h-12
+                                    w-12
                                     items-center
                                     justify-center
                                     rounded-2xl
                                     transition-all
                                     duration-300
+
+                                    min-[400px]:h-14
+                                    min-[400px]:w-14
+
+                                    sm:mb-4
+                                    sm:h-16
+                                    sm:w-16
+
                                     ${
                                         selected
                                             ? `
@@ -195,16 +229,28 @@ const PropertyTypeSelector = () => {
                                     }
                                 `}
                             >
+                                <Icon
+                                    size={28}
+                                    className="
+                                        min-[400px]:h-[30px]
+                                        min-[400px]:w-[30px]
 
-                                <Icon size={34} />
-
+                                        sm:h-[34px]
+                                        sm:w-[34px]
+                                    "
+                                />
                             </div>
 
                             <p
                                 className={`
                                     text-center
+                                    text-sm
                                     font-semibold
+                                    leading-5
                                     transition-colors
+
+                                    sm:text-base
+
                                     ${
                                         selected
                                             ? `
@@ -216,21 +262,14 @@ const PropertyTypeSelector = () => {
                                     }
                                 `}
                             >
-
                                 {property.label}
-
                             </p>
-
                         </motion.button>
-
                     );
-
                 })}
-
             </div>
 
             {validation.errors.propertyType && (
-
                 <motion.p
                     initial={{
                         opacity: 0,
@@ -243,20 +282,15 @@ const PropertyTypeSelector = () => {
                     className="
                         text-sm
                         font-medium
+                        leading-5
                         text-red-500
                     "
                 >
-
                     {validation.errors.propertyType}
-
                 </motion.p>
-
             )}
-
         </section>
-
     );
-
 };
 
 export default PropertyTypeSelector;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import AddressInput from "./AddressInput";
 import AddressLoader from "./AddressLoader";
@@ -9,8 +9,9 @@ import CurrentLocationButton from "./CurrentLocationButton";
 import Dropdown from "./dropdown";
 
 import usePlacesAutocomplete from "@/hooks/google/usePlacesAutocomplete";
-import {getCurrentLocation} from "@/lib/location/getCurrentLocation";
+import { getCurrentLocation } from "@/lib/location/getCurrentLocation";
 import useLocationUpdater from "@/hooks/location/useLocationUpdater";
+
 export default function AddressSearch() {
     const {
         query,
@@ -22,16 +23,13 @@ export default function AddressSearch() {
         clearSuggestions,
     } = usePlacesAutocomplete();
 
-  const { updateLocation, updateLocationFromCoordinates } = useLocationUpdater();
+    const {
+        updateLocation,
+        updateLocationFromCoordinates,
+    } = useLocationUpdater();
 
     const [locating, setLocating] =
         useState(false);
-
-    /**
-     * Updates the Property Wizard
-     * with a parsed Google location.
-     */
-   
 
     /**
      * Synchronizes the selected
@@ -62,14 +60,18 @@ export default function AddressSearch() {
                 const {
                     latitude,
                     longitude,
-                } =
-                    await getCurrentLocation();
+                } = await getCurrentLocation();
 
-               const parsedPlace = await updateLocationFromCoordinates(
-                    latitude,
-                    longitude
+                const parsedPlace =
+                    await updateLocationFromCoordinates(
+                        latitude,
+                        longitude
+                    );
+
+                setQuery(
+                    parsedPlace.formattedAddress
                 );
-                setQuery(parsedPlace.formattedAddress);
+
                 clearSuggestions();
             } catch (error) {
                 console.error(
@@ -90,7 +92,8 @@ export default function AddressSearch() {
         suggestions.length > 0;
 
     return (
-        <div className="space-y-5">
+        <div className="w-full space-y-5">
+
             {/* Google Address Search */}
 
             <div className="space-y-2">
@@ -102,7 +105,9 @@ export default function AddressSearch() {
 
                 <p
                     className="
+                        max-w-3xl
                         text-xs
+                        leading-5
                         text-slate-500
                     "
                 >
@@ -118,7 +123,7 @@ export default function AddressSearch() {
 
             {/* Search Suggestions */}
 
-            <div className="relative">
+            <div className="relative z-20 w-full">
                 <Dropdown
                     open={
                         showLoader ||
@@ -148,13 +153,16 @@ export default function AddressSearch() {
             <div
                 className="
                     flex
+                    w-full
                     items-center
-                    gap-4
+                    gap-3
+                    sm:gap-4
                 "
             >
                 <div
                     className="
                         h-px
+                        min-w-0
                         flex-1
                         bg-slate-200
                     "
@@ -162,11 +170,13 @@ export default function AddressSearch() {
 
                 <span
                     className="
-                        text-xs
+                        shrink-0
+                        text-[11px]
                         font-semibold
                         uppercase
                         tracking-wider
                         text-slate-400
+                        sm:text-xs
                     "
                 >
                     OR
@@ -175,6 +185,7 @@ export default function AddressSearch() {
                 <div
                     className="
                         h-px
+                        min-w-0
                         flex-1
                         bg-slate-200
                     "
@@ -193,7 +204,9 @@ export default function AddressSearch() {
 
                 <p
                     className="
+                        max-w-3xl
                         text-xs
+                        leading-5
                         text-slate-500
                     "
                 >

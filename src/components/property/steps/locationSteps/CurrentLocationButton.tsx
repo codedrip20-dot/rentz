@@ -19,6 +19,7 @@ export default function CurrentLocationButton({
             className="
                 mt-3
                 inline-flex
+                min-h-12
                 w-full
                 items-center
                 justify-center
@@ -29,13 +30,21 @@ export default function CurrentLocationButton({
                 bg-blue-50
                 px-4
                 py-3
+                text-center
                 text-sm
                 font-medium
+                leading-5
                 text-blue-700
                 transition-all
                 duration-200
+
                 hover:border-blue-300
                 hover:bg-blue-100
+
+                focus:outline-none
+                focus:ring-4
+                focus:ring-blue-100
+
                 disabled:cursor-not-allowed
                 disabled:opacity-60
             "
@@ -44,18 +53,21 @@ export default function CurrentLocationButton({
                 <>
                     <Loader2
                         size={18}
-                        className="animate-spin"
+                        className="shrink-0 animate-spin"
                     />
 
-                    <span>
+                    <span className="min-w-0">
                         Detecting your location...
                     </span>
                 </>
             ) : (
                 <>
-                    <LocateFixed size={18} />
+                    <LocateFixed
+                        size={18}
+                        className="shrink-0"
+                    />
 
-                    <span>
+                    <span className="min-w-0">
                         Use Current Location
                     </span>
                 </>

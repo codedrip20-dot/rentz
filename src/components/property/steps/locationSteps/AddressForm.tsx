@@ -33,12 +33,20 @@ export default function AddressForm() {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="w-full space-y-5 sm:space-y-6">
 
             <AddressSearch />
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div
+                className="
+                    grid
+                    grid-cols-1
+                    gap-4
+                    sm:gap-5
 
+                    md:grid-cols-2
+                "
+            >
                 <InputField
                     label="Street Address"
                     value={location.address.street}
@@ -116,9 +124,7 @@ export default function AddressForm() {
                     value={location.coordinates.longitude.toString()}
                     readOnly
                 />
-
             </div>
-
         </div>
     );
 }

@@ -15,7 +15,6 @@ export default function MapSelector({
     latitude,
     longitude,
 }: MapSelectorProps) {
-
     const {
         updateLocationFromCoordinates,
     } = useLocationUpdater();
@@ -36,9 +35,9 @@ export default function MapSelector({
      * Advanced Marker instance.
      */
     const markerInstance =
-        useRef<google.maps.marker.AdvancedMarkerElement | null>(
-            null
-        );
+        useRef<
+            google.maps.marker.AdvancedMarkerElement | null
+        >(null);
 
     /**
      * Prevents feedback loops while
@@ -51,211 +50,212 @@ export default function MapSelector({
      * Initializes Google Maps only once.
      */
     useEffect(() => {
-
         let cancelled = false;
 
-     async function initializeMap() {
+        async function initializeMap() {
+            if (!mapRef.current) return;
 
-    if (!mapRef.current) return;
+            if (mapInstance.current) return;
 
-    if (mapInstance.current) return;
+            try {
+                await loadGoogleMaps();
 
-    try {
+                if (
+                    cancelled ||
+                    !mapRef.current
+                ) {
+                    return;
+                }
 
-        await loadGoogleMaps();
+                const {
+                    AdvancedMarkerElement,
+                    PinElement,
+                } =
+                    (await google.maps.importLibrary(
+                        "marker"
+                    )) as google.maps.MarkerLibrary;
 
-        if (
-            cancelled ||
-            !mapRef.current
-        ) {
-            return;
+                const center = {
+                    lat: latitude,
+                    lng: longitude,
+                };
+
+                mapInstance.current =
+                    new google.maps.Map(
+                        mapRef.current,
+                        {
+                            center,
+                            zoom: 17,
+                            mapId:
+                                process.env
+                                    .NEXT_PUBLIC_GOOGLE_MAP_ID,
+
+                            mapTypeControl: false,
+                            streetViewControl: false,
+                            fullscreenControl: false,
+                            rotateControl: false,
+                            scaleControl: true,
+                            clickableIcons: false,
+                            gestureHandling: "greedy",
+                        }
+                    );
+
+                const pin =
+                    new PinElement({
+                        glyph: "🏠",
+                        scale: 1.1,
+                    });
+
+                markerInstance.current =
+                    new AdvancedMarkerElement({
+                        map: mapInstance.current,
+                        position: center,
+                        gmpDraggable: true,
+                        content: pin.element,
+                    });
+
+                /**
+                 * Register drag events immediately
+                 * after creating the marker.
+                 */
+                markerInstance.current.addListener(
+                    "dragstart",
+                    () => {
+                        dragging.current = true;
+                    }
+                );
+
+                markerInstance.current.addListener(
+                    "dragend",
+                    async () => {
+                        try {
+                            console.log(
+                                "Drag ended"
+                            );
+
+                            const position =
+                                markerInstance
+                                    .current
+                                    ?.position;
+
+                            if (!position) {
+                                return;
+                            }
+
+                            let latitude: number;
+                            let longitude: number;
+
+                            if (
+                                position instanceof
+                                google.maps.LatLng
+                            ) {
+                                latitude =
+                                    position.lat();
+
+                                longitude =
+                                    position.lng();
+                            } else {
+                                latitude =
+                                    position.lat;
+
+                                longitude =
+                                    position.lng;
+                            }
+
+                            await updateLocationFromCoordinates(
+                                latitude,
+                                longitude
+                            );
+                        } catch (error) {
+                            console.error(
+                                "Failed to update dragged location.",
+                                error
+                            );
+                        } finally {
+                            dragging.current =
+                                false;
+                        }
+                    }
+                );
+            } catch (error) {
+                console.error(
+                    "Failed to initialize Google Maps:",
+                    error
+                );
+            }
         }
-
-        const {
-            AdvancedMarkerElement,
-            PinElement,
-        } =
-            await google.maps.importLibrary(
-                "marker"
-            ) as google.maps.MarkerLibrary;
-
-        const center = {
-            lat: latitude,
-            lng: longitude,
-        };
-
-        mapInstance.current =
-            new google.maps.Map(
-                mapRef.current,
-                {
-                    center,
-                    zoom: 17,
-                    mapId:
-                        process.env
-                            .NEXT_PUBLIC_GOOGLE_MAP_ID,
-
-                    mapTypeControl: false,
-                    streetViewControl: false,
-                    fullscreenControl: false,
-                    rotateControl: false,
-                    scaleControl: true,
-                    clickableIcons: false,
-                    gestureHandling: "greedy",
-                }
-            );
-
-        const pin =
-            new PinElement({
-                glyph: "🏠",
-                scale: 1.1,
-            });
-
-        markerInstance.current =
-            new AdvancedMarkerElement({
-                map: mapInstance.current,
-                position: center,
-                gmpDraggable: true,
-                content: pin.element,
-            });
-
-        /**
-         * Register drag events immediately
-         * after creating the marker.
-         */
-        markerInstance.current.addListener(
-            "dragstart",
-            () => {
-                dragging.current = true;
-            }
-        );
-
-        markerInstance.current.addListener(
-            "dragend",
-            async () => {
-
-                try {
-
-                    console.log("Drag ended");
-
-                    const position =
-                        markerInstance.current?.position;
-
-                    if (!position) {
-                        return;
-                    }
-
-                    let latitude: number;
-                    let longitude: number;
-
-                    if (
-                        position instanceof
-                        google.maps.LatLng
-                    ) {
-
-                        latitude =
-                            position.lat();
-
-                        longitude =
-                            position.lng();
-
-                    } else {
-
-                        latitude =
-                            position.lat;
-
-                        longitude =
-                            position.lng;
-
-                    }
-
-                    await updateLocationFromCoordinates(
-                        latitude,
-                        longitude
-                    );
-
-                } catch (error) {
-
-                    console.error(
-                        "Failed to update dragged location.",
-                        error
-                    );
-
-                } finally {
-
-                    dragging.current = false;
-
-                }
-
-            }
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Failed to initialize Google Maps:",
-            error
-        );
-
-    }
-
-}
 
         initializeMap();
 
         return () => {
             cancelled = true;
         };
-
     }, []);
-    /**
- * Synchronizes the map whenever the
- * property coordinates change.
- */
-useEffect(() => {
-
-    if (
-        !mapInstance.current ||
-        !markerInstance.current
-    ) {
-        return;
-    }
 
     /**
-     * Ignore updates while the
-     * user is actively dragging
-     * the marker.
+     * Synchronizes the map whenever the
+     * property coordinates change.
      */
-    if (dragging.current) {
-        return;
-    }
+    useEffect(() => {
+        if (
+            !mapInstance.current ||
+            !markerInstance.current
+        ) {
+            return;
+        }
 
-    const position = {
-        lat: latitude,
-        lng: longitude,
-    };
+        /**
+         * Ignore updates while the
+         * user is actively dragging
+         * the marker.
+         */
+        if (dragging.current) {
+            return;
+        }
 
-    mapInstance.current.panTo(position);
+        const position = {
+            lat: latitude,
+            lng: longitude,
+        };
 
-    markerInstance.current.position = position;
+        mapInstance.current.panTo(
+            position
+        );
 
-}, [latitude, longitude]);
+        markerInstance.current.position =
+            position;
+    }, [latitude, longitude]);
 
-/**
- * Registers the drag listener once.
- */
-
-return (
-        <section className="space-y-6">
-
+    return (
+        <section className="w-full space-y-5 sm:space-y-6">
             <div>
-                <h2 className="text-xl font-semibold text-slate-900">
+                <h2
+                    className="
+                        text-lg
+                        font-semibold
+                        text-slate-900
+
+                        sm:text-xl
+                    "
+                >
                     Property Location on Map
                 </h2>
 
-                <p className="mt-1 text-sm text-slate-500">
-                    Verify the propertys location before publishing.
-                    Drag the marker to fine-tune the exact property
-                    location if necessary.
+                <p
+                    className="
+                        mt-1
+                        max-w-3xl
+                        text-sm
+                        leading-6
+                        text-slate-500
+                    "
+                >
+                    Verify the propertys
+                    location before
+                    publishing. Drag the
+                    marker to fine-tune the
+                    exact property location
+                    if necessary.
                 </p>
             </div>
 
@@ -271,7 +271,13 @@ return (
             >
                 <div
                     ref={mapRef}
-                    className="h-[420px] w-full"
+                    className="
+                        h-[300px]
+                        w-full
+
+                        sm:h-[360px]
+                        md:h-[420px]
+                    "
                 />
 
                 <div
@@ -280,30 +286,83 @@ return (
                         border-slate-200
                         bg-slate-50
                         p-4
+                        sm:p-5
                     "
                 >
-                    <div className="flex justify-between text-sm">
-                        <span className="font-medium text-slate-600">
+                    <div
+                        className="
+                            flex
+                            flex-col
+                            gap-1
+
+                            min-[400px]:flex-row
+                            min-[400px]:items-center
+                            min-[400px]:justify-between
+                        "
+                    >
+                        <span
+                            className="
+                                text-sm
+                                font-medium
+                                text-slate-600
+                            "
+                        >
                             Latitude
                         </span>
 
-                        <span className="font-mono text-slate-900">
+                        <span
+                            className="
+                                max-w-full
+                                break-all
+                                font-mono
+                                text-xs
+                                text-slate-900
+
+                                sm:text-sm
+                            "
+                        >
                             {latitude.toFixed(6)}
                         </span>
                     </div>
 
-                    <div className="mt-3 flex justify-between text-sm">
-                        <span className="font-medium text-slate-600">
+                    <div
+                        className="
+                            mt-4
+                            flex
+                            flex-col
+                            gap-1
+
+                            min-[400px]:flex-row
+                            min-[400px]:items-center
+                            min-[400px]:justify-between
+                        "
+                    >
+                        <span
+                            className="
+                                text-sm
+                                font-medium
+                                text-slate-600
+                            "
+                        >
                             Longitude
                         </span>
 
-                        <span className="font-mono text-slate-900">
+                        <span
+                            className="
+                                max-w-full
+                                break-all
+                                font-mono
+                                text-xs
+                                text-slate-900
+
+                                sm:text-sm
+                            "
+                        >
                             {longitude.toFixed(6)}
                         </span>
                     </div>
                 </div>
             </div>
-
         </section>
     );
 }

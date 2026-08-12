@@ -25,15 +25,15 @@ export default function Dropdown({
                 left-0
                 right-0
                 top-full
-                mt-2
                 z-50
-
+                mt-2
+                w-full
+                max-w-full
                 overflow-hidden
 
                 rounded-xl
                 border
                 border-slate-200
-
                 bg-white
 
                 shadow-lg
