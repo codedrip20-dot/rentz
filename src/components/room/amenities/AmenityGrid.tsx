@@ -264,98 +264,128 @@ const AmenityGrid = () => {
     };
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-5 sm:space-y-6 md:space-y-8">
+
             {/* Overview */}
-            <section className="overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-blue-50 shadow-sm">
-                <div className="relative overflow-hidden p-6">
-                    <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-blue-100/40 blur-3xl" />
-                    <div className="absolute -bottom-20 left-0 h-48 w-48 rounded-full bg-indigo-100/30 blur-3xl" />
+            <section className="overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-blue-50 shadow-sm sm:rounded-3xl">
 
-                    <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-                        <div className="space-y-3">
+                <div className="relative overflow-hidden p-4 sm:p-5 md:p-6">
+
+                    <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-blue-100/40 blur-3xl sm:-right-16 sm:-top-16 sm:h-56 sm:w-56" />
+
+                    <div className="absolute -bottom-16 left-0 h-40 w-40 rounded-full bg-indigo-100/30 blur-3xl sm:-bottom-20 sm:h-48 sm:w-48" />
+
+                    <div className="relative flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+
+                        <div className="min-w-0 space-y-3">
+
                             <div className="flex items-center gap-2">
-                                <Sparkles className="h-5 w-5 text-blue-600" />
 
-                                <h3 className="text-xl font-bold text-slate-900">
+                                <Sparkles className="h-4 w-4 shrink-0 text-blue-600 sm:h-5 sm:w-5" />
+
+                                <h3 className="text-lg font-bold text-slate-900 sm:text-xl">
                                     Amenities Overview
                                 </h3>
+
                             </div>
 
-                            <p className="max-w-2xl text-sm leading-6 text-slate-600">
+                            <p className="max-w-2xl text-xs leading-5 text-slate-600 sm:text-sm sm:leading-6">
                                 Select every amenity available in
                                 your room. A detailed listing helps
                                 tenants compare properties, improves
                                 search visibility, and builds trust
                                 before inquiries.
                             </p>
+
                         </div>
 
-                        <div className="rounded-3xl border border-blue-100 bg-white/90 px-8 py-6 shadow-sm backdrop-blur">
+                        <div className="w-full shrink-0 rounded-2xl border border-blue-100 bg-white/90 px-5 py-4 shadow-sm backdrop-blur sm:px-6 sm:py-5 md:px-8 md:py-6 lg:w-auto">
+
                             <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
                                 Completion
                             </p>
 
-                            <div className="mt-2 flex items-end gap-2">
-                                <span className="text-4xl font-bold text-blue-600">
+                            <div className="mt-1.5 flex items-end gap-2">
+
+                                <span className="text-3xl font-bold text-blue-600 sm:text-4xl">
                                     {selectedAmenities}
                                 </span>
 
                                 <span className="pb-1 text-sm text-slate-500">
                                     / {totalAmenities}
                                 </span>
+
                             </div>
 
-                            <p className="mt-1 text-sm text-slate-600">
+                            <p className="mt-1 text-xs text-slate-600 sm:text-sm">
                                 Amenities Selected
                             </p>
+
                         </div>
+
                     </div>
 
-                    <div className="relative mt-8">
-                        <div className="h-3 overflow-hidden rounded-full bg-slate-200">
+                    <div className="relative mt-6 sm:mt-8">
+
+                        <div className="h-2 overflow-hidden rounded-full bg-slate-200 sm:h-3">
+
                             <div
                                 className="h-full rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 transition-all duration-500"
                                 style={{
                                     width: `${progress}%`,
                                 }}
                             />
+
                         </div>
 
-                        <div className="mt-2 flex justify-between text-xs text-slate-500">
+                        <div className="mt-2 flex justify-between text-[10px] text-slate-500 sm:text-xs">
                             <span>0%</span>
                             <span>{progress}% Complete</span>
                             <span>100%</span>
                         </div>
+
                     </div>
+
                 </div>
             </section>
+
             {/* Amenity Categories */}
+
             {amenityGroups.map((group) => {
                 const GroupIcon = group.icon;
 
                 return (
                     <section
                         key={group.title}
-                        className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md"
+                        className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md sm:rounded-3xl"
                     >
+
                         {/* Category Header */}
-                        <div className="border-b border-slate-100 bg-gradient-to-r from-slate-50 via-white to-blue-50/40 px-6 py-5">
-                            <div className="flex items-start gap-4">
-                                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
-                                    <GroupIcon className="h-6 w-6" />
+
+                        <div className="border-b border-slate-100 bg-gradient-to-r from-slate-50 via-white to-blue-50/40 px-4 py-4 sm:px-5 sm:py-5 md:px-6">
+
+                            <div className="flex items-start gap-3 sm:gap-4">
+
+                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/20 sm:h-12 sm:w-12 sm:rounded-2xl">
+
+                                    <GroupIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+
                                 </div>
 
-                                <div className="flex-1">
-                                    <h3 className="text-xl font-bold text-slate-900">
+                                <div className="min-w-0 flex-1">
+
+                                    <h3 className="text-lg font-bold text-slate-900 sm:text-xl">
                                         {group.title}
                                     </h3>
 
-                                    <p className="mt-1 text-sm leading-6 text-slate-600">
+                                    <p className="mt-1 text-xs leading-5 text-slate-600 sm:text-sm sm:leading-6">
                                         {group.description}
                                     </p>
+
                                 </div>
 
-                                <div className="hidden rounded-2xl border border-slate-200 bg-white px-4 py-2 shadow-sm md:block">
+                                <div className="hidden shrink-0 rounded-2xl border border-slate-200 bg-white px-4 py-2 shadow-sm md:block">
+
                                     <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
                                         Amenities
                                     </p>
@@ -363,12 +393,16 @@ const AmenityGrid = () => {
                                     <p className="mt-1 text-lg font-bold text-slate-900">
                                         {group.amenities.length}
                                     </p>
+
                                 </div>
+
                             </div>
                         </div>
 
                         {/* Cards */}
-                        <div className="grid gap-6 p-6 md:grid-cols-2 xl:grid-cols-3">
+
+                        <div className="grid gap-3 p-4 sm:gap-4 sm:p-5 md:grid-cols-2 md:gap-5 md:p-6 xl:grid-cols-3">
+
                             {group.amenities.map((amenity) => (
                                 <AmenityCard
                                     key={amenity.value}
@@ -385,33 +419,45 @@ const AmenityGrid = () => {
                                     }
                                 />
                             ))}
+
                         </div>
+
                     </section>
                 );
             })}
 
             {/* Footer */}
-            <section className="overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-white to-green-50 p-6">
-                <div className="flex flex-col gap-4 md:flex-row md:items-start">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
-                        <Sparkles className="h-6 w-6" />
+
+            <section className="overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-white to-green-50 p-4 sm:rounded-3xl sm:p-5 md:p-6">
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
+
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 sm:h-12 sm:w-12 sm:rounded-2xl">
+
+                        <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+
                     </div>
 
-                    <div className="space-y-2">
-                        <h3 className="text-lg font-semibold text-emerald-900">
+                    <div className="min-w-0 space-y-1.5 sm:space-y-2">
+
+                        <h3 className="text-base font-semibold text-emerald-900 sm:text-lg">
                             Pro Tip
                         </h3>
 
-                        <p className="text-sm leading-7 text-emerald-800">
+                        <p className="text-xs leading-5 text-emerald-800 sm:text-sm sm:leading-7">
                             Listings with complete amenity information help
                             tenants make faster decisions and reduce repetitive
                             questions before scheduling a visit. Be sure to
                             select every amenity that is actually available in
                             your room.
                         </p>
+
                     </div>
+
                 </div>
+
             </section>
+
         </div>
     );
 };

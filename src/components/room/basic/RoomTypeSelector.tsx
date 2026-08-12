@@ -59,9 +59,10 @@ export default function RoomTypeSelector() {
 
     return (
         <div className="space-y-6">
+
             {/* Header */}
             <div className="space-y-2">
-                <h3 className="text-lg font-semibold text-slate-900">
+                <h3 className="text-lg font-semibold text-slate-900 sm:text-xl">
                     Room Type
                 </h3>
 
@@ -72,7 +73,8 @@ export default function RoomTypeSelector() {
             </div>
 
             {/* Cards */}
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 xl:grid-cols-3">
+
                 {ROOM_TYPES.map((type) => {
                     const config = roomTypeConfig[type];
                     const Icon = config.icon;
@@ -92,13 +94,16 @@ export default function RoomTypeSelector() {
                                 group
                                 relative
                                 overflow-hidden
-                                rounded-3xl
+                                rounded-2xl
                                 border
                                 bg-white
-                                p-6
+                                p-5
                                 text-left
                                 transition-all
                                 duration-300
+                                active:scale-[0.99]
+                                sm:rounded-3xl
+                                sm:p-6
 
                                 ${
                                     isSelected
@@ -107,11 +112,15 @@ export default function RoomTypeSelector() {
                                 }
                             `}
                         >
+
                             {/* Selected Badge */}
                             {isSelected && (
-                                <div className="absolute right-4 top-4 flex items-center gap-1 rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white shadow-md">
-                                    <Check className="h-3.5 w-3.5" />
+                                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-blue-600 px-2.5 py-1 text-[10px] font-semibold text-white shadow-md sm:right-4 sm:top-4 sm:px-3 sm:text-xs">
+
+                                    <Check className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+
                                     Selected
+
                                 </div>
                             )}
 
@@ -119,12 +128,15 @@ export default function RoomTypeSelector() {
                             <div
                                 className={`
                                     flex
-                                    h-16
-                                    w-16
+                                    h-14
+                                    w-14
                                     items-center
                                     justify-center
-                                    rounded-2xl
+                                    rounded-xl
                                     transition-all
+                                    sm:h-16
+                                    sm:w-16
+                                    sm:rounded-2xl
 
                                     ${
                                         isSelected
@@ -133,28 +145,31 @@ export default function RoomTypeSelector() {
                                     }
                                 `}
                             >
-                                <Icon className="h-8 w-8" />
+                                <Icon className="h-7 w-7 sm:h-8 sm:w-8" />
                             </div>
 
                             {/* Content */}
-                            <div className="mt-6 space-y-3">
-                                <h4 className="text-lg font-semibold text-slate-900">
+                            <div className="mt-5 space-y-3 sm:mt-6">
+
+                                <h4 className="pr-20 text-base font-semibold text-slate-900 sm:text-lg">
                                     {config.label}
                                 </h4>
 
                                 <p className="text-sm leading-6 text-slate-500">
                                     {config.description}
                                 </p>
+
                             </div>
 
                             {/* Bottom Indicator */}
-                            <div className="mt-8 flex items-center justify-between border-t border-slate-100 pt-4">
-                                <span className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                            <div className="mt-6 flex flex-col gap-3 border-t border-slate-100 pt-4 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+
+                                <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-slate-400 sm:text-xs sm:tracking-wide">
                                     Accommodation
                                 </span>
 
                                 {isSelected ? (
-                                    <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                                    <span className="w-fit rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
                                         Active
                                     </span>
                                 ) : (
@@ -162,20 +177,26 @@ export default function RoomTypeSelector() {
                                         Click to Select
                                     </span>
                                 )}
+
                             </div>
+
                         </button>
                     );
                 })}
+
             </div>
 
             {/* Footer */}
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 sm:rounded-2xl">
+
                 <p className="text-sm leading-6 text-slate-600">
                     💡 The selected room type will be displayed on the marketplace
                     and helps tenants filter rooms based on their accommodation
                     preferences.
                 </p>
+
             </div>
+
         </div>
     );
 }

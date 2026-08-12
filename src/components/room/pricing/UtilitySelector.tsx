@@ -20,11 +20,15 @@ const UtilitySelector = () => {
     } = room.pricing;
 
     return (
-        <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg">
+        <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg sm:rounded-3xl">
+
             {/* Header */}
-            <div className="border-b border-slate-100 bg-gradient-to-r from-cyan-50 via-white to-sky-50 px-6 py-6">
+
+            <div className="border-b border-slate-100 bg-gradient-to-r from-cyan-50 via-white to-sky-50 px-4 py-5 sm:px-6 sm:py-6">
+
                 <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-slate-900">
+
+                    <h3 className="text-lg font-bold text-slate-900 sm:text-xl">
                         Utilities
                     </h3>
 
@@ -33,13 +37,17 @@ const UtilitySelector = () => {
                         the rent. Transparent utility information increases trust
                         and reduces unnecessary questions.
                     </p>
+
                 </div>
+
             </div>
 
             {/* Body */}
-            <div className="space-y-5 p-6">
+
+            <div className="space-y-3 p-4 sm:space-y-5 sm:p-6">
 
                 {/* Electricity */}
+
                 <button
                     type="button"
                     onClick={() =>
@@ -48,43 +56,49 @@ const UtilitySelector = () => {
                                 !electricityIncluded,
                         })
                     }
-                    className={`w-full rounded-2xl border p-5 text-left transition-all ${
+                    className={`w-full rounded-xl border p-4 text-left transition-all active:scale-[0.995] sm:rounded-2xl sm:p-5 ${
                         electricityIncluded
                             ? "border-amber-300 bg-amber-50"
                             : "border-slate-200 hover:border-slate-300"
                     }`}
                 >
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-start justify-between gap-3">
 
-                        <div className="flex items-center gap-4">
+                        <div className="flex min-w-0 items-start gap-3 sm:gap-4">
+
                             <div
-                                className={`flex h-12 w-12 items-center justify-center rounded-xl ${
+                                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl sm:h-12 sm:w-12 ${
                                     electricityIncluded
                                         ? "bg-amber-500 text-white"
                                         : "bg-slate-100 text-slate-600"
                                 }`}
                             >
-                                <Bolt className="h-6 w-6" />
+                                <Bolt className="h-5 w-5 sm:h-6 sm:w-6" />
                             </div>
 
-                            <div>
+                            <div className="min-w-0">
+
                                 <h4 className="font-semibold text-slate-900">
                                     Electricity
                                 </h4>
 
-                                <p className="mt-1 text-sm text-slate-600">
+                                <p className="mt-1 text-sm leading-5 text-slate-600 sm:leading-6">
                                     Include electricity charges in the monthly rent.
                                 </p>
+
                             </div>
+
                         </div>
 
                         {electricityIncluded && (
-                            <CheckCircle2 className="h-6 w-6 text-amber-500" />
+                            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-500 sm:h-6 sm:w-6" />
                         )}
+
                     </div>
                 </button>
 
                 {/* Water */}
+
                 <button
                     type="button"
                     onClick={() =>
@@ -93,44 +107,51 @@ const UtilitySelector = () => {
                                 !waterIncluded,
                         })
                     }
-                    className={`w-full rounded-2xl border p-5 text-left transition-all ${
+                    className={`w-full rounded-xl border p-4 text-left transition-all active:scale-[0.995] sm:rounded-2xl sm:p-5 ${
                         waterIncluded
                             ? "border-sky-300 bg-sky-50"
                             : "border-slate-200 hover:border-slate-300"
                     }`}
                 >
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-start justify-between gap-3">
 
-                        <div className="flex items-center gap-4">
+                        <div className="flex min-w-0 items-start gap-3 sm:gap-4">
+
                             <div
-                                className={`flex h-12 w-12 items-center justify-center rounded-xl ${
+                                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl sm:h-12 sm:w-12 ${
                                     waterIncluded
                                         ? "bg-sky-500 text-white"
                                         : "bg-slate-100 text-slate-600"
                                 }`}
                             >
-                                <Droplets className="h-6 w-6" />
+                                <Droplets className="h-5 w-5 sm:h-6 sm:w-6" />
                             </div>
 
-                            <div>
+                            <div className="min-w-0">
+
                                 <h4 className="font-semibold text-slate-900">
                                     Water
                                 </h4>
 
-                                <p className="mt-1 text-sm text-slate-600">
+                                <p className="mt-1 text-sm leading-5 text-slate-600 sm:leading-6">
                                     Include water charges in the monthly rent.
                                 </p>
+
                             </div>
+
                         </div>
 
                         {waterIncluded && (
-                            <CheckCircle2 className="h-6 w-6 text-sky-500" />
+                            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sky-500 sm:h-6 sm:w-6" />
                         )}
+
                     </div>
                 </button>
 
                 {/* Summary */}
-                <div className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-sky-50 p-5">
+
+                <div className="rounded-xl border border-blue-100 bg-gradient-to-r from-blue-50 to-sky-50 p-4 sm:rounded-2xl sm:p-5">
+
                     <h4 className="font-semibold text-slate-900">
                         Included Utilities
                     </h4>
@@ -143,8 +164,11 @@ const UtilitySelector = () => {
                             .filter(Boolean)
                             .join(", ") || "No utilities are currently included."}
                     </p>
+
                 </div>
+
             </div>
+
         </section>
     );
 };

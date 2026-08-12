@@ -22,17 +22,17 @@ export default function UploadProgress({
     const completed = progress >= 100;
 
     return (
-        <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm sm:rounded-3xl">
 
             {/* Header */}
 
-            <div className="flex items-center justify-between border-b border-slate-100 px-6 py-5">
+            <div className="flex items-start justify-between gap-3 border-b border-slate-100 px-4 py-4 sm:items-center sm:px-6 sm:py-5">
 
-                <div className="flex items-center gap-4">
+                <div className="flex min-w-0 items-start gap-3 sm:gap-4">
 
                     <div
                         className={`
-                            flex h-12 w-12 items-center justify-center rounded-2xl
+                            flex h-10 w-10 shrink-0 items-center justify-center rounded-xl sm:h-12 sm:w-12 sm:rounded-2xl
                             ${
                                 completed
                                     ? "bg-emerald-100 text-emerald-600"
@@ -41,32 +41,40 @@ export default function UploadProgress({
                         `}
                     >
                         {completed ? (
-                            <CheckCircle2 size={24} />
+                            <CheckCircle2
+                                size={21}
+                                className="sm:h-6 sm:w-6"
+                            />
                         ) : (
-                            <UploadCloud size={24} />
+                            <UploadCloud
+                                size={21}
+                                className="sm:h-6 sm:w-6"
+                            />
                         )}
                     </div>
 
-                    <div>
-                        <h3 className="text-lg font-semibold text-slate-900">
+                    <div className="min-w-0">
+
+                        <h3 className="text-base font-semibold text-slate-900 sm:text-lg">
                             {completed
                                 ? "Upload Complete"
                                 : "Uploading Room Images"}
                         </h3>
 
-                        <p className="mt-1 text-sm text-slate-500">
+                        <p className="mt-1 text-sm leading-5 text-slate-500">
                             {completed
                                 ? "Your room images have been uploaded successfully."
                                 : "Optimizing and securely uploading your images..."}
                         </p>
+
                     </div>
 
                 </div>
 
                 {!completed && (
                     <Loader2
-                        size={22}
-                        className="animate-spin text-blue-600"
+                        size={20}
+                        className="mt-1 shrink-0 animate-spin text-blue-600 sm:mt-0 sm:h-[22px] sm:w-[22px]"
                     />
                 )}
 
@@ -74,21 +82,21 @@ export default function UploadProgress({
 
             {/* Progress Section */}
 
-            <div className="space-y-5 px-6 py-6">
+            <div className="space-y-4 px-4 py-5 sm:space-y-5 sm:px-6 sm:py-6">
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-3">
 
                     <span className="text-sm font-medium text-slate-600">
                         Upload Progress
                     </span>
 
-                    <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-bold text-blue-600">
+                    <span className="shrink-0 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600 sm:text-sm">
                         {progress}%
                     </span>
 
                 </div>
 
-                <div className="h-3 overflow-hidden rounded-full bg-slate-200">
+                <div className="h-2.5 overflow-hidden rounded-full bg-slate-200 sm:h-3">
 
                     <div
                         className="
@@ -108,7 +116,7 @@ export default function UploadProgress({
 
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-slate-500">
+                <div className="flex items-center justify-between gap-3 text-[11px] text-slate-500 sm:text-xs">
 
                     <span>
                         {completed
@@ -116,7 +124,7 @@ export default function UploadProgress({
                             : "Uploading images..."}
                     </span>
 
-                    <span>
+                    <span className="shrink-0">
                         {completed
                             ? "100%"
                             : `${progress}% Complete`}

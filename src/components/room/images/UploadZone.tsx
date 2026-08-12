@@ -79,19 +79,20 @@ export default function UploadZone({
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 className={`
+                    group
                     relative
+                    cursor-pointer
                     overflow-hidden
-                    rounded-3xl
+                    rounded-2xl
                     border-2
                     border-dashed
-                    cursor-pointer
                     transition-all
                     duration-300
-                    group
+                    sm:rounded-3xl
 
                     ${
                         dragging
-                            ? "border-blue-600 bg-gradient-to-br from-blue-50 via-white to-cyan-50 shadow-2xl shadow-blue-100 scale-[1.01]"
+                            ? "scale-[1.01] border-blue-600 bg-gradient-to-br from-blue-50 via-white to-cyan-50 shadow-2xl shadow-blue-100"
                             : "border-slate-300 bg-white hover:border-blue-500 hover:shadow-xl hover:shadow-blue-50"
                     }
 
@@ -106,21 +107,24 @@ export default function UploadZone({
 
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-cyan-400/5" />
 
-                <div className="relative flex flex-col items-center px-8 py-14">
+                <div className="relative flex flex-col items-center px-4 py-10 sm:px-8 sm:py-14">
 
                     {/* Upload Icon */}
 
                     <div
                         className={`
-                            mb-8
+                            mb-6
                             flex
-                            h-24
-                            w-24
+                            h-20
+                            w-20
                             items-center
                             justify-center
                             rounded-full
                             transition-all
                             duration-300
+                            sm:mb-8
+                            sm:h-24
+                            sm:w-24
 
                             ${
                                 dragging
@@ -130,15 +134,21 @@ export default function UploadZone({
                         `}
                     >
                         {dragging ? (
-                            <ImagePlus size={42} />
+                            <ImagePlus
+                                size={36}
+                                className="sm:h-[42px] sm:w-[42px]"
+                            />
                         ) : (
-                            <UploadCloud size={42} />
+                            <UploadCloud
+                                size={36}
+                                className="sm:h-[42px] sm:w-[42px]"
+                            />
                         )}
                     </div>
 
                     {/* Heading */}
 
-                    <h2 className="text-2xl font-bold text-slate-900">
+                    <h2 className="text-center text-xl font-bold text-slate-900 sm:text-2xl">
 
                         {dragging
                             ? "Drop your images here"
@@ -159,13 +169,15 @@ export default function UploadZone({
                         type="button"
                         disabled={disabled || uploading}
                         className="
-                            mt-8
-                            rounded-2xl
+                            mt-6
+                            w-full
+                            max-w-xs
+                            rounded-xl
                             bg-gradient-to-r
                             from-blue-600
                             to-cyan-500
-                            px-8
-                            py-4
+                            px-6
+                            py-3.5
                             font-semibold
                             text-white
                             shadow-lg
@@ -177,6 +189,12 @@ export default function UploadZone({
                             hover:shadow-blue-300/60
                             active:scale-95
                             disabled:opacity-60
+                            sm:mt-8
+                            sm:w-auto
+                            sm:max-w-none
+                            sm:rounded-2xl
+                            sm:px-8
+                            sm:py-4
                         "
                     >
                         {uploading ? "Uploading Images..." : "Browse Images"}
@@ -184,25 +202,31 @@ export default function UploadZone({
 
                     {/* Info */}
 
-                    <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+                    <div className="mt-8 flex w-full flex-wrap items-center justify-center gap-2 sm:mt-10 sm:gap-3">
 
-                        <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-medium text-slate-600">
+                        <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-[11px] font-medium text-slate-600 sm:px-4 sm:text-xs">
 
-                            <Images size={14} />
+                            <Images
+                                size={13}
+                                className="shrink-0 sm:h-3.5 sm:w-3.5"
+                            />
 
                             2–10 Images
 
                         </div>
 
-                        <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-medium text-slate-600">
+                        <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-[11px] font-medium text-slate-600 sm:px-4 sm:text-xs">
 
-                            <Sparkles size={14} />
+                            <Sparkles
+                                size={13}
+                                className="shrink-0 sm:h-3.5 sm:w-3.5"
+                            />
 
                             Max 10 MB
 
                         </div>
 
-                        <div className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-medium text-slate-600">
+                        <div className="rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-[11px] font-medium text-slate-600 sm:px-4 sm:text-xs">
 
                             JPG • PNG • WEBP
 
@@ -212,7 +236,7 @@ export default function UploadZone({
 
                     {/* Footer */}
 
-                    <p className="mt-8 text-center text-xs text-slate-400">
+                    <p className="mt-6 max-w-md text-center text-xs leading-5 text-slate-400 sm:mt-8">
 
                         High-quality images increase booking conversions and
                         attract more tenants.

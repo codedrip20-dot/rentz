@@ -78,24 +78,30 @@ const FurnishingSelector = () => {
     };
 
     return (
-        <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm sm:rounded-3xl">
+
             {/* Header */}
-            <div className="border-b border-slate-100 bg-gradient-to-r from-violet-50 via-white to-indigo-50 px-6 py-6">
+            <div className="border-b border-slate-100 bg-gradient-to-r from-violet-50 via-white to-indigo-50 px-4 py-5 sm:px-5 sm:py-6 md:px-6">
+
                 <div className="space-y-2">
-                    <h3 className="text-2xl font-bold text-slate-900">
+
+                    <h3 className="text-xl font-bold text-slate-900 sm:text-2xl">
                         Furnishing Level
                     </h3>
 
-                    <p className="max-w-3xl text-sm leading-6 text-slate-600">
+                    <p className="max-w-3xl text-xs leading-5 text-slate-600 sm:text-sm sm:leading-6">
                         Tell tenants how the room is furnished. A clear
                         furnishing level helps set expectations before they even
                         visit your property.
                     </p>
+
                 </div>
+
             </div>
 
             {/* Cards */}
-            <div className="grid gap-6 p-6 lg:grid-cols-3">
+            <div className="grid gap-4 p-4 sm:gap-5 sm:p-5 md:grid-cols-2 md:gap-6 md:p-6 lg:grid-cols-3">
+
                 {furnishingOptions.map((option) => {
                     const Icon = option.icon;
 
@@ -109,25 +115,26 @@ const FurnishingSelector = () => {
                             onClick={() =>
                                 handleSelect(option.value)
                             }
-                            className={`group relative overflow-hidden rounded-3xl border p-6 text-left transition-all duration-300 ${
+                            className={`group relative overflow-hidden rounded-2xl border p-4 text-left transition-all duration-300 sm:rounded-3xl sm:p-5 md:p-6 ${
                                 active
                                     ? "border-blue-500 bg-gradient-to-br from-blue-50 via-white to-indigo-50 shadow-xl shadow-blue-500/10"
                                     : "border-slate-200 hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
                             }`}
                         >
+
                             {/* Background */}
-                            <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-blue-100/20 blur-2xl" />
+                            <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-blue-100/20 blur-2xl sm:-right-10 sm:-top-10 sm:h-28 sm:w-28" />
 
                             {/* Selected */}
                             {active && (
-                                <div className="absolute right-5 top-5">
-                                    <CheckCircle2 className="h-6 w-6 text-blue-600" />
+                                <div className="absolute right-4 top-4 sm:right-5 sm:top-5">
+                                    <CheckCircle2 className="h-5 w-5 text-blue-600 sm:h-6 sm:w-6" />
                                 </div>
                             )}
 
                             {/* Badge */}
                             <span
-                                className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                                className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold sm:px-3 sm:text-xs ${
                                     active
                                         ? "bg-blue-100 text-blue-700"
                                         : "bg-slate-100 text-slate-600"
@@ -138,41 +145,44 @@ const FurnishingSelector = () => {
 
                             {/* Icon */}
                             <div
-                                className={`mt-5 flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-300 ${
+                                className={`mt-4 flex h-14 w-14 items-center justify-center rounded-xl transition-all duration-300 sm:mt-5 sm:h-16 sm:w-16 sm:rounded-2xl ${
                                     active
                                         ? "bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/20"
                                         : "bg-slate-100 text-slate-600 group-hover:bg-blue-50 group-hover:text-blue-600"
                                 }`}
                             >
-                                <Icon className="h-8 w-8" />
+                                <Icon className="h-7 w-7 sm:h-8 sm:w-8" />
                             </div>
 
                             {/* Title */}
-                            <h4 className="mt-6 text-xl font-bold text-slate-900">
+                            <h4 className="mt-5 text-lg font-bold text-slate-900 sm:mt-6 sm:text-xl">
                                 {option.title}
                             </h4>
 
                             {/* Description */}
-                            <p className="mt-2 text-sm leading-6 text-slate-600">
+                            <p className="mt-1.5 text-xs leading-5 text-slate-600 sm:mt-2 sm:text-sm sm:leading-6">
                                 {option.description}
                             </p>
 
                             {/* Features */}
-                            <div className="mt-6 flex flex-wrap gap-2">
+                            <div className="mt-5 flex flex-wrap gap-1.5 sm:mt-6 sm:gap-2">
+
                                 {option.features.map((feature) => (
                                     <span
                                         key={feature}
-                                        className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700"
+                                        className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[10px] font-medium text-slate-700 sm:px-3 sm:text-xs"
                                     >
                                         {feature}
                                     </span>
                                 ))}
+
                             </div>
 
                             {/* Footer */}
-                            <div className="mt-8 flex items-center justify-between border-t border-slate-100 pt-5">
+                            <div className="mt-6 flex items-center justify-between gap-3 border-t border-slate-100 pt-4 sm:mt-8 sm:pt-5">
+
                                 <span
-                                    className={`text-sm font-semibold ${
+                                    className={`text-xs font-semibold sm:text-sm ${
                                         active
                                             ? "text-blue-700"
                                             : "text-slate-500"
@@ -184,39 +194,49 @@ const FurnishingSelector = () => {
                                 </span>
 
                                 <Sparkles
-                                    className={`h-5 w-5 ${
+                                    className={`h-4 w-4 shrink-0 sm:h-5 sm:w-5 ${
                                         active
                                             ? "text-blue-600"
                                             : "text-slate-300"
                                     }`}
                                 />
+
                             </div>
+
                         </button>
                     );
                 })}
+
             </div>
 
             {/* Recommendation */}
-            <div className="border-t border-slate-100 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 px-6 py-5">
-                <div className="flex items-start gap-4">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-700">
+            <div className="border-t border-slate-100 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 px-4 py-4 sm:px-5 sm:py-5 md:px-6">
+
+                <div className="flex items-start gap-3 sm:gap-4">
+
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-700 sm:h-11 sm:w-11 sm:rounded-2xl">
                         <Sparkles className="h-5 w-5" />
                     </div>
 
-                    <div>
-                        <h4 className="text-base font-semibold text-amber-900">
+                    <div className="min-w-0">
+
+                        <h4 className="text-sm font-semibold text-amber-900 sm:text-base">
                             Recommendation
                         </h4>
 
-                        <p className="mt-2 text-sm leading-6 text-amber-800">
+                        <p className="mt-1.5 text-xs leading-5 text-amber-800 sm:mt-2 sm:text-sm sm:leading-6">
                             Select the furnishing option that best represents
                             your room. Accurate furnishing details create better
                             tenant expectations, improve listing quality, and
                             reduce unnecessary inquiries or misunderstandings.
                         </p>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
     );
 };

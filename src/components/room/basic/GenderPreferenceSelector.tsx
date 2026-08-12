@@ -53,23 +53,23 @@ export default function GenderPreferenceSelector() {
     const { room, updateRoom } = useRoomWizard();
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
 
             {/* Header */}
 
-            <div className="flex items-start justify-between">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 
-                <div className="flex items-start gap-4">
+                <div className="flex min-w-0 items-start gap-3 sm:gap-4">
 
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-100 via-blue-50 to-white text-blue-600 shadow-sm">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-100 via-blue-50 to-white text-blue-600 shadow-sm sm:h-12 sm:w-12 sm:rounded-2xl">
 
-                        <ShieldCheck className="h-6 w-6" />
+                        <ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6" />
 
                     </div>
 
-                    <div>
+                    <div className="min-w-0">
 
-                        <h3 className="text-xl font-bold text-slate-900">
+                        <h3 className="text-lg font-bold text-slate-900 sm:text-xl">
                             Tenant Preference
                         </h3>
 
@@ -83,7 +83,7 @@ export default function GenderPreferenceSelector() {
 
                 </div>
 
-                <div className="rounded-full border border-blue-100 bg-blue-50 px-4 py-2">
+                <div className="w-fit shrink-0 rounded-full border border-blue-100 bg-blue-50 px-4 py-2">
 
                     <span className="text-xs font-semibold uppercase tracking-wider text-blue-700">
                         Required
@@ -95,7 +95,7 @@ export default function GenderPreferenceSelector() {
 
             {/* Cards */}
 
-            <div className="grid gap-6 lg:grid-cols-3">
+            <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
 
                 {(Object.keys(genderOptions) as GenderPreference[]).map(
                     (type) => {
@@ -120,13 +120,16 @@ export default function GenderPreferenceSelector() {
                                     group
                                     relative
                                     overflow-hidden
-                                    rounded-[30px]
+                                    rounded-2xl
                                     border
                                     bg-white
-                                    p-7
+                                    p-5
                                     text-left
                                     transition-all
                                     duration-300
+                                    active:scale-[0.99]
+                                    sm:rounded-[30px]
+                                    sm:p-7
 
                                     ${
                                         selected
@@ -156,17 +159,21 @@ export default function GenderPreferenceSelector() {
 
                                     {/* Top */}
 
-                                    <div className="flex items-start justify-between">
+                                    <div className="flex items-start justify-between gap-4">
 
                                         <div
                                             className={`
                                                 flex
-                                                h-16
-                                                w-16
+                                                h-14
+                                                w-14
+                                                shrink-0
                                                 items-center
                                                 justify-center
-                                                rounded-2xl
+                                                rounded-xl
                                                 transition-all
+                                                sm:h-16
+                                                sm:w-16
+                                                sm:rounded-2xl
 
                                                 ${
                                                     selected
@@ -176,13 +183,13 @@ export default function GenderPreferenceSelector() {
                                             `}
                                         >
 
-                                            <Icon className="h-8 w-8" />
+                                            <Icon className="h-7 w-7 sm:h-8 sm:w-8" />
 
                                         </div>
 
                                         {selected && (
 
-                                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg">
+                                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg sm:h-10 sm:w-10">
 
                                                 <CheckCircle2 className="h-5 w-5" />
 
@@ -194,15 +201,15 @@ export default function GenderPreferenceSelector() {
 
                                     {/* Content */}
 
-                                    <div className="mt-7">
+                                    <div className="mt-6 sm:mt-7">
 
-                                        <div className="flex items-center gap-3">
+                                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
 
-                                            <h4 className="text-xl font-bold text-slate-900">
+                                            <h4 className="text-lg font-bold text-slate-900 sm:text-xl">
                                                 {option.title}
                                             </h4>
 
-                                            <span className="rounded-full bg-blue-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-blue-700">
+                                            <span className="rounded-full bg-blue-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-blue-700 sm:text-[11px]">
                                                 {option.badge}
                                             </span>
 
@@ -212,7 +219,7 @@ export default function GenderPreferenceSelector() {
                                             {option.subtitle}
                                         </span>
 
-                                        <p className="mt-5 text-sm leading-7 text-slate-500">
+                                        <p className="mt-4 text-sm leading-6 text-slate-500 sm:mt-5 sm:leading-7">
                                             {option.description}
                                         </p>
 
@@ -220,14 +227,15 @@ export default function GenderPreferenceSelector() {
 
                                     {/* Footer */}
 
-                                    <div className="mt-8 flex items-center justify-between border-t border-slate-100 pt-5">
+                                    <div className="mt-6 flex items-center justify-between gap-3 border-t border-slate-100 pt-4 sm:mt-8 sm:pt-5">
 
-                                        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+                                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-slate-400 sm:text-xs sm:tracking-[0.2em]">
                                             Tenant Type
                                         </span>
 
                                         <span
                                             className={`
+                                                shrink-0
                                                 rounded-full
                                                 px-3
                                                 py-1
@@ -259,23 +267,23 @@ export default function GenderPreferenceSelector() {
 
             {/* Information */}
 
-            <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-50 via-white to-slate-50 p-7">
+            <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-50 via-white to-slate-50 p-4 sm:rounded-3xl sm:p-7">
 
-                <div className="flex items-start gap-5">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5">
 
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-600">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600 sm:h-14 sm:w-14 sm:rounded-2xl">
 
-                        <ShieldCheck className="h-7 w-7" />
+                        <ShieldCheck className="h-6 w-6 sm:h-7 sm:w-7" />
 
                     </div>
 
-                    <div>
+                    <div className="min-w-0">
 
                         <h4 className="text-base font-semibold text-slate-900">
                             Why this information matters
                         </h4>
 
-                        <p className="mt-2 text-sm leading-7 text-slate-600">
+                        <p className="mt-2 text-sm leading-6 text-slate-600 sm:leading-7">
                             Tenant preference helps match your listing with the
                             right audience. If there are no restrictions, select
                             <span className="font-semibold text-slate-700">

@@ -52,11 +52,15 @@ const BillingTypeSelector = () => {
     };
 
     return (
-        <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg">
+        <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg sm:rounded-3xl">
+
             {/* Header */}
-            <div className="border-b border-slate-100 bg-gradient-to-r from-violet-50 via-white to-indigo-50 px-6 py-6">
+
+            <div className="border-b border-slate-100 bg-gradient-to-r from-violet-50 via-white to-indigo-50 px-4 py-5 sm:px-6 sm:py-6">
+
                 <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-slate-900">
+
+                    <h3 className="text-lg font-bold text-slate-900 sm:text-xl">
                         Billing Cycle
                     </h3>
 
@@ -64,13 +68,19 @@ const BillingTypeSelector = () => {
                         Choose how tenants will be billed for this room.
                         This will be displayed throughout your listing.
                     </p>
+
                 </div>
+
             </div>
 
             {/* Options */}
-            <div className="grid gap-5 p-6 md:grid-cols-3">
+
+            <div className="grid gap-3 p-4 sm:gap-5 sm:p-6 md:grid-cols-3">
+
                 {billingOptions.map((option) => {
+
                     const Icon = option.icon;
+
                     const active =
                         selected === option.value;
 
@@ -81,50 +91,61 @@ const BillingTypeSelector = () => {
                             onClick={() =>
                                 handleSelect(option.value)
                             }
-                            className={`relative rounded-2xl border p-5 text-left transition-all duration-200 ${
+                            className={`relative rounded-xl border p-4 text-left transition-all duration-200 active:scale-[0.99] sm:rounded-2xl sm:p-5 ${
                                 active
                                     ? "border-blue-600 bg-blue-50 shadow-md"
                                     : "border-slate-200 bg-white hover:border-blue-300 hover:shadow-sm"
                             }`}
                         >
+
                             {active && (
-                                <CheckCircle2 className="absolute right-4 top-4 h-5 w-5 text-blue-600" />
+                                <CheckCircle2 className="absolute right-3 top-3 h-5 w-5 text-blue-600 sm:right-4 sm:top-4" />
                             )}
 
                             <div
-                                className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${
+                                className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl sm:h-12 sm:w-12 ${
                                     active
                                         ? "bg-blue-600 text-white"
                                         : "bg-slate-100 text-slate-600"
                                 }`}
                             >
-                                <Icon className="h-6 w-6" />
+                                <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                             </div>
 
-                            <h4 className="text-lg font-semibold text-slate-900">
+                            <h4 className="pr-7 text-base font-semibold text-slate-900 sm:text-lg">
                                 {option.title}
                             </h4>
 
                             <p className="mt-2 text-sm leading-6 text-slate-600">
                                 {option.description}
                             </p>
+
                         </button>
                     );
                 })}
+
             </div>
 
             {/* Footer */}
-            <div className="border-t border-slate-100 bg-slate-50 px-6 py-4">
-                <p className="text-sm text-slate-600">
+
+            <div className="border-t border-slate-100 bg-slate-50 px-4 py-4 sm:px-6">
+
+                <p className="text-sm leading-6 text-slate-600">
+
                     <span className="font-semibold text-slate-800">
                         Selected:
                     </span>{" "}
-                    <span className="capitalize text-blue-600 font-semibold">
+
+                    <span className="font-semibold capitalize text-blue-600">
                         {selected}
                     </span>{" "}
+
                     billing
+
                 </p>
+
             </div>
+
         </section>
     );
 };

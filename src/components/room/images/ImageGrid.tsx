@@ -21,7 +21,7 @@ export default function ImageGrid({
 }: ImageGridProps) {
     if (images.length === 0) {
         return (
-            <div className="relative overflow-hidden rounded-3xl border border-dashed border-slate-300 bg-gradient-to-br from-slate-50 via-white to-blue-50 px-8 py-20">
+            <div className="relative overflow-hidden rounded-2xl border border-dashed border-slate-300 bg-gradient-to-br from-slate-50 via-white to-blue-50 px-4 py-14 sm:rounded-3xl sm:px-8 sm:py-20">
 
                 {/* Background Glow */}
 
@@ -29,22 +29,22 @@ export default function ImageGrid({
 
                 <div className="relative flex flex-col items-center text-center">
 
-                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 shadow-lg shadow-blue-100">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 shadow-lg shadow-blue-100 sm:h-24 sm:w-24">
 
                         <ImageIcon
-                            size={42}
-                            className="text-blue-600"
+                            size={36}
+                            className="text-blue-600 sm:h-[42px] sm:w-[42px]"
                         />
 
                     </div>
 
-                    <h3 className="mt-8 text-2xl font-bold text-slate-900">
+                    <h3 className="mt-6 text-xl font-bold text-slate-900 sm:mt-8 sm:text-2xl">
 
                         Your Gallery is Empty
 
                     </h3>
 
-                    <p className="mt-3 max-w-md text-sm leading-7 text-slate-500">
+                    <p className="mt-3 max-w-md text-sm leading-6 text-slate-500 sm:leading-7">
 
                         Upload high-quality room images to showcase your
                         property beautifully. Great photos increase bookings
@@ -52,7 +52,7 @@ export default function ImageGrid({
 
                     </p>
 
-                    <div className="mt-8 rounded-full bg-blue-50 px-5 py-2 text-sm font-medium text-blue-600">
+                    <div className="mt-6 rounded-full bg-blue-50 px-4 py-2 text-xs font-medium text-blue-600 sm:mt-8 sm:px-5 sm:text-sm">
 
                         Upload your first room image
 
@@ -65,15 +65,15 @@ export default function ImageGrid({
     }
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
 
             {/* Header */}
 
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-4 sm:gap-5 md:flex-row md:items-center md:justify-between">
 
-                <div>
+                <div className="min-w-0">
 
-                    <h2 className="text-2xl font-bold text-slate-900">
+                    <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">
 
                         Uploaded Images
 
@@ -88,9 +88,9 @@ export default function ImageGrid({
 
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:gap-3">
 
-                    <div className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-600">
+                    <div className="rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-600 sm:px-4 sm:text-sm">
 
                         {images.length}/10 Images
 
@@ -98,11 +98,11 @@ export default function ImageGrid({
 
                     {uploading && (
 
-                        <div className="flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-200">
+                        <div className="flex items-center gap-2 rounded-full bg-blue-600 px-3 py-2 text-xs font-semibold text-white shadow-lg shadow-blue-200 sm:px-4 sm:text-sm">
 
                             <Loader2
-                                size={16}
-                                className="animate-spin"
+                                size={15}
+                                className="animate-spin sm:h-4 sm:w-4"
                             />
 
                             Uploading...
@@ -117,11 +117,11 @@ export default function ImageGrid({
 
             {/* Tip Card */}
 
-            <div className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-cyan-50 p-5">
+            <div className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-cyan-50 p-4 sm:p-5">
 
                 <div className="flex items-start gap-3">
 
-                    <div className="rounded-xl bg-blue-100 p-2">
+                    <div className="shrink-0 rounded-xl bg-blue-100 p-2">
 
                         <Sparkles
                             size={18}
@@ -130,7 +130,7 @@ export default function ImageGrid({
 
                     </div>
 
-                    <div>
+                    <div className="min-w-0">
 
                         <h4 className="font-semibold text-slate-800">
 
@@ -158,9 +158,10 @@ export default function ImageGrid({
             <div
                 className="
                     grid
-                    gap-6
                     grid-cols-1
+                    gap-4
                     sm:grid-cols-2
+                    sm:gap-6
                     lg:grid-cols-3
                     xl:grid-cols-4
                 "

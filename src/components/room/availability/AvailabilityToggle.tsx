@@ -24,52 +24,70 @@ const AvailabilityToggle = () => {
     };
 
     return (
-        <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-blue-50 shadow-sm">
-            {/* Background Decoration */}
-            <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-blue-100/50 blur-3xl" />
-            <div className="absolute -bottom-16 -left-16 h-52 w-52 rounded-full bg-sky-100/40 blur-3xl" />
+        <section className="relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-blue-50 shadow-sm sm:rounded-3xl">
 
-            <div className="relative z-10 p-7">
-                <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            {/* Background Decoration */}
+            <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-blue-100/50 blur-3xl sm:-right-12 sm:-top-12 sm:h-40 sm:w-40" />
+
+            <div className="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-sky-100/40 blur-3xl sm:-bottom-16 sm:-left-16 sm:h-52 sm:w-52" />
+
+            <div className="relative z-10 p-4 sm:p-5 md:p-7">
+
+                <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+
                     {/* Left */}
-                    <div className="flex gap-5">
-                        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-sky-500 text-white shadow-xl shadow-blue-500/20">
-                            <CalendarClock className="h-8 w-8" />
+                    <div className="flex min-w-0 gap-3 sm:gap-5">
+
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-sky-500 text-white shadow-xl shadow-blue-500/20 sm:h-16 sm:w-16 sm:rounded-2xl">
+                            <CalendarClock className="h-6 w-6 sm:h-8 sm:w-8" />
                         </div>
 
-                        <div className="space-y-3">
-                            <div className="flex items-center gap-2">
-                                <h3 className="text-xl font-bold text-slate-900">
+                        <div className="min-w-0 space-y-2 sm:space-y-3">
+
+                            <div className="flex flex-wrap items-center gap-2">
+
+                                <h3 className="text-lg font-bold text-slate-900 sm:text-xl">
                                     Room Availability
                                 </h3>
 
-                                <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+                                <span className="rounded-full bg-blue-100 px-2.5 py-1 text-[10px] font-semibold text-blue-700 sm:px-3 sm:text-xs">
                                     Required
                                 </span>
+
                             </div>
 
-                            <p className="max-w-2xl text-sm leading-7 text-slate-600">
+                            <p className="max-w-2xl text-xs leading-5 text-slate-600 sm:text-sm sm:leading-7">
                                 Tell tenants whether this room can be occupied
                                 immediately or if they'll need to wait until a
                                 future move-in date.
                             </p>
 
-                            <div className="flex flex-wrap gap-3 pt-1">
-                                <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700">
-                                    <Sparkles className="h-4 w-4 text-blue-600" />
+                            <div className="flex flex-wrap gap-2 pt-1 sm:gap-3">
+
+                                <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1.5 text-xs text-slate-700 sm:gap-2 sm:px-3 sm:py-2 sm:text-sm">
+
+                                    <Sparkles className="h-3.5 w-3.5 shrink-0 text-blue-600 sm:h-4 sm:w-4" />
+
                                     Higher booking confidence
+
                                 </div>
 
-                                <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700">
-                                    <Clock3 className="h-4 w-4 text-amber-500" />
+                                <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1.5 text-xs text-slate-700 sm:gap-2 sm:px-3 sm:py-2 sm:text-sm">
+
+                                    <Clock3 className="h-3.5 w-3.5 shrink-0 text-amber-500 sm:h-4 sm:w-4" />
+
                                     Fewer scheduling conflicts
+
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
 
                     {/* Toggle */}
-                    <div className="flex flex-col items-center gap-3">
+                    <div className="flex shrink-0 flex-col items-center gap-2 sm:gap-3 lg:min-w-[120px]">
+
                         <button
                             type="button"
                             onClick={handleToggle}
@@ -98,7 +116,7 @@ const AvailabilityToggle = () => {
                         </button>
 
                         <span
-                            className={`text-sm font-semibold ${
+                            className={`text-xs font-semibold sm:text-sm ${
                                 availableNow
                                     ? "text-blue-700"
                                     : "text-slate-500"
@@ -108,20 +126,24 @@ const AvailabilityToggle = () => {
                                 ? "Available Now"
                                 : "Available Later"}
                         </span>
+
                     </div>
+
                 </div>
 
                 {/* Status Card */}
                 <div
-                    className={`mt-8 rounded-2xl border p-5 transition-all duration-300 ${
+                    className={`mt-6 rounded-xl border p-4 transition-all duration-300 sm:mt-8 sm:rounded-2xl sm:p-5 ${
                         availableNow
                             ? "border-emerald-200 bg-gradient-to-r from-emerald-50 to-green-50"
                             : "border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50"
                     }`}
                 >
-                    <div className="flex gap-4">
+
+                    <div className="flex items-start gap-3 sm:gap-4">
+
                         <div
-                            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${
+                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl sm:h-11 sm:w-11 ${
                                 availableNow
                                     ? "bg-emerald-100"
                                     : "bg-amber-100"
@@ -136,9 +158,10 @@ const AvailabilityToggle = () => {
                             />
                         </div>
 
-                        <div>
+                        <div className="min-w-0">
+
                             <h4
-                                className={`font-semibold ${
+                                className={`text-sm font-semibold sm:text-base ${
                                     availableNow
                                         ? "text-emerald-800"
                                         : "text-amber-800"
@@ -150,7 +173,7 @@ const AvailabilityToggle = () => {
                             </h4>
 
                             <p
-                                className={`mt-2 text-sm leading-7 ${
+                                className={`mt-1.5 text-xs leading-5 sm:mt-2 sm:text-sm sm:leading-7 ${
                                     availableNow
                                         ? "text-emerald-700"
                                         : "text-amber-700"
@@ -160,9 +183,13 @@ const AvailabilityToggle = () => {
                                     ? "This room will immediately appear as available to prospective tenants. They can view and book it without waiting for a future move-in date."
                                     : "After selecting a future availability date, tenants will know exactly when this room becomes available, reducing booking confusion and scheduling conflicts."}
                             </p>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
         </section>
     );

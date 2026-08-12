@@ -22,8 +22,9 @@ export default function RoomNameInput() {
         <div className="space-y-4">
 
             {/* Header */}
-            <div className="flex items-start justify-between">
-                <div>
+            <div className="flex items-start justify-between gap-3">
+
+                <div className="min-w-0">
                     <label
                         htmlFor="roomName"
                         className="text-sm font-semibold text-slate-900"
@@ -31,16 +32,17 @@ export default function RoomNameInput() {
                         Room Name
                     </label>
 
-                    <p className="mt-1 text-sm text-slate-500">
+                    <p className="mt-1 text-sm leading-5 text-slate-500">
                         Choose a clear and attractive name for this room.
                     </p>
                 </div>
 
-                <div className="rounded-full bg-slate-100 px-3 py-1">
+                <div className="shrink-0 rounded-full bg-slate-100 px-3 py-1">
                     <span className="text-xs font-semibold text-slate-600">
                         {room.roomName.length}/{MAX_LENGTH}
                     </span>
                 </div>
+
             </div>
 
             {/* Input */}
@@ -50,7 +52,7 @@ export default function RoomNameInput() {
                     className="
                         pointer-events-none
                         absolute
-                        left-5
+                        left-4
                         top-1/2
                         h-5
                         w-5
@@ -59,6 +61,7 @@ export default function RoomNameInput() {
                         transition-colors
                         duration-200
                         group-focus-within:text-blue-600
+                        sm:left-5
                     "
                 />
 
@@ -70,14 +73,14 @@ export default function RoomNameInput() {
                     onChange={handleChange}
                     placeholder="e.g. Deluxe Mountain View Room"
                     className="
-                        h-16
+                        h-14
                         w-full
-                        rounded-2xl
+                        rounded-xl
                         border
                         border-slate-200
                         bg-white
-                        pl-14
-                        pr-5
+                        pl-12
+                        pr-4
                         text-base
                         font-medium
                         text-slate-900
@@ -93,22 +96,30 @@ export default function RoomNameInput() {
                         focus:ring-4
                         focus:ring-blue-100
                         focus:outline-none
+
+                        sm:h-16
+                        sm:rounded-2xl
+                        sm:pl-14
+                        sm:pr-5
                     "
                 />
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-500">
+            <div className="flex flex-col gap-2 text-xs sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+
+                <span className="leading-5 text-slate-500">
                     This name will appear on your marketplace listing.
                 </span>
 
                 {room.roomName.length > 0 && (
-                    <span className="font-medium text-blue-600">
+                    <span className="shrink-0 font-medium text-blue-600">
                         Looking good 👌
                     </span>
                 )}
+
             </div>
+
         </div>
     );
 }
