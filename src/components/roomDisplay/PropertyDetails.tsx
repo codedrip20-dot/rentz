@@ -20,9 +20,7 @@ interface PropertyDetailsProps {
 
 interface DetailCard {
     title: string;
-
     value: string;
-
     icon: React.ReactNode;
 }
 
@@ -31,15 +29,21 @@ export default function PropertyDetails({
 }: PropertyDetailsProps) {
     const { property } = data;
 
+    const { details, information } = property;
+
+    const {
+        parking,
+        utilities,
+        security,
+    } = information;
+
     const detailCards: DetailCard[] = [
         {
             title: "Property Type",
-
             value: property.propertyType,
-
             icon: (
                 <Building2
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -47,12 +51,10 @@ export default function PropertyDetails({
 
         {
             title: "Furnishing",
-
-            value: property.details.furnishing,
-
+            value: details.furnishing,
             icon: (
                 <Home
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -60,12 +62,10 @@ export default function PropertyDetails({
 
         {
             title: "Built-up Area",
-
-            value: `${property.details.builtUpArea} sq ft`,
-
+            value: `${details.builtUpArea} sq ft`,
             icon: (
                 <Maximize2
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -73,12 +73,10 @@ export default function PropertyDetails({
 
         {
             title: "Carpet Area",
-
-            value: `${property.details.carpetArea} sq ft`,
-
+            value: `${details.carpetArea} sq ft`,
             icon: (
                 <Ruler
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -86,12 +84,10 @@ export default function PropertyDetails({
 
         {
             title: "Floor",
-
-            value: `${property.details.floorNumber} / ${property.details.totalFloors}`,
-
+            value: `${details.floorNumber} / ${details.totalFloors}`,
             icon: (
                 <Layers3
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -99,12 +95,10 @@ export default function PropertyDetails({
 
         {
             title: "Facing",
-
-            value: property.details.facing,
-
+            value: details.facing,
             icon: (
                 <Compass
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -112,15 +106,12 @@ export default function PropertyDetails({
 
         {
             title: "Parking",
-
-            value: property.information.parking
-                .available
+            value: parking.available
                 ? "Available"
                 : "Not Available",
-
             icon: (
                 <Car
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -128,7 +119,7 @@ export default function PropertyDetails({
     ];
 
     return (
-        <section className="mt-8">
+        <section className="mt-6 w-full sm:mt-8">
             <motion.div
                 initial={{
                     opacity: 0,
@@ -140,28 +131,50 @@ export default function PropertyDetails({
                 }}
                 viewport={{
                     once: true,
+                    margin: "0px 0px -80px 0px",
+                }}
+                transition={{
+                    duration: 0.45,
                 }}
                 className="
+                    w-full
                     overflow-hidden
-                    rounded-3xl
+                    rounded-2xl
                     border
                     border-white/10
                     bg-white/5
                     backdrop-blur-xl
+
+                    sm:rounded-3xl
                 "
             >
+                {/* ==================================================
+                    Header
+                ================================================== */}
+
                 <div
                     className="
                         border-b
                         border-white/10
-                        p-8
+                        px-4
+                        py-5
+
+                        sm:px-6
+                        sm:py-7
+
+                        lg:px-8
                     "
                 >
                     <h2
                         className="
-                            text-3xl
+                            text-xl
                             font-black
+                            leading-tight
                             text-white
+
+                            sm:text-2xl
+
+                            lg:text-3xl
                         "
                     >
                         Property Details
@@ -169,29 +182,46 @@ export default function PropertyDetails({
 
                     <p
                         className="
-                            mt-3
+                            mt-2
+                            max-w-2xl
+                            text-sm
+                            leading-6
                             text-white/60
-                            leading-7
+
+                            sm:mt-3
+                            sm:text-base
+                            sm:leading-7
                         "
                     >
-                        Essential information about
-                        the property including its
-                        size, furnishing and layout.
+                        Essential information about the
+                        property including its size,
+                        furnishing and layout.
                     </p>
                 </div>
+
+                {/* ==================================================
+                    Detail Cards
+                ================================================== */}
 
                 <div
                     className="
                         grid
-                        gap-5
-                        p-8
+                        grid-cols-2
+                        gap-2.5
+                        p-3
+
+                        sm:gap-4
+                        sm:p-6
 
                         md:grid-cols-2
+
+                        lg:gap-5
+                        lg:p-8
 
                         xl:grid-cols-3
                     "
                 >
-                {detailCards.map(
+                    {detailCards.map(
                         (item, index) => (
                             <motion.div
                                 key={item.title}
@@ -205,54 +235,81 @@ export default function PropertyDetails({
                                 }}
                                 viewport={{
                                     once: true,
+                                    margin:
+                                        "0px 0px -40px 0px",
                                 }}
                                 transition={{
                                     delay:
                                         index * 0.05,
+                                    duration: 0.35,
                                 }}
                                 className="
-                                    rounded-2xl
+                                    group
+                                    min-w-0
+                                    rounded-xl
                                     border
                                     border-white/10
                                     bg-white/5
-                                    p-5
+                                    p-3
                                     transition-all
                                     duration-300
 
-                                    hover:border-blue-500/30
-                                    hover:bg-white/10
+                                    sm:rounded-2xl
+                                    sm:p-5
+
+                                    sm:hover:border-blue-500/30
+                                    sm:hover:bg-white/10
                                 "
                             >
+                                {/* Icon */}
+
                                 <div
                                     className="
-                                        mb-4
+                                        mb-3
                                         flex
-                                        h-12
-                                        w-12
+                                        h-9
+                                        w-9
                                         items-center
                                         justify-center
                                         rounded-xl
                                         bg-blue-500/10
+
+                                        sm:mb-4
+                                        sm:h-12
+                                        sm:w-12
+                                        sm:rounded-xl
                                     "
                                 >
                                     {item.icon}
                                 </div>
 
+                                {/* Label */}
+
                                 <p
                                     className="
-                                        text-sm
+                                        text-[11px]
+                                        leading-4
                                         text-white/60
+
+                                        sm:text-sm
                                     "
                                 >
                                     {item.title}
                                 </p>
 
+                                {/* Value */}
+
                                 <h3
                                     className="
-                                        mt-2
-                                        text-lg
+                                        mt-1.5
+                                        break-words
+                                        text-sm
                                         font-bold
+                                        leading-5
                                         text-white
+
+                                        sm:mt-2
+                                        sm:text-lg
                                     "
                                 >
                                     {item.value}
@@ -262,18 +319,31 @@ export default function PropertyDetails({
                     )}
                 </div>
 
+                {/* ==================================================
+                    Building Features
+                ================================================== */}
+
                 <div
                     className="
                         border-t
                         border-white/10
-                        p-8
+                        px-4
+                        py-5
+
+                        sm:px-6
+                        sm:py-7
+
+                        lg:px-8
+                        lg:py-8
                     "
                 >
                     <h3
                         className="
-                            text-2xl
+                            text-xl
                             font-bold
                             text-white
+
+                            sm:text-2xl
                         "
                     >
                         Building Features
@@ -281,27 +351,42 @@ export default function PropertyDetails({
 
                     <div
                         className="
-                            mt-6
+                            mt-4
                             grid
-                            gap-6
+                            grid-cols-1
+                            gap-3
+
+                            sm:mt-6
+                            sm:gap-4
 
                             lg:grid-cols-3
+                            lg:gap-6
                         "
                     >
+                        {/* ==================================================
+                            Parking
+                        ================================================== */}
+
                         <div
                             className="
-                                rounded-2xl
+                                min-w-0
+                                rounded-xl
                                 border
                                 border-white/10
                                 bg-white/5
-                                p-6
+                                p-4
+
+                                sm:rounded-2xl
+                                sm:p-6
                             "
                         >
                             <h4
                                 className="
-                                    text-lg
+                                    text-base
                                     font-semibold
                                     text-blue-400
+
+                                    sm:text-lg
                                 "
                             >
                                 Parking
@@ -309,57 +394,68 @@ export default function PropertyDetails({
 
                             <div
                                 className="
-                                    mt-5
-                                    space-y-3
+                                    mt-4
+                                    space-y-2.5
+                                    text-sm
+                                    leading-6
                                     text-white/80
+
+                                    sm:mt-5
+                                    sm:space-y-3
                                 "
                             >
                                 <p>
-                                    • Available :
-                                    {" "}
-                                    {property.information.parking.available
+                                    • Available:{" "}
+                                    {parking.available
                                         ? "Yes"
                                         : "No"}
                                 </p>
 
                                 <p>
-                                    • Covered :
-                                    {" "}
-                                    {property.information.parking.covered
+                                    • Covered:{" "}
+                                    {parking.covered
                                         ? "Yes"
                                         : "No"}
                                 </p>
 
                                 <p>
-                                    • Open :
-                                    {" "}
-                                    {property.information.parking.open
+                                    • Open:{" "}
+                                    {parking.open
                                         ? "Yes"
                                         : "No"}
                                 </p>
 
                                 <p>
-                                    • Total Spaces :
-                                    {" "}
-                                    {property.information.parking.totalSpaces}
+                                    • Total Spaces:{" "}
+                                    {parking.totalSpaces}
                                 </p>
                             </div>
                         </div>
 
+                        {/* ==================================================
+                            Utilities
+                        ================================================== */}
+
                         <div
                             className="
-                                rounded-2xl
+                                min-w-0
+                                rounded-xl
                                 border
                                 border-white/10
                                 bg-white/5
-                                p-6
+                                p-4
+
+                                sm:rounded-2xl
+                                sm:p-6
                             "
                         >
                             <h4
                                 className="
-                                    text-lg
+                                    text-base
                                     font-semibold
                                     text-blue-400
+
+                                    sm:text-lg
                                 "
                             >
                                 Utilities
@@ -367,59 +463,70 @@ export default function PropertyDetails({
 
                             <div
                                 className="
-                                    mt-5
-                                    space-y-3
+                                    mt-4
+                                    space-y-2.5
+                                    text-sm
+                                    leading-6
                                     text-white/80
+
+                                    sm:mt-5
+                                    sm:space-y-3
                                 "
                             >
-                            <p>
-                                    • Power Backup :
-                                    {" "}
-                                    {property.information.utilities.powerBackup
+                                <p>
+                                    • Power Backup:{" "}
+                                    {utilities.powerBackup
                                         ? "Yes"
                                         : "No"}
                                 </p>
 
                                 <p>
-                                    • Water Supply :
-                                    {" "}
-                                    {property.information.utilities.waterSupply
+                                    • Water Supply:{" "}
+                                    {utilities.waterSupply
                                         ? "Yes"
                                         : "No"}
                                 </p>
 
                                 <p>
-                                    • Internet Ready :
-                                    {" "}
-                                    {property.information.utilities.internetReady
+                                    • Internet Ready:{" "}
+                                    {utilities.internetReady
                                         ? "Yes"
                                         : "No"}
                                 </p>
 
                                 <p>
-                                    • Gas Pipeline :
-                                    {" "}
-                                    {property.information.utilities.gasPipeline
+                                    • Gas Pipeline:{" "}
+                                    {utilities.gasPipeline
                                         ? "Yes"
                                         : "No"}
                                 </p>
                             </div>
                         </div>
 
+                        {/* ==================================================
+                            Security
+                        ================================================== */}
+
                         <div
                             className="
-                                rounded-2xl
+                                min-w-0
+                                rounded-xl
                                 border
                                 border-white/10
                                 bg-white/5
-                                p-6
+                                p-4
+
+                                sm:rounded-2xl
+                                sm:p-6
                             "
                         >
                             <h4
                                 className="
-                                    text-lg
+                                    text-base
                                     font-semibold
                                     text-blue-400
+
+                                    sm:text-lg
                                 "
                             >
                                 Security
@@ -427,47 +534,47 @@ export default function PropertyDetails({
 
                             <div
                                 className="
-                                    mt-5
-                                    space-y-3
+                                    mt-4
+                                    space-y-2.5
+                                    text-sm
+                                    leading-6
                                     text-white/80
+
+                                    sm:mt-5
+                                    sm:space-y-3
                                 "
                             >
                                 <p>
-                                    • CCTV :
-                                    {" "}
-                                    {property.information.security.cctv
+                                    • CCTV:{" "}
+                                    {security.cctv
                                         ? "Yes"
                                         : "No"}
                                 </p>
 
                                 <p>
-                                    • Security Guard :
-                                    {" "}
-                                    {property.information.security.securityGuard
+                                    • Security Guard:{" "}
+                                    {security.securityGuard
                                         ? "Yes"
                                         : "No"}
                                 </p>
 
                                 <p>
-                                    • Gated Community :
-                                    {" "}
-                                    {property.information.security.gatedCommunity
+                                    • Gated Community:{" "}
+                                    {security.gatedCommunity
                                         ? "Yes"
                                         : "No"}
                                 </p>
 
                                 <p>
-                                    • Intercom :
-                                    {" "}
-                                    {property.information.security.intercom
+                                    • Intercom:{" "}
+                                    {security.intercom
                                         ? "Yes"
                                         : "No"}
                                 </p>
 
                                 <p>
-                                    • Fire Safety :
-                                    {" "}
-                                    {property.information.security.fireSafety
+                                    • Fire Safety:{" "}
+                                    {security.fireSafety
                                         ? "Yes"
                                         : "No"}
                                 </p>

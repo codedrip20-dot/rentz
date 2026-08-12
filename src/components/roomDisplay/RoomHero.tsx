@@ -28,32 +28,25 @@ interface RoomHeroProps {
    Helpers
 ========================================================== */
 
-function formatCurrency(
-    amount: number
-) {
-    return new Intl.NumberFormat(
-        "en-IN",
-        {
-            maximumFractionDigits: 0,
-        }
-    ).format(amount);
+function formatCurrency(amount: number) {
+    return new Intl.NumberFormat("en-IN", {
+        maximumFractionDigits: 0,
+    }).format(amount);
 }
 
-function getStatusColor(
-    status: string
-) {
+function getStatusColor(status: string) {
     switch (status) {
         case "available":
-            return "bg-emerald-500/20 text-emerald-300 border-emerald-500/30";
+            return "border-emerald-500/30 bg-emerald-500/20 text-emerald-300";
 
         case "occupied":
-            return "bg-red-500/20 text-red-300 border-red-500/30";
+            return "border-red-500/30 bg-red-500/20 text-red-300";
 
         case "reserved":
-            return "bg-amber-500/20 text-amber-300 border-amber-500/30";
+            return "border-amber-500/30 bg-amber-500/20 text-amber-300";
 
         default:
-            return "bg-slate-500/20 text-slate-300 border-slate-500/30";
+            return "border-slate-500/30 bg-slate-500/20 text-slate-300";
     }
 }
 
@@ -78,12 +71,8 @@ export default function RoomHero({
         .filter(Boolean)
         .join(", ");
 
-    const monthlyRent =
-        room.pricing.rent;
-
-    const deposit =
-        room.pricing.securityDeposit;
-
+    const monthlyRent = room.pricing.rent;
+    const deposit = room.pricing.securityDeposit;
     const maintenance =
         room.pricing.maintenanceCharge;
 
@@ -91,8 +80,17 @@ export default function RoomHero({
         room.capacity.adults +
         room.capacity.children;
 
-    const canBook =
-        booking.canBook;
+    const canBook = booking.canBook;
+
+    const formattedStatus =
+        room.status.charAt(0).toUpperCase() +
+        room.status.slice(1);
+
+    const rating =
+        reviews?.averageRating ?? 0;
+
+    const totalReviews =
+        reviews?.totalReviews ?? 0;
 
     return (
         <motion.section
@@ -108,24 +106,32 @@ export default function RoomHero({
                 duration: 0.45,
             }}
             className="
-                mt-8
+                mt-6
+                w-full
                 overflow-hidden
-                rounded-3xl
+                rounded-2xl
                 border
                 border-white/10
                 bg-white/5
                 shadow-2xl
                 backdrop-blur-2xl
+
+                sm:mt-8
+                sm:rounded-3xl
             "
         >
             <div
                 className="
-                    p-5
+                    p-4
+
                     sm:p-7
+
                     lg:p-10
                 "
             >
-          
+                {/* ==================================================
+                    Main Hero Content
+                ================================================== */}
 
                 <div
                     className="
@@ -136,38 +142,44 @@ export default function RoomHero({
                         lg:flex-row
                         lg:items-start
                         lg:justify-between
+                        lg:gap-10
                     "
                 >
-                    {/* Left */}
+                    {/* ==================================================
+                        Left Content
+                    ================================================== */}
 
-                    <div className="flex-1">
+                    <div className="min-w-0 flex-1">
+                        {/* Status Tags */}
+
                         <div
                             className="
                                 mb-4
                                 flex
                                 flex-wrap
                                 items-center
-                                gap-3
+                                gap-2
                             "
                         >
                             <span
                                 className={`
                                     rounded-full
                                     border
-                                    px-4
+                                    px-3
                                     py-1.5
-                                    text-xs
+                                    text-[11px]
                                     font-semibold
                                     backdrop-blur-xl
+
+                                    sm:px-4
+                                    sm:text-xs
+
                                     ${getStatusColor(
                                         room.status
                                     )}
                                 `}
                             >
-                                {room.status
-                                    .charAt(0)
-                                    .toUpperCase() +
-                                    room.status.slice(1)}
+                                {formattedStatus}
                             </span>
 
                             <span
@@ -176,11 +188,14 @@ export default function RoomHero({
                                     border
                                     border-blue-500/30
                                     bg-blue-500/15
-                                    px-4
+                                    px-3
                                     py-1.5
-                                    text-xs
+                                    text-[11px]
                                     font-semibold
                                     text-blue-200
+
+                                    sm:px-4
+                                    sm:text-xs
                                 "
                             >
                                 {room.roomType}
@@ -192,200 +207,309 @@ export default function RoomHero({
                                     border
                                     border-white/10
                                     bg-white/5
-                                    px-4
+                                    px-3
                                     py-1.5
-                                    text-xs
+                                    text-[11px]
                                     text-white/80
+
+                                    sm:px-4
+                                    sm:text-xs
                                 "
                             >
-                                {property
-                                    .propertyType}
+                                {property.propertyType}
                             </span>
                         </div>
 
+                        {/* Room Name */}
+
                         <h1
                             className="
-                                text-3xl
+                                break-words
+                                text-2xl
                                 font-black
                                 leading-tight
                                 text-white
 
                                 sm:text-4xl
+
                                 lg:text-5xl
                             "
                         >
                             {room.roomName}
                         </h1>
 
+                        {/* Location + Rating */}
+
                         <div
                             className="
-                                mt-5
+                                mt-4
                                 flex
-                                flex-wrap
-                                items-center
-                                gap-4
+                                flex-col
+                                gap-2.5
+                                text-sm
                                 text-white/70
+
+                                sm:mt-5
+                                sm:flex-row
+                                sm:flex-wrap
+                                sm:items-center
+                                sm:gap-4
                             "
                         >
+                            {/* Location */}
+
                             <div
                                 className="
                                     flex
+                                    min-w-0
                                     items-center
                                     gap-2
                                 "
                             >
                                 <MapPin
-                                    size={18}
-                                    className="text-blue-400"
+                                    size={17}
+                                    className="
+                                        shrink-0
+                                        text-blue-400
+                                    "
                                 />
 
-                                <span>
-                                    {location}
+                                <span
+                                    className="
+                                        min-w-0
+                                        break-words
+                                    "
+                                >
+                                    {location ||
+                                        "Location unavailable"}
                                 </span>
                             </div>
+
+                            {/* Rating */}
 
                             <div
                                 className="
                                     flex
                                     items-center
-                                    gap-2
+                                    gap-1.5
                                 "
                             >
                                 <Star
-                                    size={18}
+                                    size={17}
                                     className="
+                                        shrink-0
                                         fill-yellow-400
                                         text-yellow-400
                                     "
                                 />
 
                                 <span>
-                                    {reviews?.averageRating.toFixed(
-                                        1
-                                    )}
+                                    {rating.toFixed(1)}
                                 </span>
 
                                 <span className="text-white/40">
-                                    (
-                                    {
-                                        reviews?.totalReviews
-                                    }{" "}
-                                    reviews)
+                                    ({totalReviews}{" "}
+                                    {totalReviews === 1
+                                        ? "review"
+                                        : "reviews"}
+                                    )
                                 </span>
                             </div>
                         </div>
 
+                        {/* ==================================================
+                            Feature Pills
+                        ================================================== */}
+
                         <div
                             className="
-                                mt-6
-                                flex
-                                flex-wrap
-                                gap-3
+                                mt-5
+                                grid
+                                grid-cols-1
+                                gap-2.5
+
+                                sm:flex
+                                sm:flex-wrap
+                                sm:gap-3
                             "
                         >
+                            {/* Guests */}
+
                             <div
                                 className="
                                     flex
+                                    min-w-0
                                     items-center
                                     gap-2
-                                    rounded-2xl
+                                    rounded-xl
                                     border
                                     border-white/10
                                     bg-white/5
-                                    px-4
-                                    py-3
+                                    px-3
+                                    py-2.5
+
+                                    sm:rounded-2xl
+                                    sm:px-4
+                                    sm:py-3
                                 "
                             >
                                 <Users
-                                    size={18}
-                                    className="text-blue-400"
+                                    size={17}
+                                    className="
+                                        shrink-0
+                                        text-blue-400
+                                    "
                                 />
 
-                                <span className="text-sm text-white">
-                                    {totalGuests} Guests
+                                <span
+                                    className="
+                                        text-xs
+                                        text-white
+
+                                        sm:text-sm
+                                    "
+                                >
+                                    {totalGuests}{" "}
+                                    {totalGuests === 1
+                                        ? "Guest"
+                                        : "Guests"}
                                 </span>
                             </div>
+
+                            {/* Furnishing */}
 
                             <div
                                 className="
                                     flex
+                                    min-w-0
                                     items-center
                                     gap-2
-                                    rounded-2xl
+                                    rounded-xl
                                     border
                                     border-white/10
                                     bg-white/5
-                                    px-4
-                                    py-3
+                                    px-3
+                                    py-2.5
+
+                                    sm:rounded-2xl
+                                    sm:px-4
+                                    sm:py-3
                                 "
                             >
                                 <BedDouble
-                                    size={18}
-                                    className="text-blue-400"
+                                    size={17}
+                                    className="
+                                        shrink-0
+                                        text-blue-400
+                                    "
                                 />
 
-                                <span className="text-sm text-white">
+                                <span
+                                    className="
+                                        truncate
+                                        text-xs
+                                        text-white
+
+                                        sm:text-sm
+                                    "
+                                >
                                     {room.furnishing}
                                 </span>
                             </div>
 
+                            {/* Premium */}
+
                             <div
                                 className="
                                     flex
+                                    min-w-0
                                     items-center
                                     gap-2
-                                    rounded-2xl
+                                    rounded-xl
                                     border
                                     border-white/10
                                     bg-white/5
-                                    px-4
-                                    py-3
+                                    px-3
+                                    py-2.5
+
+                                    sm:rounded-2xl
+                                    sm:px-4
+                                    sm:py-3
                                 "
                             >
                                 <Sparkles
-                                    size={18}
-                                    className="text-blue-400"
+                                    size={17}
+                                    className="
+                                        shrink-0
+                                        text-blue-400
+                                    "
                                 />
 
-                                <span className="text-sm text-white">
+                                <span
+                                    className="
+                                        text-xs
+                                        text-white
+
+                                        sm:text-sm
+                                    "
+                                >
                                     Premium Listing
                                 </span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Right */}
+                    {/* ==================================================
+                        Pricing / Booking Panel
+                    ================================================== */}
 
                     <div
                         className="
                             w-full
-                            rounded-3xl
+                            min-w-0
+                            rounded-2xl
                             border
                             border-blue-500/20
                             bg-gradient-to-br
                             from-blue-600/15
                             to-slate-900/40
-                            p-6
+                            p-4
                             backdrop-blur-xl
 
+                            sm:rounded-3xl
+                            sm:p-6
+
                             lg:max-w-sm
+                            lg:shrink-0
                         "
                     >
+                        {/* Price */}
+
                         <div
                             className="
                                 flex
-                                items-center
-                                gap-2
-                                text-blue-300
+                                flex-wrap
+                                items-baseline
+                                gap-1.5
                             "
                         >
-                            <IndianRupee size={24} />
+                            <IndianRupee
+                                size={20}
+                                className="
+                                    text-blue-300
+
+                                    sm:h-6
+                                    sm:w-6
+                                "
+                            />
 
                             <span
                                 className="
-                                    text-4xl
+                                    text-3xl
                                     font-black
                                     text-white
+
+                                    sm:text-4xl
                                 "
                             >
                                 {formatCurrency(
@@ -393,12 +517,30 @@ export default function RoomHero({
                                 )}
                             </span>
 
-                            <span className="text-white/70">
+                            <span
+                                className="
+                                    text-sm
+                                    text-white/70
+
+                                    sm:text-base
+                                "
+                            >
                                 /month
                             </span>
                         </div>
 
-                        <p className="mt-2 text-white/60">
+                        {/* Additional Charges */}
+
+                        <p
+                            className="
+                                mt-2
+                                text-xs
+                                leading-5
+                                text-white/60
+
+                                sm:text-sm
+                            "
+                        >
                             Deposit ₹
                             {formatCurrency(
                                 deposit
@@ -410,60 +552,107 @@ export default function RoomHero({
                             )}
                         </p>
 
+                        {/* ==================================================
+                            Actions
+                        ================================================== */}
+
                         <div
                             className="
-                                mt-6
+                                mt-5
                                 flex
-                                gap-3
+                                gap-2.5
+
+                                sm:mt-6
+                                sm:gap-3
                             "
                         >
                             <button
+                                type="button"
+                                aria-label="Save room"
                                 className="
                                     flex
-                                    h-12
-                                    w-12
+                                    h-11
+                                    w-11
+                                    shrink-0
                                     items-center
                                     justify-center
-                                    rounded-2xl
+                                    rounded-xl
                                     border
                                     border-white/10
                                     bg-white/5
                                     text-white
                                     transition-all
-                                    hover:bg-white/10
+                                    duration-300
+
+                                    active:scale-95
+
+                                    sm:h-12
+                                    sm:w-12
+                                    sm:rounded-2xl
+                                    sm:hover:bg-white/10
                                 "
                             >
-                                <Heart size={20} />
+                                <Heart
+                                    size={19}
+                                />
                             </button>
 
                             <button
+                                type="button"
+                                aria-label="Share room"
                                 className="
                                     flex
-                                    h-12
-                                    w-12
+                                    h-11
+                                    w-11
+                                    shrink-0
                                     items-center
                                     justify-center
-                                    rounded-2xl
+                                    rounded-xl
                                     border
                                     border-white/10
                                     bg-white/5
                                     text-white
                                     transition-all
-                                    hover:bg-white/10
+                                    duration-300
+
+                                    active:scale-95
+
+                                    sm:h-12
+                                    sm:w-12
+                                    sm:rounded-2xl
+                                    sm:hover:bg-white/10
                                 "
                             >
-                                <Share2 size={20} />
+                                <Share2
+                                    size={19}
+                                />
                             </button>
-                            </div>
+                        </div>
 
-                        <div className="mt-6 space-y-3">
+                        {/* ==================================================
+                            Booking Details
+                        ================================================== */}
+
+                        <div
+                            className="
+                                mt-5
+                                space-y-3
+
+                                sm:mt-6
+                            "
+                        >
+                            {/* Booking Status */}
+
                             <div
                                 className="
                                     flex
-                                    items-center
+                                    items-start
                                     justify-between
-                                    text-sm
+                                    gap-4
+                                    text-xs
                                     text-white/70
+
+                                    sm:text-sm
                                 "
                             >
                                 <span>
@@ -473,8 +662,8 @@ export default function RoomHero({
                                 <span
                                     className={
                                         canBook
-                                            ? "text-emerald-400 font-semibold"
-                                            : "text-red-400 font-semibold"
+                                            ? "text-right font-semibold text-emerald-400"
+                                            : "text-right font-semibold text-red-400"
                                     }
                                 >
                                     {canBook
@@ -483,13 +672,18 @@ export default function RoomHero({
                                 </span>
                             </div>
 
+                            {/* Instant Booking */}
+
                             <div
                                 className="
                                     flex
                                     items-center
                                     justify-between
-                                    text-sm
+                                    gap-4
+                                    text-xs
                                     text-white/70
+
+                                    sm:text-sm
                                 "
                             >
                                 <span>
@@ -498,17 +692,25 @@ export default function RoomHero({
 
                                 <BadgeCheck
                                     size={18}
-                                    className="text-blue-400"
+                                    className="
+                                        shrink-0
+                                        text-blue-400
+                                    "
                                 />
                             </div>
+
+                            {/* Move In */}
 
                             <div
                                 className="
                                     flex
                                     items-center
                                     justify-between
-                                    text-sm
+                                    gap-4
+                                    text-xs
                                     text-white/70
+
+                                    sm:text-sm
                                 "
                             >
                                 <span>
@@ -519,12 +721,15 @@ export default function RoomHero({
                                     className="
                                         flex
                                         items-center
-                                        gap-2
+                                        gap-1.5
                                     "
                                 >
                                     <CalendarDays
                                         size={16}
-                                        className="text-blue-400"
+                                        className="
+                                            shrink-0
+                                            text-blue-400
+                                        "
                                     />
 
                                     <span>
@@ -534,23 +739,40 @@ export default function RoomHero({
                             </div>
                         </div>
 
+                        {/* ==================================================
+                            Booking Button
+                        ================================================== */}
+
                         <Link
                             href={
                                 canBook
                                     ? `/booking/${room.roomId}`
                                     : "#"
                             }
+                            aria-disabled={!canBook}
+                            onClick={(event) => {
+                                if (!canBook) {
+                                    event.preventDefault();
+                                }
+                            }}
                             className={`
-                                mt-8
+                                mt-6
                                 flex
-                                h-14
+                                min-h-12
                                 w-full
                                 items-center
                                 justify-center
-                                rounded-2xl
+                                rounded-xl
+                                px-4
+                                text-sm
                                 font-bold
                                 transition-all
                                 duration-300
+
+                                sm:mt-8
+                                sm:h-14
+                                sm:rounded-2xl
+                                sm:text-base
 
                                 ${
                                     canBook
@@ -559,9 +781,12 @@ export default function RoomHero({
                                             from-blue-600
                                             to-cyan-500
                                             text-white
-                                            hover:scale-[1.02]
-                                            hover:shadow-xl
-                                            hover:shadow-blue-500/30
+
+                                            active:scale-[0.98]
+
+                                            sm:hover:scale-[1.02]
+                                            sm:hover:shadow-xl
+                                            sm:hover:shadow-blue-500/30
                                           `
                                         : `
                                             cursor-not-allowed
@@ -578,39 +803,59 @@ export default function RoomHero({
                     </div>
                 </div>
 
-                {/* ==========================================
+                {/* ==================================================
                     Quick Highlights
-                ========================================== */}
+                ================================================== */}
 
                 <div
                     className="
-                        mt-8
+                        mt-6
                         grid
                         grid-cols-2
-                        gap-4
+                        gap-2.5
+
+                        sm:mt-8
+                        sm:gap-4
 
                         lg:grid-cols-4
                     "
                 >
+                    {/* Monthly Rent */}
+
                     <div
                         className="
-                            rounded-2xl
+                            min-w-0
+                            rounded-xl
                             border
                             border-white/10
                             bg-white/5
-                            p-5
+                            p-3
+
+                            sm:rounded-2xl
+                            sm:p-5
                         "
                     >
-                        <p className="text-sm text-white/60">
+                        <p
+                            className="
+                                text-[11px]
+                                text-white/60
+
+                                sm:text-sm
+                            "
+                        >
                             Monthly Rent
                         </p>
 
                         <p
                             className="
-                                mt-2
-                                text-2xl
+                                mt-1.5
+                                truncate
+                                text-lg
                                 font-bold
                                 text-white
+
+                                sm:mt-2
+                                sm:text-2xl
                             "
                         >
                             ₹
@@ -620,25 +865,42 @@ export default function RoomHero({
                         </p>
                     </div>
 
+                    {/* Security Deposit */}
+
                     <div
                         className="
-                            rounded-2xl
+                            min-w-0
+                            rounded-xl
                             border
                             border-white/10
                             bg-white/5
-                            p-5
+                            p-3
+
+                            sm:rounded-2xl
+                            sm:p-5
                         "
                     >
-                        <p className="text-sm text-white/60">
+                        <p
+                            className="
+                                text-[11px]
+                                text-white/60
+
+                                sm:text-sm
+                            "
+                        >
                             Security Deposit
                         </p>
 
                         <p
                             className="
-                                mt-2
-                                text-2xl
+                                mt-1.5
+                                truncate
+                                text-lg
                                 font-bold
                                 text-white
+
+                                sm:mt-2
+                                sm:text-2xl
                             "
                         >
                             ₹
@@ -648,25 +910,42 @@ export default function RoomHero({
                         </p>
                     </div>
 
+                    {/* Maintenance */}
+
                     <div
                         className="
-                            rounded-2xl
+                            min-w-0
+                            rounded-xl
                             border
                             border-white/10
                             bg-white/5
-                            p-5
+                            p-3
+
+                            sm:rounded-2xl
+                            sm:p-5
                         "
                     >
-                        <p className="text-sm text-white/60">
+                        <p
+                            className="
+                                text-[11px]
+                                text-white/60
+
+                                sm:text-sm
+                            "
+                        >
                             Maintenance
                         </p>
 
                         <p
                             className="
-                                mt-2
-                                text-2xl
+                                mt-1.5
+                                truncate
+                                text-lg
                                 font-bold
                                 text-white
+
+                                sm:mt-2
+                                sm:text-2xl
                             "
                         >
                             ₹
@@ -676,36 +955,60 @@ export default function RoomHero({
                         </p>
                     </div>
 
+                    {/* Property */}
+
                     <div
                         className="
-                            rounded-2xl
+                            min-w-0
+                            rounded-xl
                             border
                             border-white/10
                             bg-white/5
-                            p-5
+                            p-3
+
+                            sm:rounded-2xl
+                            sm:p-5
                         "
                     >
-                        <p className="text-sm text-white/60">
+                        <p
+                            className="
+                                text-[11px]
+                                text-white/60
+
+                                sm:text-sm
+                            "
+                        >
                             Property
                         </p>
 
                         <div
                             className="
-                                mt-2
+                                mt-1.5
                                 flex
+                                min-w-0
                                 items-center
                                 gap-2
+
+                                sm:mt-2
                             "
                         >
                             <Building2
-                                size={18}
-                                className="text-blue-400"
+                                size={17}
+                                className="
+                                    shrink-0
+                                    text-blue-400
+                                "
                             />
 
                             <span
                                 className="
+                                    min-w-0
+                                    truncate
+                                    text-sm
                                     font-semibold
                                     text-white
+
+                                    sm:text-base
                                 "
                             >
                                 {property.propertyType}

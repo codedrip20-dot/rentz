@@ -22,26 +22,20 @@ interface SimilarRoomsProps {
     data: RoomDisplayData;
 }
 
-function formatCurrency(
-    amount: number
-) {
-    return new Intl.NumberFormat(
-        "en-IN",
-        {
-            maximumFractionDigits: 0,
-        }
-    ).format(amount);
+function formatCurrency(amount: number) {
+    return new Intl.NumberFormat("en-IN", {
+        maximumFractionDigits: 0,
+    }).format(amount);
 }
 
 export default function SimilarRooms({
     data,
 }: SimilarRoomsProps) {
-    const rooms =
-        data.recommendations.rooms;
+    const rooms = data.recommendations.rooms;
 
     if (!rooms.length) {
         return (
-            <section className="mt-8">
+            <section className="mt-6 w-full sm:mt-8">
                 <motion.div
                     initial={{
                         opacity: 0,
@@ -53,31 +47,47 @@ export default function SimilarRooms({
                     }}
                     viewport={{
                         once: true,
+                        margin:
+                            "0px 0px -60px 0px",
+                    }}
+                    transition={{
+                        duration: 0.4,
                     }}
                     className="
-                        rounded-3xl
+                        w-full
+                        rounded-2xl
                         border
                         border-white/10
                         bg-white/5
-                        p-10
+                        px-4
+                        py-8
                         text-center
                         backdrop-blur-xl
+
+                        sm:rounded-3xl
+                        sm:p-10
                     "
                 >
                     <ImageIcon
-                        size={52}
+                        size={40}
                         className="
                             mx-auto
-                            mb-5
+                            mb-4
                             text-blue-400
+
+                            sm:h-[52px]
+                            sm:w-[52px]
+                            sm:mb-5
                         "
                     />
 
                     <h2
                         className="
-                            text-2xl
+                            text-xl
                             font-black
                             text-white
+
+                            sm:text-2xl
                         "
                     >
                         No Similar Rooms
@@ -85,13 +95,20 @@ export default function SimilarRooms({
 
                     <p
                         className="
-                            mt-3
+                            mx-auto
+                            mt-2
+                            max-w-md
+                            text-sm
+                            leading-6
                             text-white/60
+
+                            sm:mt-3
+                            sm:text-base
+                            sm:leading-7
                         "
                     >
-                        We couldnt find any
-                        recommended rooms for
-                        this property yet.
+                        We couldn't find any recommended
+                        rooms for this property yet.
                     </p>
                 </motion.div>
             </section>
@@ -99,44 +116,56 @@ export default function SimilarRooms({
     }
 
     return (
-        <section className="mt-8">
-            <div
-                className="
-                    mb-8
-                    flex
-                    items-center
-                    justify-between
-                "
-            >
-                <div>
-                    <h2
-                        className="
-                            text-3xl
-                            font-black
-                            text-white
-                        "
-                    >
-                        Similar Rooms
-                    </h2>
+        <section className="mt-6 w-full sm:mt-8">
+            {/* ==================================================
+                Section Header
+            ================================================== */}
 
-                    <p
-                        className="
-                            mt-2
-                            text-white/60
-                        "
-                    >
-                        You may also like these
-                        available rooms.
-                    </p>
-                </div>
+            <div className="mb-5 sm:mb-8">
+                <h2
+                    className="
+                        text-2xl
+                        font-black
+                        leading-tight
+                        text-white
+
+                        sm:text-3xl
+                    "
+                >
+                    Similar Rooms
+                </h2>
+
+                <p
+                    className="
+                        mt-1.5
+                        text-sm
+                        leading-6
+                        text-white/60
+
+                        sm:mt-2
+                        sm:text-base
+                        sm:leading-7
+                    "
+                >
+                    You may also like these available
+                    rooms.
+                </p>
             </div>
+
+            {/* ==================================================
+                Room Grid
+            ================================================== */}
 
             <div
                 className="
                     grid
-                    gap-6
+                    grid-cols-1
+                    gap-4
+
+                    sm:gap-5
 
                     lg:grid-cols-3
+                    lg:gap-6
                 "
             >
                 {rooms.map(
@@ -153,14 +182,19 @@ export default function SimilarRooms({
                             }}
                             viewport={{
                                 once: true,
+                                margin:
+                                    "0px 0px -50px 0px",
                             }}
                             transition={{
                                 delay:
                                     index * 0.08,
+                                duration: 0.4,
                             }}
                             className="
+                                group
+                                min-w-0
                                 overflow-hidden
-                                rounded-3xl
+                                rounded-2xl
                                 border
                                 border-white/10
                                 bg-white/5
@@ -168,36 +202,49 @@ export default function SimilarRooms({
                                 transition-all
                                 duration-300
 
-                                hover:border-blue-500/30
-                                hover:-translate-y-2
-                                hover:shadow-2xl
-                                hover:shadow-blue-500/10
+                                sm:rounded-3xl
+
+                                sm:hover:-translate-y-2
+                                sm:hover:border-blue-500/30
+                                sm:hover:shadow-2xl
+                                sm:hover:shadow-blue-500/10
                             "
                         >
-                        <div
+                            {/* ==================================================
+                                Image
+                            ================================================== */}
+
+                            <div
                                 className="
                                     relative
-                                    h-56
+                                    h-48
                                     overflow-hidden
+
+                                    sm:h-56
                                 "
                             >
-                                {room.images.length >
-                                0 ? (
+                                {room.images.length > 0 ? (
                                     <Image
                                         src={
-                                            room.images[0]
+                                            room
+                                                .images[0]
                                                 .url
                                         }
                                         alt={
                                             room.roomName
                                         }
                                         fill
-                                        sizes="400px"
+                                        sizes="
+                                            (max-width: 640px) 100vw,
+                                            (max-width: 1024px) 50vw,
+                                            400px
+                                        "
                                         className="
                                             object-cover
                                             transition-transform
                                             duration-500
-                                            group-hover:scale-110
+
+                                            sm:group-hover:scale-110
                                         "
                                     />
                                 ) : (
@@ -211,99 +258,157 @@ export default function SimilarRooms({
                                         "
                                     >
                                         <ImageIcon
-                                            size={48}
-                                            className="text-slate-500"
+                                            size={40}
+                                            className="
+                                                text-slate-500
+
+                                                sm:h-12
+                                                sm:w-12
+                                            "
                                         />
                                     </div>
                                 )}
 
                                 <div
                                     className="
+                                        pointer-events-none
                                         absolute
                                         inset-0
                                         bg-gradient-to-t
                                         from-black/70
-                                        via-transparent
+                                        via-black/10
                                         to-transparent
                                     "
                                 />
 
+                                {/* Room Type */}
+
                                 <div
                                     className="
                                         absolute
-                                        bottom-4
-                                        left-4
+                                        bottom-3
+                                        left-3
+                                        max-w-[calc(100%-24px)]
+                                        truncate
                                         rounded-full
                                         bg-blue-600
                                         px-3
                                         py-1
-                                        text-xs
+                                        text-[11px]
                                         font-semibold
                                         text-white
+
+                                        sm:bottom-4
+                                        sm:left-4
+                                        sm:text-xs
                                     "
                                 >
                                     {room.roomType}
                                 </div>
                             </div>
 
-                            <div className="p-6">
+                            {/* ==================================================
+                                Card Content
+                            ================================================== */}
+
+                            <div
+                                className="
+                                    p-4
+
+                                    sm:p-6
+                                "
+                            >
+                                {/* Room Name */}
+
                                 <h3
                                     className="
-                                        line-clamp-1
-                                        text-xl
+                                        truncate
+                                        text-lg
                                         font-bold
                                         text-white
+
+                                        sm:text-xl
                                     "
                                 >
                                     {room.roomName}
                                 </h3>
 
+                                {/* Property */}
+
                                 <div
                                     className="
-                                        mt-3
+                                        mt-2.5
                                         flex
+                                        min-w-0
                                         items-center
                                         gap-2
                                         text-white/60
+
+                                        sm:mt-3
                                     "
                                 >
                                     <MapPin
-                                        size={16}
-                                        className="text-blue-400"
+                                        size={15}
+                                        className="
+                                            shrink-0
+                                            text-blue-400
+                                        "
                                     />
 
-                                    <span>
+                                    <span
+                                        className="
+                                            min-w-0
+                                            truncate
+                                            text-xs
+
+                                            sm:text-sm
+                                        "
+                                    >
                                         {
                                             room.propertyName
                                         }
                                     </span>
                                 </div>
 
+                                {/* ==================================================
+                                    Price
+                                ================================================== */}
+
                                 <div
                                     className="
-                                        mt-5
+                                        mt-4
                                         flex
-                                        items-center
+                                        items-baseline
                                         justify-between
+                                        gap-2
+
+                                        sm:mt-5
                                     "
                                 >
                                     <div
                                         className="
                                             flex
+                                            min-w-0
                                             items-center
-                                            gap-1
+                                            gap-0.5
                                         "
                                     >
                                         <IndianRupee
-                                            size={18}
-                                            className="text-blue-400"
+                                            size={17}
+                                            className="
+                                                shrink-0
+                                                text-blue-400
+                                            "
                                         />
 
                                         <span
                                             className="
-                                                text-2xl
+                                                truncate
+                                                text-xl
                                                 font-black
                                                 text-white
+
+                                                sm:text-2xl
                                             "
                                         >
                                             {formatCurrency(
@@ -316,127 +421,197 @@ export default function SimilarRooms({
 
                                     <span
                                         className="
-                                            text-sm
+                                            shrink-0
+                                            text-xs
                                             text-white/60
+
+                                            sm:text-sm
                                         "
                                     >
                                         /month
                                     </span>
                                 </div>
 
+                                {/* ==================================================
+                                    Room Features
+                                ================================================== */}
+
                                 <div
                                     className="
-                                        mt-6
+                                        mt-4
                                         grid
                                         grid-cols-2
-                                        gap-3
+                                        gap-2
+
+                                        sm:mt-6
+                                        sm:gap-3
                                     "
                                 >
+                                    {/* Adults */}
+
                                     <div
                                         className="
                                             flex
+                                            min-w-0
                                             items-center
                                             gap-2
                                             rounded-xl
                                             bg-white/5
-                                            p-3
+                                            p-2.5
+
+                                            sm:p-3
                                         "
                                     >
                                         <Users
-                                            size={18}
-                                            className="text-blue-400"
+                                            size={17}
+                                            className="
+                                                shrink-0
+                                                text-blue-400
+                                            "
                                         />
 
                                         <span
                                             className="
-                                                text-sm
+                                                truncate
+                                                text-xs
                                                 text-white
+
+                                                sm:text-sm
                                             "
                                         >
-                                            {room.capacity.adults}
-                                            {" "}
-                                            Adults
+                                            {
+                                                room
+                                                    .capacity
+                                                    .adults
+                                            }{" "}
+                                            Adult
+                                            {room
+                                                .capacity
+                                                .adults >
+                                            1
+                                                ? "s"
+                                                : ""}
                                         </span>
                                     </div>
+
+                                    {/* Furnishing */}
 
                                     <div
                                         className="
                                             flex
+                                            min-w-0
                                             items-center
                                             gap-2
                                             rounded-xl
                                             bg-white/5
-                                            p-3
+                                            p-2.5
+
+                                            sm:p-3
                                         "
                                     >
                                         <BedDouble
-                                            size={18}
-                                            className="text-blue-400"
+                                            size={17}
+                                            className="
+                                                shrink-0
+                                                text-blue-400
+                                            "
                                         />
 
                                         <span
                                             className="
-                                                text-sm
+                                                truncate
+                                                text-xs
                                                 text-white
+
+                                                sm:text-sm
                                             "
                                         >
-                                            {room.furnishing}
+                                            {
+                                                room.furnishing
+                                            }
                                         </span>
                                     </div>
+
+                                    {/* Room Type */}
 
                                     <div
                                         className="
                                             col-span-2
                                             flex
+                                            min-w-0
                                             items-center
                                             gap-2
                                             rounded-xl
                                             bg-white/5
-                                            p-3
+                                            p-2.5
+
+                                            sm:p-3
                                         "
                                     >
                                         <Building2
-                                            size={18}
-                                            className="text-blue-400"
+                                            size={17}
+                                            className="
+                                                shrink-0
+                                                text-blue-400
+                                            "
                                         />
 
                                         <span
                                             className="
-                                                text-sm
+                                                truncate
+                                                text-xs
                                                 text-white
+
+                                                sm:text-sm
                                             "
                                         >
-                                            {room.roomType}
+                                            {
+                                                room.roomType
+                                            }
                                         </span>
                                     </div>
                                 </div>
+
+                                {/* ==================================================
+                                    View Details
+                                ================================================== */}
+
                                 <Link
                                     href={`/rooms/${room.roomId}`}
                                     className="
-                                        mt-6
+                                        mt-4
                                         flex
-                                        h-12
+                                        min-h-11
+                                        w-full
                                         items-center
                                         justify-center
                                         gap-2
-                                        rounded-2xl
+                                        rounded-xl
                                         bg-gradient-to-r
                                         from-blue-600
                                         to-cyan-500
+                                        px-4
+                                        text-sm
                                         font-semibold
                                         text-white
                                         transition-all
                                         duration-300
 
-                                        hover:scale-[1.02]
-                                        hover:shadow-xl
-                                        hover:shadow-blue-500/30
+                                        active:scale-[0.98]
+
+                                        sm:mt-6
+                                        sm:h-12
+                                        sm:rounded-2xl
+
+                                        sm:hover:scale-[1.02]
+                                        sm:hover:shadow-xl
+                                        sm:hover:shadow-blue-500/30
                                     "
                                 >
                                     View Details
 
                                     <ArrowRight
-                                        size={18}
+                                        size={17}
                                     />
                                 </Link>
                             </div>
@@ -444,6 +619,10 @@ export default function SimilarRooms({
                     )
                 )}
             </div>
+
+            {/* ==================================================
+                Marketplace CTA
+            ================================================== */}
 
             <motion.div
                 initial={{
@@ -454,25 +633,35 @@ export default function SimilarRooms({
                 }}
                 viewport={{
                     once: true,
+                    margin:
+                        "0px 0px -50px 0px",
                 }}
                 transition={{
                     delay: 0.25,
+                    duration: 0.4,
                 }}
                 className="
-                    mt-8
-                    rounded-3xl
+                    mt-5
+                    rounded-2xl
                     border
                     border-blue-500/20
                     bg-blue-500/10
-                    p-6
+                    px-4
+                    py-6
                     text-center
+
+                    sm:mt-8
+                    sm:rounded-3xl
+                    sm:p-6
                 "
             >
                 <h3
                     className="
-                        text-xl
+                        text-lg
                         font-bold
                         text-white
+
+                        sm:text-xl
                     "
                 >
                     Looking for more options?
@@ -480,9 +669,16 @@ export default function SimilarRooms({
 
                 <p
                     className="
-                        mt-3
+                        mx-auto
+                        mt-2
+                        max-w-xl
+                        text-sm
+                        leading-6
                         text-white/70
-                        leading-7
+
+                        sm:mt-3
+                        sm:text-base
+                        sm:leading-7
                     "
                 >
                     Explore more verified rooms on
@@ -494,24 +690,34 @@ export default function SimilarRooms({
                 <Link
                     href="/marketplace"
                     className="
-                        mt-6
+                        mt-5
                         inline-flex
+                        min-h-11
                         items-center
+                        justify-center
                         gap-2
-                        rounded-2xl
+                        rounded-xl
                         bg-gradient-to-r
                         from-blue-600
                         to-cyan-500
-                        px-6
-                        py-3
+                        px-5
+                        py-2.5
+                        text-sm
                         font-semibold
                         text-white
                         transition-all
                         duration-300
 
-                        hover:scale-105
-                        hover:shadow-xl
-                        hover:shadow-blue-500/30
+                        active:scale-[0.98]
+
+                        sm:mt-6
+                        sm:rounded-2xl
+                        sm:px-6
+                        sm:py-3
+
+                        sm:hover:scale-105
+                        sm:hover:shadow-xl
+                        sm:hover:shadow-blue-500/30
                     "
                 >
                     Browse Marketplace

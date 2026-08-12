@@ -23,6 +23,17 @@ export default function RoomHeader({
 }: RoomHeaderProps) {
     const { room, property } = data;
 
+    const formattedStatus =
+        room.status.charAt(0).toUpperCase() +
+        room.status.slice(1);
+
+    const statusClass =
+        room.status === "available"
+            ? "border-emerald-500/20 bg-emerald-500/15 text-emerald-400"
+            : room.status === "occupied"
+              ? "border-red-500/20 bg-red-500/15 text-red-400"
+              : "border-yellow-500/20 bg-yellow-500/15 text-yellow-400";
+
     return (
         <motion.header
             initial={{
@@ -40,6 +51,7 @@ export default function RoomHeader({
                 sticky
                 top-0
                 z-40
+                w-full
                 border-b
                 border-white/10
                 bg-slate-950/70
@@ -49,27 +61,34 @@ export default function RoomHeader({
             <div
                 className="
                     mx-auto
-                    flex
+                    w-full
                     max-w-7xl
-                    items-center
-                    justify-between
-                    px-6
-                    py-4
+                    px-3
+                    py-3
+
+                    sm:px-6
+                    sm:py-4
                 "
             >
                 <div
                     className="
                         flex
                         items-center
-                        gap-5
+                        gap-3
                     "
                 >
+                    {/* ==================================================
+                        Back Button
+                    ================================================== */}
+
                     <Link
                         href="/marketplace"
+                        aria-label="Back to Marketplace"
                         className="
                             flex
-                            h-11
-                            w-11
+                            h-10
+                            w-10
+                            shrink-0
                             items-center
                             justify-center
                             rounded-xl
@@ -80,154 +99,254 @@ export default function RoomHeader({
                             transition-all
                             duration-300
 
-                            hover:border-blue-500/40
-                            hover:bg-blue-500/10
+                            active:scale-95
+
+                            sm:h-11
+                            sm:w-11
+                            sm:hover:border-blue-500/40
+                            sm:hover:bg-blue-500/10
                         "
                     >
-                        <ArrowLeft size={20} />
+                        <ArrowLeft
+                            size={19}
+                            className="sm:h-5 sm:w-5"
+                        />
                     </Link>
 
-                    <div>
+                    {/* ==================================================
+                        Main Information
+                    ================================================== */}
+
+                    <div
+                        className="
+                            min-w-0
+                            flex-1
+                        "
+                    >
+                        {/* Breadcrumb */}
+
                         <div
                             className="
-                                flex
+                                hidden
                                 items-center
-                                gap-2
-                                text-sm
+                                gap-1.5
+                                overflow-hidden
+                                text-xs
                                 text-white/60
+
+                                sm:flex
+                                sm:text-sm
                             "
                         >
-                            <Home size={15} />
+                            <Home
+                                size={14}
+                                className="shrink-0"
+                            />
 
-                            <Link href="/marketplace">
+                            <Link
+                                href="/marketplace"
+                                className="
+                                    shrink-0
+                                    transition-colors
+
+                                    hover:text-white
+                                "
+                            >
                                 Marketplace
                             </Link>
 
-                            <ChevronRight size={15} />
+                            <ChevronRight
+                                size={14}
+                                className="shrink-0"
+                            />
 
-                            <span>
+                            <span className="shrink-0">
                                 {property.propertyType}
                             </span>
 
-                            <ChevronRight size={15} />
+                            <ChevronRight
+                                size={14}
+                                className="shrink-0"
+                            />
 
-                            <span className="text-blue-400">
+                            <span
+                                className="
+                                    min-w-0
+                                    truncate
+                                    text-blue-400
+                                "
+                            >
                                 {room.roomName}
                             </span>
                         </div>
+
+                        {/* Room Name */}
+
                         <h1
                             className="
-                                mt-2
-                                text-2xl
+                                truncate
+                                text-base
                                 font-black
+                                leading-tight
                                 text-white
+
+                                sm:mt-2
+                                sm:text-2xl
                             "
                         >
                             {room.roomName}
                         </h1>
 
+                        {/* Property + Location */}
+
                         <div
                             className="
-                                mt-2
+                                mt-1
                                 flex
+                                min-w-0
                                 items-center
-                                gap-2
-                                text-sm
+                                gap-1.5
+                                overflow-hidden
+                                text-[11px]
                                 text-white/60
+
+                                sm:mt-2
+                                sm:gap-2
+                                sm:text-sm
                             "
                         >
                             <Building2
-                                size={15}
-                                className="text-blue-400"
+                                size={13}
+                                className="
+                                    shrink-0
+                                    text-blue-400
+
+                                    sm:h-[15px]
+                                    sm:w-[15px]
+                                "
                             />
 
-                            <span>
+                            <span
+                                className="
+                                    min-w-0
+                                    max-w-[42%]
+                                    truncate
+                                "
+                            >
                                 {property.details.title}
                             </span>
 
-                            <span>•</span>
+                            <span className="shrink-0">
+                                •
+                            </span>
 
                             <MapPin
-                                size={15}
-                                className="text-blue-400"
+                                size={13}
+                                className="
+                                    shrink-0
+                                    text-blue-400
+
+                                    sm:h-[15px]
+                                    sm:w-[15px]
+                                "
                             />
 
-                            <span>
-                                {property.location.address.city}
+                            <span
+                                className="
+                                    min-w-0
+                                    truncate
+                                "
+                            >
+                                {
+                                    property.location
+                                        .address.city
+                                }
                                 {", "}
-                                {property.location.address.state}
+                                {
+                                    property.location
+                                        .address.state
+                                }
                             </span>
                         </div>
                     </div>
-                </div>
 
-                <div
-                    className="
-                        flex
-                        items-center
-                        gap-3
-                    "
-                >
-                    <div
-                        className={`
-                            rounded-full
-                            px-4
-                            py-2
-                            text-sm
-                            font-semibold
+                    {/* ==================================================
+                        Status
+                    ================================================== */}
 
-                            ${
-                                room.status ===
-                                "available"
-                                    ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
-                                    : room.status ===
-                                      "occupied"
-                                    ? "bg-red-500/15 text-red-400 border border-red-500/20"
-                                    : "bg-yellow-500/15 text-yellow-400 border border-yellow-500/20"
-                            }
-                        `}
-                    >
-                        {room.status
-                            .charAt(0)
-                            .toUpperCase() +
-                            room.status.slice(1)}
-                    </div>
                     <div
                         className="
-                            hidden
+                            flex
+                            shrink-0
                             items-center
                             gap-2
-                            rounded-full
-                            border
-                            border-blue-500/20
-                            bg-blue-500/10
-                            px-4
-                            py-2
-
-                            md:flex
                         "
                     >
-                        <span
-                            className="
-                                h-2.5
-                                w-2.5
+                        <div
+                            className={`
                                 rounded-full
-                                bg-emerald-400
-                                animate-pulse
-                            "
-                        />
+                                border
+                                px-2.5
+                                py-1.5
+                                text-[10px]
+                                font-semibold
+                                leading-none
 
-                        <span
+                                sm:px-4
+                                sm:py-2
+                                sm:text-sm
+
+                                ${statusClass}
+                            `}
+                        >
+                            {formattedStatus}
+                        </div>
+
+                        {/* Availability */}
+
+                        <div
                             className="
-                                text-sm
-                                font-medium
-                                text-white
+                                hidden
+                                items-center
+                                gap-2
+                                rounded-full
+                                border
+                                border-blue-500/20
+                                bg-blue-500/10
+                                px-4
+                                py-2
+
+                                md:flex
                             "
                         >
-                            {room.availability.availableNow
-                                ? "Available Now"
-                                : "Available Soon"}
-                        </span>
+                            <span
+                                className="
+                                    h-2
+                                    w-2
+                                    shrink-0
+                                    animate-pulse
+                                    rounded-full
+                                    bg-emerald-400
+
+                                    sm:h-2.5
+                                    sm:w-2.5
+                                "
+                            />
+
+                            <span
+                                className="
+                                    whitespace-nowrap
+                                    text-sm
+                                    font-medium
+                                    text-white
+                                "
+                            >
+                                {room.availability
+                                    .availableNow
+                                    ? "Available Now"
+                                    : "Available Soon"}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

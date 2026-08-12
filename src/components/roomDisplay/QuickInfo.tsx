@@ -28,16 +28,38 @@ interface InfoCard {
 }
 
 /* ==========================================================
+   Helpers
+========================================================== */
+
+function capitalize(value: string) {
+    if (!value) return "";
+
+    return (
+        value.charAt(0).toUpperCase() +
+        value.slice(1)
+    );
+}
+
+function formatWords(value: string) {
+    return value
+        .split("-")
+        .map(capitalize)
+        .join(" ");
+}
+
+/* ==========================================================
    Quick Information
 ========================================================== */
 
 export default function QuickInfo({
     data,
 }: QuickInfoProps) {
+    const { room, property } = data;
+
     const {
-        room,
-        property,
-    } = data;
+        adults,
+        children,
+    } = room.capacity;
 
     const availableFrom =
         room.availability.availableFrom
@@ -46,28 +68,23 @@ export default function QuickInfo({
                   .toLocaleDateString("en-IN")
             : "Immediately";
 
+    const occupancy = `${adults} Adult${
+        adults > 1 ? "s" : ""
+    }${
+        children > 0
+            ? `, ${children} Child${
+                  children > 1 ? "ren" : ""
+              }`
+            : ""
+    }`;
+
     const infoCards: InfoCard[] = [
         {
             title: "Occupancy",
-
-            value: `${room.capacity.adults} Adult${
-                room.capacity.adults > 1
-                    ? "s"
-                    : ""
-            }${
-                room.capacity.children > 0
-                    ? `, ${room.capacity.children} Child${
-                          room.capacity.children >
-                          1
-                              ? "ren"
-                              : ""
-                      }`
-                    : ""
-            }`,
-
+            value: occupancy,
             icon: (
                 <Users
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -75,12 +92,10 @@ export default function QuickInfo({
 
         {
             title: "Available From",
-
             value: availableFrom,
-
             icon: (
                 <CalendarDays
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -88,18 +103,14 @@ export default function QuickInfo({
 
         {
             title: "Bathroom",
-
             value: `${room.bathrooms} ${
                 room.bathroomType
             } Bathroom${
-                room.bathrooms > 1
-                    ? "s"
-                    : ""
+                room.bathrooms > 1 ? "s" : ""
             }`,
-
             icon: (
                 <Bath
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -107,32 +118,21 @@ export default function QuickInfo({
 
         {
             title: "Kitchen",
-
-            value:
-                room.kitchen
-                    .charAt(0)
-                    .toUpperCase() +
-                room.kitchen.slice(1),
-
+            value: capitalize(room.kitchen),
             icon: (
                 <CookingPot
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
         },
+
         {
             title: "Bed Type",
-
-            value:
-                room.bedType
-                    .charAt(0)
-                    .toUpperCase() +
-                room.bedType.slice(1),
-
+            value: capitalize(room.bedType),
             icon: (
                 <BedDouble
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -140,22 +140,10 @@ export default function QuickInfo({
 
         {
             title: "Furnishing",
-
-            value:
-                room.furnishing
-                    .split("-")
-                    .map(
-                        (word) =>
-                            word
-                                .charAt(0)
-                                .toUpperCase() +
-                            word.slice(1)
-                    )
-                    .join(" "),
-
+            value: formatWords(room.furnishing),
             icon: (
                 <Home
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -163,12 +151,10 @@ export default function QuickInfo({
 
         {
             title: "Room Area",
-
             value: `${room.area} sq ft`,
-
             icon: (
                 <Ruler
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -176,12 +162,10 @@ export default function QuickInfo({
 
         {
             title: "Property Type",
-
             value: property.propertyType,
-
             icon: (
                 <Home
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -189,12 +173,10 @@ export default function QuickInfo({
 
         {
             title: "Location",
-
             value: `${property.location.address.city}, ${property.location.address.state}`,
-
             icon: (
                 <MapPinned
-                    size={22}
+                    size={20}
                     className="text-blue-400"
                 />
             ),
@@ -202,44 +184,52 @@ export default function QuickInfo({
     ];
 
     return (
-        <section className="mt-8">
-            <div
-                className="
-                    mb-6
-                    flex
-                    items-center
-                    justify-between
-                "
-            >
-                <div>
-                    <h2
-                        className="
-                            text-2xl
-                            font-black
-                            text-white
-                        "
-                    >
-                        Quick Information
-                    </h2>
+        <section className="mt-6 w-full sm:mt-8">
+            {/* ==================================================
+                Section Header
+            ================================================== */}
 
-                    <p
-                        className="
-                            mt-1
-                            text-white/60
-                        "
-                    >
-                        Everything you need to know
-                        at a glance.
-                    </p>
-                </div>
+            <div className="mb-4 sm:mb-6">
+                <h2
+                    className="
+                        text-xl
+                        font-black
+                        leading-tight
+                        text-white
+
+                        sm:text-2xl
+                    "
+                >
+                    Quick Information
+                </h2>
+
+                <p
+                    className="
+                        mt-1
+                        text-xs
+                        leading-5
+                        text-white/60
+
+                        sm:text-sm
+                    "
+                >
+                    Everything you need to know
+                    at a glance.
+                </p>
             </div>
+
+            {/* ==================================================
+                Information Grid
+            ================================================== */}
 
             <div
                 className="
                     grid
-                    gap-4
+                    grid-cols-2
+                    gap-2.5
 
                     sm:grid-cols-2
+                    sm:gap-4
 
                     xl:grid-cols-3
                 "
@@ -258,56 +248,83 @@ export default function QuickInfo({
                             }}
                             viewport={{
                                 once: true,
+                                margin:
+                                    "0px 0px -40px 0px",
                             }}
                             transition={{
                                 delay:
                                     index * 0.05,
+                                duration: 0.35,
                             }}
                             className="
                                 group
-                                rounded-2xl
+                                min-w-0
+                                rounded-xl
                                 border
                                 border-white/10
                                 bg-white/[0.04]
-                                p-5
+                                p-3
                                 transition-all
                                 duration-300
-                                hover:-translate-y-1
-                                hover:border-blue-500/30
-                                hover:bg-white/[0.06]
-                                hover:shadow-xl
-                                hover:shadow-blue-500/10
+
+                                sm:rounded-2xl
+                                sm:p-5
+
+                                sm:hover:-translate-y-1
+                                sm:hover:border-blue-500/30
+                                sm:hover:bg-white/[0.06]
+                                sm:hover:shadow-xl
+                                sm:hover:shadow-blue-500/10
                             "
                         >
                             <div
                                 className="
                                     flex
                                     items-start
-                                    gap-4
+                                    gap-2.5
+
+                                    sm:gap-4
                                 "
                             >
+                                {/* Icon */}
+
                                 <div
                                     className="
                                         flex
-                                        h-12
-                                        w-12
+                                        h-9
+                                        w-9
+                                        shrink-0
                                         items-center
                                         justify-center
-                                        rounded-2xl
+                                        rounded-xl
                                         border
                                         border-blue-500/20
                                         bg-blue-500/10
+
+                                        sm:h-12
+                                        sm:w-12
+                                        sm:rounded-2xl
                                     "
                                 >
                                     {item.icon}
                                 </div>
 
-                                <div className="flex-1">
+                                {/* Content */}
+
+                                <div
+                                    className="
+                                        min-w-0
+                                        flex-1
+                                    "
+                                >
                                     <p
                                         className="
-                                            text-sm
+                                            text-[11px]
                                             font-medium
+                                            leading-4
                                             text-white/60
+
+                                            sm:text-sm
                                         "
                                     >
                                         {item.title}
@@ -315,11 +332,15 @@ export default function QuickInfo({
 
                                     <p
                                         className="
-                                            mt-2
+                                            mt-1
                                             break-words
-                                            text-base
+                                            text-xs
                                             font-bold
+                                            leading-5
                                             text-white
+
+                                            sm:mt-2
+                                            sm:text-base
                                         "
                                     >
                                         {item.value}
