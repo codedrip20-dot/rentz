@@ -14,7 +14,7 @@ export default function EmptyState({
     onClearFilters,
 }: EmptyStateProps) {
     return (
-        <section className="relative overflow-hidden rounded-[32px] border border-white/10 bg-slate-900/35 px-8 py-20 text-center backdrop-blur-3xl">
+        <section className="relative overflow-hidden rounded-[28px] border border-white/10 bg-slate-900/35 px-5 py-14 text-center backdrop-blur-3xl sm:rounded-[32px] sm:px-8 sm:py-20">
 
             {/* ======================================================
                 Background Glow
@@ -22,9 +22,9 @@ export default function EmptyState({
 
             <div className="pointer-events-none absolute inset-0">
 
-                <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/15 blur-[120px]" />
+                <div className="absolute left-1/2 top-0 h-56 w-56 -translate-x-1/2 rounded-full bg-blue-500/15 blur-[100px] sm:h-72 sm:w-72 sm:blur-[120px]" />
 
-                <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-cyan-500/10 blur-[120px]" />
+                <div className="absolute bottom-0 right-0 h-48 w-48 rounded-full bg-cyan-500/10 blur-[100px] sm:h-64 sm:w-64 sm:blur-[120px]" />
 
             </div>
 
@@ -34,11 +34,11 @@ export default function EmptyState({
                     Icon
                 ====================================================== */}
 
-                <div className="flex h-28 w-28 items-center justify-center rounded-full border border-white/10 bg-gradient-to-br from-blue-500/20 to-cyan-500/10 backdrop-blur-3xl shadow-[0_20px_60px_rgba(37,99,235,0.25)]">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/10 bg-gradient-to-br from-blue-500/20 to-cyan-500/10 backdrop-blur-3xl shadow-[0_20px_60px_rgba(37,99,235,0.25)] sm:h-28 sm:w-28">
 
                     <SearchX
-                        size={54}
-                        className="text-blue-300"
+                        size={42}
+                        className="text-blue-300 sm:h-[54px] sm:w-[54px]"
                     />
 
                 </div>
@@ -47,14 +47,14 @@ export default function EmptyState({
                     Badge
                 ====================================================== */}
 
-                <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-4 py-2 backdrop-blur-xl">
+                <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-3.5 py-2 backdrop-blur-xl sm:mt-8 sm:px-4">
 
                     <Sparkles
-                        size={16}
-                        className="text-cyan-300"
+                        size={15}
+                        className="shrink-0 text-cyan-300 sm:h-4 sm:w-4"
                     />
 
-                    <span className="text-sm font-medium text-blue-200">
+                    <span className="text-xs font-medium text-blue-200 sm:text-sm">
 
                         Search Suggestions
 
@@ -66,7 +66,7 @@ export default function EmptyState({
                     Heading
                 ====================================================== */}
 
-                <h2 className="mt-8 text-4xl font-black tracking-tight text-white">
+                <h2 className="mt-6 max-w-[320px] text-3xl font-black leading-tight tracking-tight text-white sm:mt-8 sm:max-w-none sm:text-4xl">
 
                     No Matching Rooms Found
 
@@ -76,7 +76,7 @@ export default function EmptyState({
                     Description
                 ====================================================== */}
 
-                <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:mt-5 sm:text-lg sm:leading-8">
 
                     We couldn't find any rooms that match your current
                     search criteria. Try expanding your budget,
@@ -89,9 +89,9 @@ export default function EmptyState({
                     Tips
                 ====================================================== */}
 
-                <div className="mt-10 grid gap-4 md:grid-cols-3">
+                <div className="mt-8 grid w-full max-w-3xl gap-3 sm:mt-10 sm:gap-4 md:grid-cols-3">
 
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-2xl">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-2xl sm:p-5">
 
                         <p className="text-sm font-semibold text-white">
 
@@ -101,7 +101,7 @@ export default function EmptyState({
 
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-2xl">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-2xl sm:p-5">
 
                         <p className="text-sm font-semibold text-white">
 
@@ -111,7 +111,7 @@ export default function EmptyState({
 
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-2xl">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-2xl sm:p-5">
 
                         <p className="text-sm font-semibold text-white">
 
@@ -132,16 +132,20 @@ export default function EmptyState({
                     onClick={onClearFilters}
                     className="
                         group
-                        mt-12
+                        mt-10
                         inline-flex
+                        min-h-12
+                        w-full
+                        max-w-xs
                         items-center
+                        justify-center
                         gap-3
                         rounded-2xl
                         bg-gradient-to-r
                         from-blue-600
                         to-cyan-500
-                        px-8
-                        py-4
+                        px-6
+                        py-3.5
                         font-semibold
                         text-white
                         shadow-[0_15px_40px_rgba(37,99,235,0.35)]
@@ -150,12 +154,17 @@ export default function EmptyState({
                         hover:-translate-y-1
                         hover:scale-[1.02]
                         hover:shadow-[0_25px_60px_rgba(37,99,235,0.45)]
+                        sm:mt-12
+                        sm:w-auto
+                        sm:max-w-none
+                        sm:px-8
+                        sm:py-4
                     "
                 >
 
                     <RotateCcw
                         size={18}
-                        className="transition-transform duration-300 group-hover:rotate-180"
+                        className="shrink-0 transition-transform duration-300 group-hover:rotate-180"
                     />
 
                     Clear All Filters

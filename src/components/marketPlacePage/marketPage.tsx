@@ -28,7 +28,7 @@ import {
     Room,
 } from "@/types/roomTypes";
 
-import heroBgII from '@/assets/herobgII.png'
+import heroBgII from "@/assets/herobgII.png";
 
 export default function MarketPage() {
 
@@ -301,111 +301,106 @@ export default function MarketPage() {
 
     const filteredRooms = useMemo(() => {
 
-    let data = [...rooms];
+        let data = [...rooms];
 
-    /* ======================================================
-       Location Filter
-    ====================================================== */
+        /* ======================================================
+           Location Filter
+        ====================================================== */
 
-    if (location.trim()) {
+        if (location.trim()) {
 
-        const search =
-            location.toLowerCase();
+            const search =
+                location.toLowerCase();
 
-        data = data.filter((room) => {
+            data = data.filter((room) => {
 
-            const property =
-                properties[
-                    room.propertyId
-                ];
+                const property =
+                    properties[
+                        room.propertyId
+                    ];
 
-            if (!property) {
+                if (!property) {
 
-                return false;
+                    return false;
 
-            }
+                }
 
-            const {
-                address,
-                nearbyLandmark,
-            } = property.location;
+                const {
+                    address,
+                    nearbyLandmark,
+                } = property.location;
 
-            const searchableAddress = [
+                const searchableAddress = [
 
-                address.street,
+                    address.street,
 
-                address.area,
+                    address.area,
 
-                address.city,
+                    address.city,
 
-                address.state,
+                    address.state,
 
-                address.country,
+                    address.country,
 
-                address.pincode,
+                    address.pincode,
 
-                nearbyLandmark,
+                    nearbyLandmark,
 
-            ]
-                .filter(Boolean)
-                .join(" ")
-                .toLowerCase();
+                ]
+                    .filter(Boolean)
+                    .join(" ")
+                    .toLowerCase();
 
-            const keywords =
-                search
-                    .split(/[,\s]+/)
-                    .filter(Boolean);
+                const keywords =
+                    search
+                        .split(/[,\s]+/)
+                        .filter(Boolean);
 
-            return keywords.every(
-                (keyword) =>
-                    searchableAddress.includes(
-                        keyword
-                    )
+                return keywords.every(
+                    (keyword) =>
+                        searchableAddress.includes(
+                            keyword
+                        )
+                );
+
+            });
+
+        }
+
+        /* ======================================================
+           Budget Filter
+        ====================================================== */
+
+        if (minBudget > 0) {
+
+            data = data.filter(
+                (room) =>
+                    room.pricing.rent >=
+                    minBudget
             );
 
-        });
+        }
 
-    }
+        if (maxBudget > 0) {
 
-    /* ======================================================
-       Budget Filter
-    ====================================================== */
+            data = data.filter(
+                (room) =>
+                    room.pricing.rent <=
+                    maxBudget
+            );
 
-    if (minBudget > 0) {
+        }
 
-        data = data.filter(
-            (room) =>
-                room.pricing.rent >=
-                minBudget
-        );
+        return data;
 
-    }
+    }, [
+        rooms,
+        properties,
+        location,
+        minBudget,
+        maxBudget,
+    ]);
 
-    if (maxBudget > 0) {
-
-        data = data.filter(
-            (room) =>
-                room.pricing.rent <=
-                maxBudget
-        );
-
-    }
-
-    return data;
-
-}, [
-
-    rooms,
-
-    properties,
-
-    location,
-
-    minBudget,
-
-    maxBudget,
-
-]);
     /* ======================================================
        Sort Rooms
     ====================================================== */
@@ -419,23 +414,17 @@ export default function MarketPage() {
             case "price-low":
 
                 return data.sort(
-
                     (a, b) =>
-
                         a.pricing.rent -
                         b.pricing.rent
-
                 );
 
             case "price-high":
 
                 return data.sort(
-
                     (a, b) =>
-
                         b.pricing.rent -
                         a.pricing.rent
-
                 );
 
             default:
@@ -445,11 +434,8 @@ export default function MarketPage() {
         }
 
     }, [
-
         filteredRooms,
-
         sortBy,
-
     ]);
 
     /* ======================================================
@@ -457,369 +443,367 @@ export default function MarketPage() {
     ====================================================== */
 
     const totalPages = Math.max(
-
         1,
-
         Math.ceil(
-
             sortedRooms.length /
-                ITEMS_PER_PAGE
-
+            ITEMS_PER_PAGE
         )
-
     );
 
     const paginatedRooms =
         sortedRooms.slice(
-
             (currentPage - 1) *
-                ITEMS_PER_PAGE,
-
+            ITEMS_PER_PAGE,
             currentPage *
-                ITEMS_PER_PAGE
-
+            ITEMS_PER_PAGE
         );
 
     /* ======================================================
        Render
     ====================================================== */
 
-  return (
+    return (
 
-    <main className="relative isolate min-h-screen overflow-hidden">
+        <main className="relative isolate min-h-screen overflow-hidden">
 
-        {/* ======================================================
-            Background Image
-        ====================================================== */}
+            {/* ======================================================
+                Background Image
+            ====================================================== */}
 
-        <div
-            className="absolute inset-0 -z-30 bg-cover bg-center bg-no-repeat"
-            style={{
-                backgroundImage: `url(${heroBgII.src})`,
-            }}
-        />
-
-        {/* ======================================================
-            Dark Overlay
-        ====================================================== */}
-
-        <div className="absolute inset-0 -z-20 bg-slate-950/55" />
-
-        {/* ======================================================
-            Premium Gradient Overlay
-        ====================================================== */}
-
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-slate-950/90 via-slate-950/45 to-blue-950/70" />
-
-        {/* ======================================================
-            Ambient Lighting
-        ====================================================== */}
-
-        <div className="pointer-events-none absolute inset-0 -z-10">
-
-            <div className="absolute -left-44 top-0 h-[36rem] w-[36rem] rounded-full bg-blue-600/20 blur-[150px]" />
-
-            <div className="absolute right-0 top-32 h-[32rem] w-[32rem] rounded-full bg-indigo-500/15 blur-[140px]" />
-
-            <div className="absolute bottom-0 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-[130px]" />
-
-        </div>
-
-        {/* ======================================================
-            Decorative Grid
-        ====================================================== */}
-
-        <div
-            className="pointer-events-none absolute inset-0 -z-10 opacity-[0.03]"
-            style={{
-                backgroundImage:
-                    "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
-                backgroundSize: "48px 48px",
-            }}
-        />
-
-        {/* ======================================================
-            Marketplace Content
-        ====================================================== */}
-
-        <div className="relative z-10 mx-auto max-w-[1700px] px-5 py-10 lg:px-8 lg:py-12">
-
-            <MarketPlaceHeader
-                totalRooms={
-                    sortedRooms.length
-                }
+            <div
+                className="absolute inset-0 -z-30 bg-cover bg-center bg-no-repeat"
+                style={{
+                    backgroundImage: `url(${heroBgII.src})`,
+                }}
             />
 
-            <div className="mt-10 grid gap-8 xl:grid-cols-12">
+            {/* ======================================================
+                Dark Overlay
+            ====================================================== */}
 
-                {/* Sidebar */}
+            <div className="absolute inset-0 -z-20 bg-slate-950/55" />
 
-                <aside className="sticky top-24 h-fit xl:col-span-3">
+            {/* ======================================================
+                Premium Gradient Overlay
+            ====================================================== */}
 
-                    <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl">
+            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-slate-950/95 via-slate-950/55 to-blue-950/75 sm:from-slate-950/90 sm:via-slate-950/45 sm:to-blue-950/70" />
 
-                        <FilterSidebar
+            {/* ======================================================
+                Ambient Lighting
+            ====================================================== */}
 
-                            locationSuggestions={
-                                locationSuggestions
-                            }
+            <div className="pointer-events-none absolute inset-0 -z-10">
 
-                            locationLoading={
-                                locationLoading
-                            }
+                <div className="absolute -left-32 top-0 h-72 w-72 rounded-full bg-blue-600/15 blur-[110px] sm:-left-44 sm:h-[36rem] sm:w-[36rem] sm:bg-blue-600/20 sm:blur-[150px]" />
 
-                            locationError={
-                                locationError
-                            }
+                <div className="absolute right-0 top-32 h-64 w-64 rounded-full bg-indigo-500/10 blur-[110px] sm:h-[32rem] sm:w-[32rem] sm:bg-indigo-500/15 sm:blur-[140px]" />
 
-                            minBudget={
-                                minBudget
-                            }
+                <div className="absolute bottom-0 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-[100px] sm:h-[30rem] sm:w-[30rem] sm:blur-[130px]" />
 
-                            maxBudget={
-                                maxBudget
-                            }
+            </div>
 
-                            onLocationSearch={
-                                handleLocationSearch
-                            }
+            {/* ======================================================
+                Decorative Grid
+            ====================================================== */}
 
-                            onLocationSelect={
-                                handleLocationSelect
-                            }
+            <div
+                className="pointer-events-none absolute inset-0 -z-10 opacity-[0.025] sm:opacity-[0.03]"
+                style={{
+                    backgroundImage:
+                        "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
+                    backgroundSize: "40px 40px",
+                }}
+            />
 
-                            onMinBudgetChange={
-                                handleMinBudgetChange
-                            }
+            {/* ======================================================
+                Marketplace Content
+            ====================================================== */}
 
-                            onMaxBudgetChange={
-                                handleMaxBudgetChange
-                            }
+            <div className="relative z-10 mx-auto max-w-[1700px] px-4 py-7 sm:px-5 sm:py-10 lg:px-8 lg:py-12">
 
-                            onClearFilters={
-                                clearFilters
-                            }
+                <MarketPlaceHeader
+                    totalRooms={
+                        sortedRooms.length
+                    }
+                />
 
-                        />
+                <div className="mt-7 grid gap-5 sm:mt-10 sm:gap-8 xl:grid-cols-12">
 
-                    </div>
+                    {/* ======================================================
+                        Sidebar
+                    ====================================================== */}
 
-                </aside>
+                    <aside className="h-fit xl:sticky xl:top-24 xl:col-span-3">
 
-                {/* Main Content */}
+                        <div className="rounded-[28px] border border-white/10 bg-white/10 p-3 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl sm:rounded-3xl sm:p-4 lg:p-6">
 
-                <section className="space-y-6 xl:col-span-9">
+                            <FilterSidebar
 
-                    <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl">
-
-                        <ActiveFilters
-
-                            location={
-                                location
-                            }
-
-                            minBudget={
-                                minBudget
-                            }
-
-                            maxBudget={
-                                maxBudget
-                            }
-
-                            onRemoveLocation={() => {
-
-                                setLocation("");
-
-                                setCurrentPage(1);
-
-                            }}
-
-                            onRemoveMinBudget={() =>
-                                handleMinBudgetChange(
-                                    0
-                                )
-                            }
-
-                            onRemoveMaxBudget={() =>
-                                handleMaxBudgetChange(
-                                    0
-                                )
-                            }
-
-                            onClearAll={
-                                clearFilters
-                            }
-
-                        />
-
-                        <div className="mt-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-
-                            <ResultsInfo
-                                totalRooms={
-                                    sortedRooms.length
+                                locationSuggestions={
+                                    locationSuggestions
                                 }
-                            />
 
-                           
+                                locationLoading={
+                                    locationLoading
+                                }
+
+                                locationError={
+                                    locationError
+                                }
+
+                                minBudget={
+                                    minBudget
+                                }
+
+                                maxBudget={
+                                    maxBudget
+                                }
+
+                                onLocationSearch={
+                                    handleLocationSearch
+                                }
+
+                                onLocationSelect={
+                                    handleLocationSelect
+                                }
+
+                                onMinBudgetChange={
+                                    handleMinBudgetChange
+                                }
+
+                                onMaxBudgetChange={
+                                    handleMaxBudgetChange
+                                }
+
+                                onClearFilters={
+                                    clearFilters
+                                }
+
+                            />
 
                         </div>
 
-                    </div>
+                    </aside>
 
-
-{/* ======================================================
-                        Loading State
+                    {/* ======================================================
+                        Main Content
                     ====================================================== */}
 
-                    {loading && (
+                    <section className="min-w-0 space-y-5 sm:space-y-6 xl:col-span-9">
 
-                        <div className="rounded-3xl border border-white/10 bg-white/10 p-20 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl">
+                        {/* ======================================================
+                            Filters / Results Header
+                        ====================================================== */}
 
-                            <div className="flex flex-col items-center justify-center">
+                        <div className="rounded-[28px] border border-white/10 bg-white/10 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl sm:rounded-3xl sm:p-6">
 
-                                <div className="mb-8 h-14 w-14 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+                            <ActiveFilters
 
-                                <h2 className="text-2xl font-bold text-white">
+                                location={
+                                    location
+                                }
 
-                                    Loading Marketplace
+                                minBudget={
+                                    minBudget
+                                }
+
+                                maxBudget={
+                                    maxBudget
+                                }
+
+                                onRemoveLocation={() => {
+
+                                    setLocation("");
+
+                                    setCurrentPage(1);
+
+                                }}
+
+                                onRemoveMinBudget={() =>
+                                    handleMinBudgetChange(
+                                        0
+                                    )
+                                }
+
+                                onRemoveMaxBudget={() =>
+                                    handleMaxBudgetChange(
+                                        0
+                                    )
+                                }
+
+                                onClearAll={
+                                    clearFilters
+                                }
+
+                            />
+
+                            <div className="mt-5 flex flex-col gap-4 sm:mt-6 lg:flex-row lg:items-center lg:justify-between">
+
+                                <ResultsInfo
+                                    totalRooms={
+                                        sortedRooms.length
+                                    }
+                                />
+
+                            </div>
+
+                        </div>
+
+                        {/* ======================================================
+                            Loading State
+                        ====================================================== */}
+
+                        {loading && (
+
+                            <div className="rounded-[28px] border border-white/10 bg-white/10 px-5 py-14 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl sm:rounded-3xl sm:p-20">
+
+                                <div className="flex flex-col items-center justify-center text-center">
+
+                                    <div className="mb-6 h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent sm:mb-8 sm:h-14 sm:w-14" />
+
+                                    <h2 className="text-xl font-bold text-white sm:text-2xl">
+
+                                        Loading Marketplace
+
+                                    </h2>
+
+                                    <p className="mt-2 text-sm text-slate-300 sm:mt-3 sm:text-base">
+
+                                        Finding the best rooms for you...
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        )}
+
+                        {/* ======================================================
+                            Error State
+                        ====================================================== */}
+
+                        {!loading && error && (
+
+                            <div className="rounded-[28px] border border-red-500/30 bg-red-500/10 px-5 py-12 text-center shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl sm:rounded-3xl sm:p-16">
+
+                                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-500/20 sm:h-20 sm:w-20">
+
+                                    <span className="text-3xl sm:text-4xl">
+
+                                        ⚠️
+
+                                    </span>
+
+                                </div>
+
+                                <h2 className="mt-5 text-xl font-bold text-red-200 sm:mt-6 sm:text-2xl">
+
+                                    Failed to load Marketplace
 
                                 </h2>
 
-                                <p className="mt-3 text-slate-300">
+                                <p className="mt-3 text-sm text-red-100 sm:text-base">
 
-                                    Finding the best rooms for you...
+                                    {error}
 
                                 </p>
 
                             </div>
 
-                        </div>
-
-                    )}
-
-                    {/* ======================================================
-                        Error State
-                    ====================================================== */}
-
-                    {!loading && error && (
-
-                        <div className="rounded-3xl border border-red-500/30 bg-red-500/10 p-16 text-center shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl">
-
-                            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-500/20">
-
-                                <span className="text-4xl">
-
-                                    ⚠️
-
-                                </span>
-
-                            </div>
-
-                            <h2 className="mt-6 text-2xl font-bold text-red-200">
-
-                                Failed to load Marketplace
-
-                            </h2>
-
-                            <p className="mt-3 text-red-100">
-
-                                {error}
-
-                            </p>
-
-                        </div>
-
-                    )}
-
-                    {/* ======================================================
-                        Room Grid
-                    ====================================================== */}
-
-                    {!loading &&
-                        !error &&
-                        paginatedRooms.length > 0 && (
-
-                            <RoomGrid
-                                rooms={paginatedRooms}
-                                properties={properties}
-                            />
-
                         )}
 
-                    {/* ======================================================
-                        Empty State
-                    ====================================================== */}
-
-                    {!loading &&
-                        !error &&
-                        paginatedRooms.length === 0 && (
-
-                            <div className="rounded-3xl border border-white/10 bg-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl">
-
-                                <EmptyState
-                                    onClearFilters={
-                                        clearFilters
-                                    }
-                                />
-
-                            </div>
-
-                        )}
                         {/* ======================================================
-                        Pagination
-                    ====================================================== */}
+                            Room Grid
+                        ====================================================== */}
 
-                    {!loading &&
-                        !error &&
-                        totalPages > 1 && (
+                        {!loading &&
+                            !error &&
+                            paginatedRooms.length > 0 && (
 
-                            <div className="rounded-3xl border border-white/10 bg-white/10 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl">
-
-                                <Pagination
-                                    currentPage={
-                                        currentPage
-                                    }
-                                    totalPages={
-                                        totalPages
-                                    }
-                                    onPrevious={() =>
-                                        setCurrentPage(
-                                            (
-                                                page
-                                            ) =>
-                                                Math.max(
-                                                    1,
-                                                    page - 1
-                                                )
-                                        )
-                                    }
-                                    onNext={() =>
-                                        setCurrentPage(
-                                            (
-                                                page
-                                            ) =>
-                                                Math.min(
-                                                    totalPages,
-                                                    page + 1
-                                                )
-                                        )
-                                    }
-                                    onPageChange={
-                                        setCurrentPage
-                                    }
+                                <RoomGrid
+                                    rooms={paginatedRooms}
+                                    properties={properties}
                                 />
 
-                            </div>
+                            )}
 
-                        )}
+                        {/* ======================================================
+                            Empty State
+                        ====================================================== */}
 
-                </section>
+                        {!loading &&
+                            !error &&
+                            paginatedRooms.length === 0 && (
+
+                                <div className="rounded-[28px] border border-white/10 bg-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl sm:rounded-3xl">
+
+                                    <EmptyState
+                                        onClearFilters={
+                                            clearFilters
+                                        }
+                                    />
+
+                                </div>
+
+                            )}
+
+                        {/* ======================================================
+                            Pagination
+                        ====================================================== */}
+
+                        {!loading &&
+                            !error &&
+                            totalPages > 1 && (
+
+                                <div className="rounded-[28px] border border-white/10 bg-white/10 p-3 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-3xl sm:rounded-3xl sm:p-5">
+
+                                    <Pagination
+                                        currentPage={
+                                            currentPage
+                                        }
+                                        totalPages={
+                                            totalPages
+                                        }
+                                        onPrevious={() =>
+                                            setCurrentPage(
+                                                (
+                                                    page
+                                                ) =>
+                                                    Math.max(
+                                                        1,
+                                                        page - 1
+                                                    )
+                                            )
+                                        }
+                                        onNext={() =>
+                                            setCurrentPage(
+                                                (
+                                                    page
+                                                ) =>
+                                                    Math.min(
+                                                        totalPages,
+                                                        page + 1
+                                                    )
+                                            )
+                                        }
+                                        onPageChange={
+                                            setCurrentPage
+                                        }
+                                    />
+
+                                </div>
+
+                            )}
+
+                    </section>
+
+                </div>
 
             </div>
 
-        </div>
+        </main>
 
-    </main>
-
-);
+    );
 }

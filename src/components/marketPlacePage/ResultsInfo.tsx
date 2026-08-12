@@ -20,26 +20,26 @@ export default function ResultsInfo({
 
             {/* Left */}
 
-            <div className="flex items-center gap-4">
+            <div className="flex min-w-0 items-center gap-3 sm:gap-4">
 
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/10">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/10 sm:h-14 sm:w-14">
 
                     <Building2
-                        size={26}
-                        className="text-blue-300"
+                        size={23}
+                        className="text-blue-300 sm:h-[26px] sm:w-[26px]"
                     />
 
                 </div>
 
-                <div>
+                <div className="min-w-0">
 
-                    <h2 className="text-2xl font-bold text-white">
+                    <h2 className="text-xl font-bold text-white sm:text-2xl">
 
                         Available Rooms
 
                     </h2>
 
-                    <p className="mt-1 text-sm text-slate-300">
+                    <p className="mt-1 text-xs text-slate-300 sm:text-sm">
 
                         Showing{" "}
 
@@ -59,16 +59,16 @@ export default function ResultsInfo({
 
             {/* Right */}
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
 
-                <div className="inline-flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 backdrop-blur-xl">
+                <div className="inline-flex min-h-10 items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-3.5 py-2 backdrop-blur-xl sm:px-4">
 
                     <CheckCircle2
-                        size={16}
-                        className="text-green-400"
+                        size={15}
+                        className="shrink-0 text-green-400 sm:h-4 sm:w-4"
                     />
 
-                    <span className="text-sm font-medium text-green-300">
+                    <span className="text-xs font-medium text-green-300 sm:text-sm">
 
                         Verified Listings
 
@@ -76,14 +76,14 @@ export default function ResultsInfo({
 
                 </div>
 
-                <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 backdrop-blur-xl">
+                <div className="inline-flex min-h-10 items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3.5 py-2 backdrop-blur-xl sm:px-4">
 
                     <Sparkles
-                        size={16}
-                        className="text-cyan-300"
+                        size={15}
+                        className="shrink-0 text-cyan-300 sm:h-4 sm:w-4"
                     />
 
-                    <span className="text-sm font-medium text-blue-200">
+                    <span className="text-xs font-medium text-blue-200 sm:text-sm">
 
                         Real-time Results
 

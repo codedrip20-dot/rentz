@@ -25,8 +25,9 @@ export default function RoomCard({
             href={`/rooms/${room.roomId}`}
             className="
                 group
+                block
                 overflow-hidden
-                rounded-[26px]
+                rounded-[24px]
                 border
                 border-white/10
                 bg-slate-900/35
@@ -37,6 +38,7 @@ export default function RoomCard({
                 hover:-translate-y-2
                 hover:border-blue-400/40
                 hover:shadow-[0_25px_60px_rgba(37,99,235,.20)]
+                sm:rounded-[26px]
             "
         >
 
@@ -50,6 +52,7 @@ export default function RoomCard({
                     src={image}
                     alt={room.roomName}
                     fill
+                    sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
@@ -58,7 +61,7 @@ export default function RoomCard({
                 {/* Availability */}
 
                 <span
-                    className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold backdrop-blur-xl ${
+                    className={`absolute left-3 top-3 rounded-full px-3 py-1.5 text-[11px] font-semibold backdrop-blur-xl sm:left-4 sm:top-4 sm:text-xs ${
                         room.availability.availableNow
                             ? "bg-green-500/90 text-white"
                             : "bg-orange-500/90 text-white"
@@ -76,7 +79,24 @@ export default function RoomCard({
                 <button
                     type="button"
                     onClick={(e) => e.preventDefault()}
-                    className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/30 backdrop-blur-xl transition hover:bg-black/50"
+                    aria-label="Add room to wishlist"
+                    className="
+                        absolute
+                        right-3
+                        top-3
+                        flex
+                        h-11
+                        w-11
+                        items-center
+                        justify-center
+                        rounded-full
+                        bg-black/30
+                        backdrop-blur-xl
+                        transition
+                        hover:bg-black/50
+                        sm:right-4
+                        sm:top-4
+                    "
                 >
 
                     <Heart
@@ -92,15 +112,15 @@ export default function RoomCard({
                 Content
             ====================================================== */}
 
-            <div className="space-y-3 p-5">
+            <div className="space-y-2.5 p-4 sm:space-y-3 sm:p-5">
 
                 {/* Price */}
 
-                <h3 className="text-3xl font-black text-white">
+                <h3 className="text-[1.65rem] font-black leading-tight text-white sm:text-3xl">
 
                     ₹{room.pricing.rent.toLocaleString()}
 
-                    <span className="ml-1 text-sm font-medium text-slate-400">
+                    <span className="ml-1 text-xs font-medium text-slate-400 sm:text-sm">
 
                         /month
 
@@ -110,7 +130,7 @@ export default function RoomCard({
 
                 {/* Room Name */}
 
-                <h4 className="truncate text-lg font-semibold text-white">
+                <h4 className="truncate text-base font-semibold text-white sm:text-lg">
 
                     {room.roomName}
 
@@ -118,11 +138,11 @@ export default function RoomCard({
 
                 {/* Location */}
 
-                <div className="flex items-center gap-2 text-slate-400">
+                <div className="flex min-w-0 items-center gap-2 text-slate-400">
 
                     <MapPin
                         size={15}
-                        className="text-cyan-300"
+                        className="shrink-0 text-cyan-300"
                     />
 
                     <span className="truncate text-sm">
@@ -135,9 +155,13 @@ export default function RoomCard({
 
                 {/* Property Type */}
 
-                <div className="inline-flex rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-200">
+                <div className="inline-flex max-w-full rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-200">
 
-                    {property.propertyType}
+                    <span className="truncate">
+
+                        {property.propertyType}
+
+                    </span>
 
                 </div>
 

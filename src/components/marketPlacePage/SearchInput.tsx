@@ -26,17 +26,17 @@ export default function SearchInput({
 
     return (
 
-        <div className="relative w-full">
+        <div className="relative w-full min-w-0">
 
             {/* ======================================================
                 Search Icon
             ====================================================== */}
 
-            <div className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2">
+            <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 sm:left-5">
 
                 <Search
-                    size={20}
-                    className="text-slate-400 transition-colors duration-300"
+                    size={19}
+                    className="text-slate-400 transition-colors duration-300 sm:h-5 sm:w-5"
                 />
 
             </div>
@@ -54,15 +54,16 @@ export default function SearchInput({
                 onFocus={onFocus}
                 onBlur={onBlur}
                 className="
+                    min-h-12
                     w-full
                     rounded-2xl
                     border
                     border-white/10
                     bg-slate-900/40
-                    py-4
-                    pl-14
-                    pr-14
-                    text-[15px]
+                    py-3.5
+                    pl-12
+                    pr-12
+                    text-sm
                     font-medium
                     text-white
                     placeholder:text-slate-500
@@ -77,6 +78,11 @@ export default function SearchInput({
                     focus:bg-slate-900/60
                     focus:ring-4
                     focus:ring-blue-500/20
+
+                    sm:py-4
+                    sm:pl-14
+                    sm:pr-14
+                    sm:text-[15px]
                 "
             />
 
@@ -86,11 +92,11 @@ export default function SearchInput({
 
             {loading && (
 
-                <div className="absolute right-5 top-1/2 -translate-y-1/2">
+                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 sm:right-5">
 
                     <Loader2
-                        size={20}
-                        className="animate-spin text-blue-400"
+                        size={19}
+                        className="animate-spin text-blue-400 sm:h-5 sm:w-5"
                     />
 
                 </div>

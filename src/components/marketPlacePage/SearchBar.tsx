@@ -26,6 +26,7 @@ export default function SearchBar({
     onSelect,
     placeholder,
 }: SearchBarProps) {
+
     const [query, setQuery] = useState("");
     const [isOpen, setIsOpen] = useState(false);
 
@@ -60,7 +61,7 @@ export default function SearchBar({
     };
 
     return (
-        <div className="relative w-full">
+        <div className="relative w-full min-w-0">
             <SearchInput
                 value={query}
                 loading={isLoading}

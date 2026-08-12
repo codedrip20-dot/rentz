@@ -43,7 +43,7 @@ export default function Pagination({
 
     return (
 
-        <nav className="flex flex-col items-center gap-6 lg:flex-row lg:justify-between">
+        <nav className="flex flex-col items-center gap-4 lg:flex-row lg:justify-between lg:gap-6">
 
             {/* Results */}
 
@@ -69,7 +69,7 @@ export default function Pagination({
 
             {/* Controls */}
 
-            <div className="flex items-center gap-2">
+            <div className="flex max-w-full items-center gap-1.5 overflow-x-auto px-1 py-1 sm:gap-2">
 
                 {/* Previous */}
 
@@ -77,10 +77,12 @@ export default function Pagination({
                     type="button"
                     onClick={onPrevious}
                     disabled={currentPage === 1}
+                    aria-label="Previous page"
                     className="
                         flex
-                        h-12
-                        w-12
+                        h-11
+                        w-11
+                        shrink-0
                         items-center
                         justify-center
                         rounded-2xl
@@ -95,10 +97,15 @@ export default function Pagination({
                         hover:bg-slate-900/60
                         disabled:cursor-not-allowed
                         disabled:opacity-40
+                        sm:h-12
+                        sm:w-12
                     "
                 >
 
-                    <ChevronLeft size={20} />
+                    <ChevronLeft
+                        size={19}
+                        className="sm:h-5 sm:w-5"
+                    />
 
                 </button>
 
@@ -112,7 +119,7 @@ export default function Pagination({
 
                             <span
                                 key={index}
-                                className="px-2 text-slate-500"
+                                className="flex h-11 w-7 shrink-0 items-center justify-center text-sm text-slate-500 sm:h-12 sm:w-8"
                             >
 
                                 ...
@@ -131,14 +138,22 @@ export default function Pagination({
                             onClick={() =>
                                 onPageChange(page)
                             }
+                            aria-current={
+                                currentPage === page
+                                    ? "page"
+                                    : undefined
+                            }
                             className={`
-                                h-12
-                                w-12
+                                h-11
+                                w-11
+                                shrink-0
                                 rounded-2xl
                                 text-sm
                                 font-semibold
                                 transition-all
                                 duration-300
+                                sm:h-12
+                                sm:w-12
 
                                 ${
                                     currentPage === page
@@ -164,10 +179,12 @@ export default function Pagination({
                     disabled={
                         currentPage === totalPages
                     }
+                    aria-label="Next page"
                     className="
                         flex
-                        h-12
-                        w-12
+                        h-11
+                        w-11
+                        shrink-0
                         items-center
                         justify-center
                         rounded-2xl
@@ -182,10 +199,15 @@ export default function Pagination({
                         hover:bg-slate-900/60
                         disabled:cursor-not-allowed
                         disabled:opacity-40
+                        sm:h-12
+                        sm:w-12
                     "
                 >
 
-                    <ChevronRight size={20} />
+                    <ChevronRight
+                        size={19}
+                        className="sm:h-5 sm:w-5"
+                    />
 
                 </button>
 
